@@ -7,13 +7,13 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import InlineKeyboardButton, InputMediaPhoto
 from aiogram.types import InlineKeyboardMarkup
+from aiogram.types import ContentType
 from handlers import start_lang_handlers as stas
 import config as cfg
 from db_cars import CarsDB
 from db import BotDB, bot_car, bot_db
 from create_bot import bot
 from create_bot import dp as DP
-
 
 tracemalloc.start()
 
@@ -29,97 +29,21 @@ stop_list = ['\start', '/start', '/stop', '/order', 'Запрос', 'Автос�
              'ինքնահավաք հաշիվ']
 
 
-def switches_ru(eq):
-    keyboard01 = InlineKeyboardMarkup(row_width=2)
-    es = eq.split(', ')
-    buttons = [InlineKeyboardButton(text=model, callback_data=f"om-{model}") for model in es]
-    keyboard01.add(*buttons)
-    button = InlineKeyboardButton(text='Нет нужного автомобиля в списке', callback_data='omsk')
-    keyboard01.row(button)
-    return keyboard01
-
-
-def switches_am(eq):
-    keyboard02 = InlineKeyboardMarkup(row_width=2)
-    es = eq.split(', ')
-    buttons = [InlineKeyboardButton(text=model, callback_data=f"om-{model}") for model in es]
-    keyboard02.add(*buttons)
-    button = InlineKeyboardButton(text='Theանկում ճիշտ մեքենա չկա', callback_data='omsk')
-    keyboard02.row(button)
-    return keyboard02
-
-
 async def order_switch(message: types.Message, s=0):
     global kl, keyboard03
     try:
         user_id = message.from_user.id
         if user_id in cfg.ban_list:
             return await bot.send_message(user_id, 'BAN')
-        language = BotDB.get_user_lang(user_id)
 
-        if language == 'ru':
-            kl = cfg.ru_cc
-
-        elif language == 'am':
-            kl = cfg.am_cc
-
-        if s == 0:
-            eq = list()
-
-            if BotDB.get_user_status(user_id) == 1:
-                login = BotDB.get_user_login(user_id)
-                enq = bot_db.get_enquiries_login(login[0])
-                if enq[0] is None:
-                    await order(message)
-                    return
-                elif enq[0] is not None:
-                    if ', ' in enq[0]:
-                        if language == 'ru':
-                            keyboard03 = switches_ru(enq[0])
-
-                        elif language == 'am':
-                            keyboard03 = switches_am(enq[0])
-                        # В этом месте обработаем enq[0]
-                        await bot.send_message(user_id, kl, reply_markup=keyboard03)
-                    else:
-                        eq.extend(enq)
-                        if language == 'ru':
-                            keyboard03 = switches_ru(", ".join(eq))
-
-                        elif language == 'am':
-                            keyboard03 = switches_am(", ".join(eq))
-
-                        await bot.send_message(user_id, kl, reply_markup=keyboard03)
-                        eq.clear()
-                else:
-                    await order(message)
-                    return
-            else:
-                await order(message)
-                return
+        return await order(message)
         # ... (остальной код функции)
     except Exception as e:
         print(f"Произошла ошибка: {e}")
         await message.reply("Произошла ошибка. Пожалуйста, повторите попытку позже.")
 
 
-async def order_switch_callback(callback_query: types.CallbackQuery, state: FSMContext):
-    await callback_query.message.delete()
-
-    data = callback_query.data
-    if data == 'omsk':
-        await order(callback_query)
-        return
-    data = data[3::]
-    dt = data.split(' ')
-    brand = dt[0]
-    model = dt[1]
-    year = dt[2]
-    callback_query.data = f"year-{year}-{model}-{brand}"
-    await year_callback_button(callback_query, state)
-
-
-# @dp.message_handler(commands=['order'])
+# Старт запроса
 async def order(message: types.Message):
     try:
         user_id = message.from_user.id
@@ -167,7 +91,6 @@ def generate_brands_inline_keyboard():
         print(f"22Произошла ошибка: {e}")
 
 
-# @dp.callback_query_handler(lambda c: c.data.startswith('condition:'))
 async def models_callback_button(callback_query: types.CallbackQuery):
     try:
         await callback_query.message.delete()
@@ -208,13 +131,15 @@ async def models_callback_button(callback_query: types.CallbackQuery):
 async def years_callback_button(callback_query: types.CallbackQuery):
     await callback_query.message.delete()
     user_id = callback_query.from_user.id
+    language = BotDB.get_user_lang(user_id)
     model = callback_query.data.split('\-/')[1]
     firm = callback_query.data.split('\-/')[2]
-    c = '_*' + firm + ' ' + model + '*_'
-    language = BotDB.get_user_lang(user_id)
+
     gens = cars_db.years_by_model_and_firm(firm, model)
+
     keyboard06 = InlineKeyboardMarkup(row_width=1)
-    buttons = []
+    buttons = list()
+
     for gen in gens:
         button = InlineKeyboardButton(text=gen, callback_data=f"gens_-_{gen}_-_{model}_-_{firm}")
         buttons.append(button)
@@ -232,6 +157,7 @@ class Configuration(StatesGroup):
     model = State()
     year = State()
     c = State()
+    pts_photo = State()
     engine_displacement = State()
     motor_power = State()
     car_body = State()
@@ -243,86 +169,112 @@ class Configuration(StatesGroup):
     engine_code = State()
     body_code = State()
     part = State()
+    met = State()
     k = ()
 
 
-async def year_callback_button(callback_query: types.CallbackQuery, state: FSMContext):
+async def year_callback_button(callback_query: types.CallbackQuery):
+    global ed, met_2, met_1, met
     try:
         await callback_query.message.delete()
         user_id = callback_query.from_user.id
         firm = callback_query.data.split('_-_')[3]
         model = callback_query.data.split('_-_')[2]
-        year = callback_query.data.split('_-_')[1]
+        gen = callback_query.data.split('_-_')[1]
 
-        await Configuration.c.set()
-
-        c ='_' + firm + ', ' + model + ', ' + year + '_'
+        c = '_' + firm + ', ' + model + ', ' + gen + '_'
         await bot.send_message(user_id, c, parse_mode="Markdown")
 
-        x = str(firm) + ' ' + str(model) + ' ' + str(year)
-        await state.update_data(c=c)
         language = BotDB.get_user_lang(user_id)
         if language == 'ru':
-            frst = cfg.ru_cool
-            second = cfg.ru_year_start
-            ed = cfg.ru_ed
+            met = cfg.ru_met
+            met_1 = cfg.ru_met_1
+            met_2 = cfg.ru_met_2
         elif language == 'am':
-            frst = cfg.am_cool
-            second = cfg.am_year_start
-            ed = cfg.am_ed
-
-        await Configuration.engine_displacement.set()
-        await bot.send_message(user_id, ed)
-    except Exception as e:
-        print(f'error - {e}')
-        await state.finish()
-
-
-async def year_message_button(message: types.Message, state: FSMContext):
-    try:
-
-        user_id = message.from_user.id
-        data = await state.get_data()
-        brand = data.get('brand')
-        model = data.get('model')
-        year = data.get('year')
-
-        if 'other' in brand:
-            brand = brand[6::]
-
-            await Configuration.brand.set()
-            await state.update_data(brand=brand)
-
-        if model == 'Non':
-            await Configuration.model.set()
-            await state.update_data(model=model)
-
-        if year == 'Non':
-            return await year_model(message)
-
-        await Configuration.year.set()
-        await state.update_data(year=year)
-
-        await Configuration.c.set()
-
-        c = brand + ', ' + model + ', ' + year
-        x = str(brand) + ' ' + str(model) + ' ' + str(year)
-        await state.update_data(c=c)
-        language = BotDB.get_user_lang(user_id)
-
+            met = cfg.ru_met
+            met_1 = cfg.ru_met_1
+            met_2 = cfg.ru_met_2
+        print("тут")
+        keyboard07 = InlineKeyboardMarkup(row_width=1)
+        buttons = list()
+        button1 = InlineKeyboardButton(text=met_1, callback_data=f"method_=_{'1'}_=_{gen}_=_{model}_=_{firm}")
+        button2 = InlineKeyboardButton(text=met_2, callback_data=f"method_=_{'2'}_=_{gen}_=_{model}_=_{firm}")
+        buttons.append(button1)
+        buttons.append(button2)
+        keyboard07.add(*buttons)
         if language == 'ru':
-            ed = cfg.ru_ed
-        elif language == 'am':
-            ed = cfg.am_ed
+            await bot.send_message(callback_query.from_user.id, met, reply_markup=keyboard07)
+        else:
+            await bot.send_message(callback_query.from_user.id, met, reply_markup=keyboard07)
+        print("finish")
 
-        await Configuration.engine_displacement.set()
-        await bot.send_message(user_id, ed)
     except Exception as e:
         print(f'error - {e}')
-        await state.finish()
+
+
+async def method_callback_button(callback_query: types.CallbackQuery, state: FSMContext):
+    global ed, photo_mess
+    await callback_query.message.delete()
+
+    user_id = callback_query.from_user.id
+
+    firm = callback_query.data.split('_=_')[4]
+    model = callback_query.data.split('_=_')[3]
+    gen = callback_query.data.split('_=_')[2]
+    method = callback_query.data.split('_=_')[1]
+
+    await Configuration.brand.set()
+    await state.update_data(brand=firm)
+    await Configuration.model.set()
+    await state.update_data(model=model)
+    await Configuration.year.set()
+    await state.update_data(year=gen)
+
+    c = firm + ', ' + model + ', ' + gen + ', met -' + method
+    await Configuration.c.set()
+    await state.update_data(c=c)
+
+    language = BotDB.get_user_lang(user_id)
+
+    if language == 'ru':
+        ed = cfg.ru_ed
+        photo_mess = cfg.ru_photo
+
+    elif language == 'am':
+        ed = cfg.am_ed
+        photo_mess = cfg.ru_photo
+
+    if method == '2':
+        await Configuration.engine_displacement.set()
+        await bot.send_message(user_id, ed)
+    else:
+        await Configuration.pts_photo.set()
+        await bot.send_message(user_id, photo_mess)
+
+
+async def pts_photo(message: types.Message, state: FSMContext):
+    global pt
+    user_id = message.from_user.id
+    language = BotDB.get_user_lang(user_id)
+
+    # Получаем информацию о фото
+    file_id_1 = message.photo[-1].file_id
+    await state.update_data(pts_photo=file_id_1)
+
+    media = [types.InputMediaPhoto(media=file_id_1)]
+    await bot.send_media_group(chat_id=user_id, media=media)
+
+    if language == 'ru':
+        pt = cfg.ru_pt
+    elif language == 'am':
+        pt = cfg.am_pt
+
+    await Configuration.part.set()
+    await bot.send_message(user_id, pt)
 
 
 async def process_engine_displacement(message: types.Message, state: FSMContext):
+    global ep
     try:
         await message.delete()
         user_id = message.from_user.id
@@ -354,7 +306,7 @@ async def process_engine_displacement(message: types.Message, state: FSMContext)
         await Configuration.motor_power.set()
         await bot.send_message(user_id, ep)
     except Exception as e:
-        print(f'error - {e}')
+        print(f'process_engine_displacement error - {e}')
         await state.finish()
 
 
@@ -397,7 +349,7 @@ async def process_motor_power(message: types.Message, state: FSMContext):
         await Configuration.car_body.set()
         await bot.send_message(user_id, cb, reply_markup=keyboard)
     except Exception as e:
-        print(f'error - {e}')
+        print(f'process_motor_power error - {e}')
         await state.finish()
 
 
@@ -610,14 +562,14 @@ async def drive_callback(callback_query: types.CallbackQuery, state: FSMContext)
         c = data.get('c')
         await Configuration.c.set()
         c = c + ', ' + drive
-        # await bot.send_message(user_id, f'{frst} - {c}')
+
         await state.update_data(c=c)
         if language == 'ru':
-            pt = cfg.ru_pt
+            pt1 = cfg.ru_pt
         elif language == 'am':
-            pt = cfg.am_pt
+            pt1 = cfg.am_pt
         await Configuration.part.set()
-        await bot.send_message(user_id, pt)
+        await bot.send_message(user_id, pt1)
     except Exception as e:
         print(f'error - {e}')
         await state.finish()
@@ -640,6 +592,7 @@ async def close_car(message: types.Message, state: FSMContext):
     await state.update_data(part=part)
     data = await state.get_data()
     c = data.get('c')
+    pts_photo_last = data.get('pts_photo')
     brand = data.get('brand')
     model = data.get('model')
     year = data.get('year')
@@ -695,8 +648,10 @@ async def close_car(message: types.Message, state: FSMContext):
     years_list = bot_car.get_car_years(brand, model)
     years_lst = list()
     await state.finish()
+    year = year[:9]
+    print(year)
     return await next_close_car(years_lst, years_list, year, brand, model, user_id, part, c, idd, motor_power, car_body,
-                                auto_transmission, engine, drive, engine_displacement, state)
+                                auto_transmission, engine, drive, engine_displacement, pts_photo_last, state)
 
 
 class Notifi(StatesGroup):
@@ -704,9 +659,11 @@ class Notifi(StatesGroup):
 
 
 async def next_close_car(years_lst, years_list, year, brand, model, user_id, part, c, idd, motor_power, car_body,
-                         auto_transmission, engine, drive, engine_displacement, state: FSMContext):
+                         auto_transmission, engine, drive, engine_displacement, pts_photo, state: FSMContext):
     await state.update_data(login_list=[])
     try:
+        print(years_list)
+        print(year)
         for i in years_list:
 
             first = i[:4:]
@@ -742,7 +699,11 @@ async def next_close_car(years_lst, years_list, year, brand, model, user_id, par
             language = BotDB.get_user_lang(user_id)
             if language == 'ru':
                 await bot.send_message(user_id, f'Запрос №{idd} принят в обработку')
-                await bot.send_message(user_id, f'{c}')
+                if pts_photo is not None:
+                    media = [types.InputMediaPhoto(media=pts_photo, caption=c)]
+                    await bot.send_media_group(chat_id=user_id, media=media)
+                else:
+                    await bot.send_message(user_id, f'{c}')
                 await bot.send_message(user_id, part)
                 await bot.send_message(user_id, f'Хотите отправить еще запрос? Нажмите кнопку "Меню"')
                 await bot.send_message(1806719774,
@@ -752,7 +713,11 @@ async def next_close_car(years_lst, years_list, year, brand, model, user_id, par
                 print(f'Запрос номер {idd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
             elif language == 'am':
                 await bot.send_message(user_id, f'Հարցում №{idd} ընդունվել է մշակման')
-                await bot.send_message(user_id, f'{c}')
+                if pts_photo is not None:
+                    media = [types.InputMediaPhoto(media=pts_photo, caption=c)]
+                    await bot.send_media_group(chat_id=user_id, media=media)
+                else:
+                    await bot.send_message(user_id, f'{c}')
                 await bot.send_message(user_id, part)
                 await bot.send_message(user_id, f'Ցանկանում եք ուղարկել ևս մեկ հարցում: Սեղմեք կոճակը "Меню"')
                 await bot.send_message(1806719774,
@@ -1242,12 +1207,14 @@ async def change_finish(message: types.Message, state: FSMContext):
 
 def register_handlers_order(dp: Dispatcher):
     dp.register_message_handler(order_switch, commands=['order'])
-    dp.register_callback_query_handler(order_switch_callback, lambda c: c.data.startswith(('om-', 'omsk')))
+
     dp.register_message_handler(order, commands=['orderswitch', 'quick'])
     dp.register_callback_query_handler(models_callback_button, lambda c: c.data.startswith('firms|-|'))
-    dp.register_callback_query_handler(year_callback_button, lambda c: c.data.startswith('gens_-_'))
     dp.register_callback_query_handler(years_callback_button, lambda c: c.data.startswith('omodel\-/'))
+    dp.register_callback_query_handler(year_callback_button, lambda c: c.data.startswith('gens_-_'))
+    dp.register_callback_query_handler(method_callback_button, lambda c: c.data.startswith('method_=_'))
     dp.register_message_handler(process_engine_displacement, state=Configuration.engine_displacement)
+    dp.register_message_handler(pts_photo, content_types=ContentType.PHOTO, state=Configuration.pts_photo)
     dp.register_message_handler(process_motor_power, state=Configuration.motor_power)
     dp.register_callback_query_handler(car_body_callback, lambda c: c.data.startswith(('Sedan', 'Хэтчбек 3 дв.',
                                                                                        'Хэтчбек 5 дв.', 'Лифтбек',

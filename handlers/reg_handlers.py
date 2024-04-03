@@ -16,13 +16,13 @@ from handlers import car_disassembly_handlers as cdh
 bot_db = bot_db()
 BotDB = BotDB()
 
-
 stop_list = ['\start', '/start', '/stop', '/order', 'Запрос', 'Автосервисы (скоро)', 'Авто в разборе',
              'Аккаунт авторазборки',
-             '/quick', '/disassembly','/feedback', '/language', '/login', '/account', 'register', 'reg',
+             '/quick', '/disassembly', '/feedback', '/language', '/login', '/account', 'register', 'reg',
              'Авторизация автразборки',
              'Հարցում', 'Ավտոսպասարկում (շուտով)', 'Ավտո վերլուծության մեջ', 'Թույլտվություն ինքնահավաք',
              'ինքնահավաք հաշիվ']
+
 
 ################################
 
@@ -125,13 +125,13 @@ async def process_login_login(message: types.Message, state: FSMContext):
         return
     if ' ' in login:
         old_login = login
-        login = login.replace(' ',  '')
+        login = login.replace(' ', '')
         if language == 'ru':
             await bot.send_message(message.from_user.id, f'В логине {old_login} был убран пробел \n'
-                                            f'теперь логин такой - {login}')
+                                                         f'теперь логин такой - {login}')
         elif language == 'am':
             await bot.send_message(message.from_user.id, f'Մուտքանուն {old_login} մաքրվել է տարածությունը\n'
-                                            f'այժմ մուտքն այսպիսին է -{login}')
+                                                         f'այժմ մուտքն այսպիսին է -{login}')
 
     await state.update_data(login=login)
 
@@ -187,6 +187,7 @@ async def login_reg(callback_query: types.CallbackQuery):
         state = dp.current_state(chat=callback_query.message.chat.id, user=callback_query.from_user.id)
         await start_registration(callback_query, state)
 
+
 #
 #
 #  регистрация
@@ -214,7 +215,6 @@ async def start_registration(callback_query: types.CallbackQuery):
     await RegistrationStates.Login.set()
     language = BotDB.get_user_lang(callback_query.from_user.id)
 
-
     if language == 'ru':
         d = cfg.ru_dd
 
@@ -236,22 +236,22 @@ async def start_login(message: Message, state: FSMContext):
             return
         if '/' in login:
             old_login = login
-            login = login.replace('/',  '')
+            login = login.replace('/', '')
             if language == 'ru':
                 await bot.send_message(user_id, f'В логине {old_login} был убран слэш \n'
-                                                    f'теперь логин такой - {login}')
+                                                f'теперь логин такой - {login}')
             elif language == 'am':
                 await bot.send_message(user_id, f'Մուտքանուն {old_login} մաքրվել է cлэш\n'
-                                                    f'այժմ մուտքն այսպիսին է -{login}')
+                                                f'այժմ մուտքն այսպիսին է -{login}')
         if ' ' in login:
             old_login = login
-            login = login.replace(' ',  '')
+            login = login.replace(' ', '')
             if language == 'ru':
                 await bot.send_message(user_id, f'В логине {old_login} был убран пробел \n'
-                                                    f'теперь логин такой - {login}')
+                                                f'теперь логин такой - {login}')
             elif language == 'am':
                 await bot.send_message(user_id, f'Մուտքանուն {old_login} մաքրվել է տարածությունը\n'
-                                                    f'այժմ մուտքն այսպիսին է -{login}')
+                                                f'այժմ մուտքն այսպիսին է -{login}')
 
         await state.update_data(Login=login)
         await RegistrationStates.Password.set()
@@ -265,7 +265,6 @@ async def start_login(message: Message, state: FSMContext):
     except Exception as e:
         print(f'error - {e}')
         await state.finish()
-
 
 
 async def process_reg_login(message: Message, state: FSMContext):
@@ -418,7 +417,8 @@ async def process_description(message: types.Message, state: FSMContext):
                         date_time)
         BotDB.update_user_status(1, login, user_id)
         await message.reply(g)
-        await bot.send_message(1806719774, f'#newacc Зарегистрировалась новая авторазборка  {login}, {user_id}, {num_1}, @{user_name}')
+        await bot.send_message(1806719774,
+                               f'#newacc Зарегистрировалась новая авторазборка  {login}, {user_id}, {num_1}, @{user_name}')
         print(f'Зарегистрировалась новая авторазборка  {login}, {user_id}, {num_1}, @{user_name}')
     await state.finish()
 
@@ -478,9 +478,7 @@ async def acc(message: types.Message, login, user_id):
         if photo_1 is None:
             await bot.send_message(user_id, caption)
         else:
-            media = []
-
-            media.append(types.InputMediaPhoto(media=photo_1, caption=caption))
+            media = [types.InputMediaPhoto(media=photo_1, caption=caption)]
 
             if photo_2 is not None:
                 media.append(types.InputMediaPhoto(media=photo_2))
@@ -531,13 +529,13 @@ async def process_change_login(message: types.Message, state: FSMContext):
     new_login = message.text
     if ' ' in new_login:
         oltd_login = new_login
-        login = new_login.replace(' ',  '')
+        login = new_login.replace(' ', '')
         if language == 'ru':
             await bot.send_message(message.from_user.id, f'В логине {oltd_login} был убран пробел \n'
-                                            f'теперь логин такой - {login}')
+                                                         f'теперь логин такой - {login}')
         elif language == 'am':
             await bot.send_message(message.from_user.id, f'Մուտքանուն {oltd_login} մաքրվել է տարածությունը\n'
-                                            f'այժմ մուտքն այսպիսին է -{login}')
+                                                         f'այժմ մուտքն այսպիսին է -{login}')
     user_id = message.from_user.id
     old_login = BotDB.get_user_login(user_id)
     id = bot_db.get_id_login(old_login[0])
@@ -595,7 +593,6 @@ async def process_change_password(message: types.Message, state: FSMContext):
 
 # noinspection PyGlobalUndefined
 async def account(message: types.Message):
-
     global user_type, password, id_acc, date
 
     user_id = message.from_user.id
@@ -607,7 +604,6 @@ async def account(message: types.Message):
     if user_status == 1:
         login = BotDB.get_user_login(user_id)
         result = bot_db.user(login[0])  # Pass the login value as login[0]
-
 
         user_type = None
         for row in result:
@@ -632,7 +628,8 @@ async def account(message: types.Message):
 &#128272;Пароль: <code>{password}</code>
 &#129706;Id аккаунта: {id_acc}
 &#128467;Дата регистрации: {date[:10:]}"""
-                await bot.send_message(user_id, text, parse_mode=types.ParseMode.HTML, reply_markup=ru_account_1_keyboard())
+                await bot.send_message(user_id, text, parse_mode=types.ParseMode.HTML,
+                                       reply_markup=ru_account_1_keyboard())
             elif user_type == 2:
                 await message.answer(f"Тип аккаунта - <u>авторазборка</u>\n\n"
                                      f"&#128100;Пользователь: {c}\n"
@@ -774,7 +771,6 @@ async def car_dismantling(message: types.Message):
     login = BotDB.get_user_login(user_id)
 
     result = bot_db.user(login[0])  # Pass the login value as login[0]
-
 
     user_type = None
     for row in result:
@@ -1007,7 +1003,8 @@ async def process_change_num_1(message: types.Message, state: FSMContext):
 async def add_photo_1(message: types.Message):
     user_id = message.from_user.id
     await Change_account_car.photo_1.set()
-    await bot.send_message(user_id, 'Отправьте первую фотографию\n ❗️ОТПРАВЛЯЙТЕ ОДНУ ФОТОГРАФИЮ❗️\n\n Ուղարկեք առաջին լուսանկարը \n ❗ՈՒՂԱՐԿԵՔ ՄԵԿ ԼՈՒՍԱՆԿԱՐ️ ️❗️')
+    await bot.send_message(user_id,
+                           'Отправьте первую фотографию\n ❗️ОТПРАВЛЯЙТЕ ОДНУ ФОТОГРАФИЮ❗️\n\n Ուղարկեք առաջին լուսանկարը \n ❗ՈՒՂԱՐԿԵՔ ՄԵԿ ԼՈՒՍԱՆԿԱՐ️ ️❗️')
 
 
 async def process_add_photo_1(message: types.Message, state: FSMContext):
@@ -1022,7 +1019,8 @@ async def process_add_photo_1(message: types.Message, state: FSMContext):
 
 def photo_keyboard_1():
     keyboard = InlineKeyboardMarkup(row_width=2)
-    button1 = InlineKeyboardButton(text="Добавить eщё фото\nԱվելացնել ավելի շատ լուսանկարներ", callback_data="ad_photo_2")
+    button1 = InlineKeyboardButton(text="Добавить eщё фото\nԱվելացնել ավելի շատ լուսանկարներ",
+                                   callback_data="ad_photo_2")
     button2 = InlineKeyboardButton(text="Оставить одну фотографию\nԹողնել մեկ լուսանկար", callback_data="leave_photo_2")
     keyboard.row(button1)
     keyboard.row(button2)
@@ -1042,7 +1040,8 @@ async def process_photo_1(callback_query: types.CallbackQuery):
 async def add_photo_2(message: types.Message):
     user_id = message.from_user.id
     await Change_account_car.photo_2.set()
-    await bot.send_message(user_id, "Отправьте вторую фотографию\n❗️ОТПРАВЛЯЙТЕ ОДНУ ФОТОГРАФИЮ❗️\n\nՈւղարկեք երկրորդ լուսանկարը\n ❗ՈՒՂԱՐԿԵՔ ՄԵԿ ԼՈՒՍԱՆԿԱՐ❗️")
+    await bot.send_message(user_id,
+                           "Отправьте вторую фотографию\n❗️ОТПРАВЛЯЙТЕ ОДНУ ФОТОГРАФИЮ❗️\n\nՈւղարկեք երկրորդ լուսանկարը\n ❗ՈՒՂԱՐԿԵՔ ՄԵԿ ԼՈՒՍԱՆԿԱՐ❗️")
 
 
 async def process_add_photo_2(message: types.Message, state: FSMContext):
@@ -1057,8 +1056,10 @@ async def process_add_photo_2(message: types.Message, state: FSMContext):
 
 def photo_keyboard_2():
     keyboard = InlineKeyboardMarkup(row_width=2)
-    button1 = InlineKeyboardButton(text="Добавить eщё фото\nԱվելացնել ավելի շատ լուսանկարներ", callback_data="addd_photo_3")
-    button2 = InlineKeyboardButton(text="Оставить две фотографии\nԹողնել երկու լուսանկար", callback_data="leave_photo_3")
+    button1 = InlineKeyboardButton(text="Добавить eщё фото\nԱվելացնել ավելի շատ լուսանկարներ",
+                                   callback_data="addd_photo_3")
+    button2 = InlineKeyboardButton(text="Оставить две фотографии\nԹողնել երկու լուսանկար",
+                                   callback_data="leave_photo_3")
     keyboard.row(button1)
     keyboard.row(button2)
     return keyboard
@@ -1071,13 +1072,15 @@ async def process_photo_2(callback_query: types.CallbackQuery):
         await add_photo_3(callback_query)
 
     elif call == 'leave_photo_3':
-        await bot.send_message(callback_query.from_user.id, 'Добавлена вторая фотография\nԱվելացված է երկրորդ լուսանկարը')
+        await bot.send_message(callback_query.from_user.id,
+                               'Добавлена вторая фотография\nԱվելացված է երկրորդ լուսանկարը')
 
 
 async def add_photo_3(message: types.Message):
     user_id = message.from_user.id
     await Change_account_car.photo_3.set()
-    await bot.send_message(user_id, "Отправьте третью фотографию\n❗️ОТПРАВЛЯЙТЕ ОДНУ ФОТОГРАФИЮ❗️\n\nՈւղարկեք երրորդ Լուսանկարը")
+    await bot.send_message(user_id,
+                           "Отправьте третью фотографию\n❗️ОТПРАВЛЯЙТЕ ОДНУ ФОТОГРАФИЮ❗️\n\nՈւղարկեք երրորդ Լուսանկարը")
 
 
 async def process_add_photo_3(message: types.Message, state: FSMContext):
