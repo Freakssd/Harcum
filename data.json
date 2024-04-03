@@ -1,0 +1,2862 @@
+{
+    "top": [
+        {
+            "id": 16,
+            "name": "Camry",
+            "quantityNew": 560,
+            "quantityOld": 8507,
+            "synonyms": [
+                "камри",
+                "кэмри",
+                "камрюха",
+                "бегемот",
+                "camry fl",
+                "camry 2017",
+                "новая camry",
+                "camry vii",
+                "camry new",
+                "camry (japan)",
+                "camry viii",
+                "camry"
+            ]
+        },
+        {
+            "id": 26,
+            "name": "Corolla",
+            "quantityNew": 72,
+            "quantityOld": 6766,
+            "synonyms": [
+                "королла",
+                "корола",
+                "корролла",
+                "corolla"
+            ]
+        },
+        {
+            "id": 281,
+            "name": "RAV4",
+            "quantityNew": 243,
+            "quantityOld": 5008,
+            "synonyms": [
+                "рав4",
+                "рав-4",
+                "рафчик",
+                "раф4",
+                "раф-4",
+                "раф",
+                "rav",
+                "rav4"
+            ]
+        },
+        {
+            "id": 568,
+            "name": "Land Cruiser Prado",
+            "quantityNew": 81,
+            "quantityOld": 4674,
+            "synonyms": [
+                "ленд крузер прадо",
+                "лэнд круизер прадо",
+                "прадо",
+                "прадос",
+                "прадик",
+                "lc prado",
+                "лк прадо",
+                "ланд крузер прадо",
+                "лэндкруизер прадо",
+                "ландкруизер прадо",
+                "ланд круизер прадо",
+                "ландкрузер прадо",
+                "лэндкраузер прадо",
+                "ландкраузер прада",
+                "land cruiser prado",
+                "land cruiser 150",
+                "prado 90",
+                "lc 150",
+                "lc150",
+                "prado",
+                "ленд круизер рrаdо",
+                "land cruiser 150 prado",
+                "land_cruiser_prado"
+            ]
+        },
+        {
+            "id": 42,
+            "name": "Land Cruiser",
+            "quantityNew": 294,
+            "quantityOld": 4364,
+            "synonyms": [
+                "ленд крузер",
+                "лэнд крузер",
+                "крузер",
+                "крузак",
+                "кукурузник",
+                "lc",
+                "tlc",
+                "круизёр",
+                "лэнд круизер",
+                "ланд крузер",
+                "лэндкруизер",
+                "ландкруизер",
+                "ланд круизер",
+                "ландкрузер",
+                "лэндкраузер",
+                "ландкраузер",
+                "land cruiser 100",
+                "lc 200",
+                "land cruiser",
+                "200",
+                "lc200",
+                "land cruiser 200",
+                "lаnd сruisеr нzj105l-g",
+                "lc 300",
+                "land_cruiser"
+            ]
+        }
+    ],
+    "regular": [
+        {
+            "id": 490,
+            "name": "2000GT",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "2000gt",
+                "2000жт",
+                "2000гт"
+            ]
+        },
+        {
+            "id": 2513,
+            "name": "4Runner",
+            "quantityNew": 0,
+            "quantityOld": 75,
+            "synonyms": [
+                "фораннер",
+                "форанер",
+                "4runner"
+            ]
+        },
+        {
+            "id": 1110,
+            "name": "Allex",
+            "quantityNew": 0,
+            "quantityOld": 227,
+            "synonyms": [
+                "аллекс",
+                "allex"
+            ]
+        },
+        {
+            "id": 2010,
+            "name": "Allion",
+            "quantityNew": 0,
+            "quantityOld": 1593,
+            "synonyms": [
+                "аллион",
+                "алион",
+                "allion"
+            ]
+        },
+        {
+            "id": 2466,
+            "name": "Alphard",
+            "quantityNew": 3,
+            "quantityOld": 762,
+            "synonyms": [
+                "альфард",
+                "алфард",
+                "альпард",
+                "алпард",
+                "альпхард",
+                "алпхард",
+                "alphard"
+            ]
+        },
+        {
+            "id": 308,
+            "name": "Altezza",
+            "quantityNew": 0,
+            "quantityOld": 151,
+            "synonyms": [
+                "альтеза",
+                "альтезза",
+                "алтезза",
+                "алтеза",
+                "альтецца",
+                "алтецца",
+                "альтеца",
+                "altezza"
+            ]
+        },
+        {
+            "id": 4115,
+            "name": "Aqua",
+            "quantityNew": 0,
+            "quantityOld": 1040,
+            "synonyms": [
+                "аква",
+                "акуа",
+                "aqua"
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Aristo",
+            "quantityNew": 0,
+            "quantityOld": 122,
+            "synonyms": [
+                "аристо",
+                "ариста",
+                "aristo"
+            ]
+        },
+        {
+            "id": 3642,
+            "name": "Aurion",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "аурион",
+                "aurion"
+            ]
+        },
+        {
+            "id": 3602,
+            "name": "Auris",
+            "quantityNew": 0,
+            "quantityOld": 611,
+            "synonyms": [
+                "аурис",
+                "auris"
+            ]
+        },
+        {
+            "id": 14,
+            "name": "Avalon",
+            "quantityNew": 77,
+            "quantityOld": 41,
+            "synonyms": [
+                "авалон",
+                "avalon"
+            ]
+        },
+        {
+            "id": 3987,
+            "name": "Avanza",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "аванза",
+                "авенза",
+                "аванца",
+                "avanza"
+            ]
+        },
+        {
+            "id": 2469,
+            "name": "Avensis",
+            "quantityNew": 0,
+            "quantityOld": 1392,
+            "synonyms": [
+                "авенсис",
+                "avensis"
+            ]
+        },
+        {
+            "id": 4143,
+            "name": "Avensis Verso",
+            "quantityNew": 0,
+            "quantityOld": 14,
+            "synonyms": [
+                "авенсис версо",
+                "avensis verso",
+                "avensis_verso"
+            ]
+        },
+        {
+            "id": 3702,
+            "name": "Aygo",
+            "quantityNew": 0,
+            "quantityOld": 11,
+            "synonyms": [
+                "айго",
+                "aygo"
+            ]
+        },
+        {
+            "id": 315,
+            "name": "bB",
+            "quantityNew": 0,
+            "quantityOld": 168,
+            "synonyms": [
+                "бб",
+                "биби",
+                "bb"
+            ]
+        },
+        {
+            "id": 2760,
+            "name": "Belta",
+            "quantityNew": 0,
+            "quantityOld": 212,
+            "synonyms": [
+                "бельта",
+                "белта",
+                "бэлта",
+                "бэльта",
+                "belta"
+            ]
+        },
+        {
+            "id": 3607,
+            "name": "Blade",
+            "quantityNew": 0,
+            "quantityOld": 13,
+            "synonyms": [
+                "блэйд",
+                "блайд",
+                "блейд",
+                "бладе",
+                "blade"
+            ]
+        },
+        {
+            "id": 593,
+            "name": "Blizzard",
+            "quantityNew": 0,
+            "quantityOld": 4,
+            "synonyms": [
+                "близард",
+                "близзард",
+                "близар",
+                "blizzard"
+            ]
+        },
+        {
+            "id": 1105,
+            "name": "Brevis",
+            "quantityNew": 0,
+            "quantityOld": 31,
+            "synonyms": [
+                "брэвис",
+                "бревис",
+                "brevis"
+            ]
+        },
+        {
+            "id": 71063,
+            "name": "bZ3",
+            "quantityNew": 1,
+            "quantityOld": 4,
+            "synonyms": [
+                "bz3"
+            ]
+        },
+        {
+            "id": 70839,
+            "name": "bZ4X",
+            "quantityNew": 24,
+            "quantityOld": 32,
+            "synonyms": [
+                "bz4х",
+                "bz4x"
+            ]
+        },
+        {
+            "id": 70434,
+            "name": "C+pod",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "с+под",
+                "c+pod",
+                "c_pod"
+            ]
+        },
+        {
+            "id": 4644,
+            "name": "C-HR",
+            "quantityNew": 18,
+            "quantityOld": 1219,
+            "synonyms": [
+                "с-хр",
+                "с-нр",
+                "схр",
+                "c-hr"
+            ]
+        },
+        {
+            "id": 35,
+            "name": "Caldina",
+            "quantityNew": 0,
+            "quantityOld": 1637,
+            "synonyms": [
+                "калдина",
+                "калда",
+                "кальдина",
+                "caldina"
+            ]
+        },
+        {
+            "id": 325,
+            "name": "Cami",
+            "quantityNew": 0,
+            "quantityOld": 117,
+            "synonyms": [
+                "ками",
+                "кэми",
+                "cami"
+            ]
+        },
+        {
+            "id": 16,
+            "name": "Camry",
+            "quantityNew": 560,
+            "quantityOld": 8507,
+            "synonyms": [
+                "камри",
+                "кэмри",
+                "камрюха",
+                "бегемот",
+                "camry fl",
+                "camry 2017",
+                "новая camry",
+                "camry vii",
+                "camry new",
+                "camry (japan)",
+                "camry viii",
+                "camry"
+            ]
+        },
+        {
+            "id": 221,
+            "name": "Camry Gracia",
+            "quantityNew": 0,
+            "quantityOld": 173,
+            "synonyms": [
+                "камри грация",
+                "кэмри грация",
+                "грация",
+                "грасия",
+                "грасиа",
+                "камри грасия",
+                "камри грасиа",
+                "camry gracia",
+                "camry_gracia"
+            ]
+        },
+        {
+            "id": 550,
+            "name": "Camry Prominent",
+            "quantityNew": 0,
+            "quantityOld": 53,
+            "synonyms": [
+                "камри проминент",
+                "кэмри проминент",
+                "проминент",
+                "camry prominent",
+                "camry_prominent"
+            ]
+        },
+        {
+            "id": 20,
+            "name": "Carina",
+            "quantityNew": 0,
+            "quantityOld": 1396,
+            "synonyms": [
+                "карина",
+                "каринка",
+                "carina"
+            ]
+        },
+        {
+            "id": 2510,
+            "name": "Carina E",
+            "quantityNew": 0,
+            "quantityOld": 154,
+            "synonyms": [
+                "карина е",
+                "carina е",
+                "carina e",
+                "carina_e"
+            ]
+        },
+        {
+            "id": 21,
+            "name": "Carina ED",
+            "quantityNew": 0,
+            "quantityOld": 170,
+            "synonyms": [
+                "карина ед",
+                "карина ed",
+                "едха",
+                "едэха",
+                "carina ed",
+                "carina_ed"
+            ]
+        },
+        {
+            "id": 2509,
+            "name": "Carina II",
+            "quantityNew": 0,
+            "quantityOld": 13,
+            "synonyms": [
+                "карина ii",
+                "карина 2",
+                "carina ii",
+                "carina_ii"
+            ]
+        },
+        {
+            "id": 15,
+            "name": "Cavalier",
+            "quantityNew": 0,
+            "quantityOld": 26,
+            "synonyms": [
+                "кавалер",
+                "кавальер",
+                "кавалиер",
+                "cavalier"
+            ]
+        },
+        {
+            "id": 19,
+            "name": "Celica",
+            "quantityNew": 0,
+            "quantityOld": 217,
+            "synonyms": [
+                "целика",
+                "селика",
+                "целка",
+                "сеялка",
+                "селиса",
+                "celica"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Celsior",
+            "quantityNew": 0,
+            "quantityOld": 28,
+            "synonyms": [
+                "цельсиор",
+                "целсиор",
+                "селсиор",
+                "чельсиор",
+                "челсиор",
+                "celsior"
+            ]
+        },
+        {
+            "id": 1,
+            "name": "Century",
+            "quantityNew": 0,
+            "quantityOld": 6,
+            "synonyms": [
+                "сенчури",
+                "ценчури",
+                "сентури",
+                "центури",
+                "century"
+            ]
+        },
+        {
+            "id": 9,
+            "name": "Chaser",
+            "quantityNew": 0,
+            "quantityOld": 912,
+            "synonyms": [
+                "чайзер",
+                "чейзер",
+                "чазер",
+                "чайник",
+                "chaser"
+            ]
+        },
+        {
+            "id": 4305,
+            "name": "Classic",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "classic"
+            ]
+        },
+        {
+            "id": 46,
+            "name": "Coaster",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "коастер",
+                "коустер",
+                "костер",
+                "coaster"
+            ]
+        },
+        {
+            "id": 1104,
+            "name": "Comfort",
+            "quantityNew": 0,
+            "quantityOld": 10,
+            "synonyms": [
+                "комфорт",
+                "камфорт",
+                "comfort"
+            ]
+        },
+        {
+            "id": 70311,
+            "name": "COMS",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "комс",
+                "coms"
+            ]
+        },
+        {
+            "id": 26,
+            "name": "Corolla",
+            "quantityNew": 72,
+            "quantityOld": 6766,
+            "synonyms": [
+                "королла",
+                "корола",
+                "корролла",
+                "corolla"
+            ]
+        },
+        {
+            "id": 70490,
+            "name": "Corolla Altis",
+            "quantityNew": 0,
+            "quantityOld": 1,
+            "synonyms": [
+                "королла алтис",
+                "корола алтис",
+                "корролла алтис",
+                "corolla altis",
+                "corolla_altis"
+            ]
+        },
+        {
+            "id": 3600,
+            "name": "Corolla Axio",
+            "quantityNew": 0,
+            "quantityOld": 1035,
+            "synonyms": [
+                "королла аксио",
+                "axio",
+                "corolla axio",
+                "corolla_axio"
+            ]
+        },
+        {
+            "id": 549,
+            "name": "Corolla Ceres",
+            "quantityNew": 0,
+            "quantityOld": 118,
+            "synonyms": [
+                "церес",
+                "корола церес",
+                "королла церос",
+                "церос",
+                "corolla ceres",
+                "corolla_ceres"
+            ]
+        },
+        {
+            "id": 70810,
+            "name": "Corolla Cross",
+            "quantityNew": 28,
+            "quantityOld": 68,
+            "synonyms": [
+                "королла кросс",
+                "корола крос",
+                "корролла кросс",
+                "corolla cross",
+                "corolla_cross"
+            ]
+        },
+        {
+            "id": 313,
+            "name": "Corolla Fielder",
+            "quantityNew": 0,
+            "quantityOld": 3857,
+            "synonyms": [
+                "филдер",
+                "королла филдер",
+                "королла фиелдер",
+                "фиелдер",
+                "corolla fielder",
+                "corolla_fielder"
+            ]
+        },
+        {
+            "id": 486,
+            "name": "Corolla FX",
+            "quantityNew": 0,
+            "quantityOld": 46,
+            "synonyms": [
+                "королла фх",
+                "королла fx",
+                "corolla fx",
+                "corolla_fx"
+            ]
+        },
+        {
+            "id": 32,
+            "name": "Corolla II",
+            "quantityNew": 0,
+            "quantityOld": 79,
+            "synonyms": [
+                "королла 2",
+                "королла ii",
+                "королла два",
+                "corolla ii",
+                "corolla_ii"
+            ]
+        },
+        {
+            "id": 71505,
+            "name": "Corolla iM",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "королла им",
+                "королла айэм",
+                "королла ай эм",
+                "королла ай-эм",
+                "corolla im",
+                "corolla_im"
+            ]
+        },
+        {
+            "id": 255,
+            "name": "Corolla Levin",
+            "quantityNew": 1,
+            "quantityOld": 125,
+            "synonyms": [
+                "королла левин",
+                "левин",
+                "corolla levin",
+                "corolla_levin"
+            ]
+        },
+        {
+            "id": 3650,
+            "name": "Corolla Rumion",
+            "quantityNew": 0,
+            "quantityOld": 176,
+            "synonyms": [
+                "румион",
+                "королла румион",
+                "corolla rumion",
+                "corolla_rumion"
+            ]
+        },
+        {
+            "id": 1109,
+            "name": "Corolla Runx",
+            "quantityNew": 0,
+            "quantityOld": 274,
+            "synonyms": [
+                "ранкс",
+                "королла ранкс",
+                "corolla runx",
+                "runx",
+                "рункс",
+                "corolla_runx"
+            ]
+        },
+        {
+            "id": 225,
+            "name": "Corolla Spacio",
+            "quantityNew": 0,
+            "quantityOld": 665,
+            "synonyms": [
+                "королла спасио",
+                "королла спэйсио",
+                "спесио",
+                "спэсио",
+                "corolla spacio",
+                "corolla_spacio"
+            ]
+        },
+        {
+            "id": 2758,
+            "name": "Corolla Verso",
+            "quantityNew": 0,
+            "quantityOld": 51,
+            "synonyms": [
+                "версо",
+                "королла версо",
+                "королла вэрсо",
+                "corolla verso",
+                "corolla_verso"
+            ]
+        },
+        {
+            "id": 22,
+            "name": "Corona",
+            "quantityNew": 0,
+            "quantityOld": 926,
+            "synonyms": [
+                "корона",
+                "карона",
+                "corona"
+            ]
+        },
+        {
+            "id": 23,
+            "name": "Corona Exiv",
+            "quantityNew": 0,
+            "quantityOld": 120,
+            "synonyms": [
+                "корона эксив",
+                "эксив",
+                "корона ексив",
+                "ексив",
+                "corona exiv",
+                "corona_exiv"
+            ]
+        },
+        {
+            "id": 224,
+            "name": "Corona Premio",
+            "quantityNew": 0,
+            "quantityOld": 867,
+            "synonyms": [
+                "корона премио",
+                "корона премия",
+                "премия",
+                "карона премио",
+                "corona premio",
+                "corona_premio"
+            ]
+        },
+        {
+            "id": 596,
+            "name": "Corona SF",
+            "quantityNew": 0,
+            "quantityOld": 39,
+            "synonyms": [
+                "корона сф",
+                "корона sf",
+                "карона сф",
+                "corona sf",
+                "corona_sf"
+            ]
+        },
+        {
+            "id": 31,
+            "name": "Corsa",
+            "quantityNew": 0,
+            "quantityOld": 193,
+            "synonyms": [
+                "корса",
+                "corsa"
+            ]
+        },
+        {
+            "id": 2512,
+            "name": "Cressida",
+            "quantityNew": 0,
+            "quantityOld": 1,
+            "synonyms": [
+                "крессида",
+                "крэссида",
+                "кресида",
+                "крэсида",
+                "cressida"
+            ]
+        },
+        {
+            "id": 10,
+            "name": "Cresta",
+            "quantityNew": 0,
+            "quantityOld": 881,
+            "synonyms": [
+                "креста",
+                "cresta"
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Crown",
+            "quantityNew": 6,
+            "quantityOld": 1813,
+            "synonyms": [
+                "краун",
+                "атлет",
+                "краун атлет",
+                "кроун",
+                "карун",
+                "crown"
+            ]
+        },
+        {
+            "id": 71260,
+            "name": "Crown Kluger",
+            "quantityNew": 2,
+            "quantityOld": 0,
+            "synonyms": [
+                "краун клюгер",
+                "crown kluger",
+                "crown_kluger"
+            ]
+        },
+        {
+            "id": 251,
+            "name": "Crown Majesta",
+            "quantityNew": 0,
+            "quantityOld": 149,
+            "synonyms": [
+                "краун маджеста",
+                "краун мажеста",
+                "кроун маджеста",
+                "кроун мажеста",
+                "crown majesta",
+                "crown_majesta"
+            ]
+        },
+        {
+            "id": 71804,
+            "name": "Crown Signia",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "краун сигниа",
+                "краун сигния",
+                "crown signia",
+                "crown_signia"
+            ]
+        },
+        {
+            "id": 71918,
+            "name": "Crown Vellfire",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "краун веллфайр",
+                "кровн вэллфайр",
+                "кроун велфайр",
+                "краун веллфаер",
+                "crown vellfire",
+                "crown_vellfire"
+            ]
+        },
+        {
+            "id": 24,
+            "name": "Curren",
+            "quantityNew": 0,
+            "quantityOld": 20,
+            "synonyms": [
+                "куррен",
+                "каррен",
+                "карен",
+                "курен",
+                "curren"
+            ]
+        },
+        {
+            "id": 33,
+            "name": "Cynos",
+            "quantityNew": 0,
+            "quantityOld": 50,
+            "synonyms": [
+                "цинос",
+                "цинус",
+                "синос",
+                "синус",
+                "cynos"
+            ]
+        },
+        {
+            "id": 576,
+            "name": "Deliboy",
+            "quantityNew": 0,
+            "quantityOld": 4,
+            "synonyms": [
+                "делибой",
+                "deliboy"
+            ]
+        },
+        {
+            "id": 258,
+            "name": "Duet",
+            "quantityNew": 0,
+            "quantityOld": 152,
+            "synonyms": [
+                "дуэт",
+                "дует",
+                "duet"
+            ]
+        },
+        {
+            "id": 499,
+            "name": "Dyna",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "дюна",
+                "дайна",
+                "дина",
+                "dyna"
+            ]
+        },
+        {
+            "id": 2507,
+            "name": "Echo",
+            "quantityNew": 0,
+            "quantityOld": 29,
+            "synonyms": [
+                "эхо",
+                "ехо",
+                "ечо",
+                "echo"
+            ]
+        },
+        {
+            "id": 4499,
+            "name": "Esquire",
+            "quantityNew": 0,
+            "quantityOld": 443,
+            "synonyms": [
+                "эсквайр",
+                "есквайр",
+                "эскваир",
+                "ескуире",
+                "esquire"
+            ]
+        },
+        {
+            "id": 36,
+            "name": "Estima",
+            "quantityNew": 0,
+            "quantityOld": 378,
+            "synonyms": [
+                "эстима",
+                "естима",
+                "эстина",
+                "естина",
+                "estima"
+            ]
+        },
+        {
+            "id": 37,
+            "name": "Estima Emina",
+            "quantityNew": 0,
+            "quantityOld": 84,
+            "synonyms": [
+                "эстима эмина",
+                "естима эмина",
+                "эстима емина",
+                "естима емина",
+                "эмина",
+                "емина",
+                "эстина эмина",
+                "естина эмина",
+                "estima emina",
+                "estima_emina"
+            ]
+        },
+        {
+            "id": 38,
+            "name": "Estima Lucida",
+            "quantityNew": 0,
+            "quantityOld": 103,
+            "synonyms": [
+                "эстима люсида",
+                "естима люсида",
+                "люсида",
+                "лючида",
+                "эстина люсида",
+                "estima lucida",
+                "estima_lucida"
+            ]
+        },
+        {
+            "id": 3891,
+            "name": "Etios",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "этиос",
+                "етиос",
+                "etios"
+            ]
+        },
+        {
+            "id": 71805,
+            "name": "Etios Cross",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "этиос кросс",
+                "етиос крос",
+                "etios cross",
+                "etios_cross"
+            ]
+        },
+        {
+            "id": 2767,
+            "name": "FJ Cruiser",
+            "quantityNew": 0,
+            "quantityOld": 42,
+            "synonyms": [
+                "fj крузер",
+                "фджей крузер",
+                "эфджей крузер",
+                "fj cruiser",
+                "fj_cruiser"
+            ]
+        },
+        {
+            "id": 2753,
+            "name": "Fortuner",
+            "quantityNew": 11,
+            "quantityOld": 230,
+            "synonyms": [
+                "фортунер",
+                "фортунэр",
+                "форчунер",
+                "fortuner"
+            ]
+        },
+        {
+            "id": 71802,
+            "name": "Frontlander",
+            "quantityNew": 5,
+            "quantityOld": 2,
+            "synonyms": [
+                "фронтлендер",
+                "фронтлэндер",
+                "фронтлэндэр",
+                "фронтландер",
+                "frontlander"
+            ]
+        },
+        {
+            "id": 316,
+            "name": "Funcargo",
+            "quantityNew": 0,
+            "quantityOld": 390,
+            "synonyms": [
+                "функарго",
+                "фанкарго",
+                "фунтик",
+                "фанкаго",
+                "санкарга",
+                "funcargo"
+            ]
+        },
+        {
+            "id": 273,
+            "name": "Gaia",
+            "quantityNew": 0,
+            "quantityOld": 216,
+            "synonyms": [
+                "гайя",
+                "гайа",
+                "gaia"
+            ]
+        },
+        {
+            "id": 70558,
+            "name": "GR 86",
+            "quantityNew": 0,
+            "quantityOld": 3,
+            "synonyms": [
+                "гр 86",
+                "86",
+                "хачироку",
+                "хатироку",
+                "gr",
+                "gr 86",
+                "gr_86"
+            ]
+        },
+        {
+            "id": 70239,
+            "name": "GranAce",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "гранэйс",
+                "гран эйс",
+                "гран айс",
+                "гранасе",
+                "granace"
+            ]
+        },
+        {
+            "id": 1112,
+            "name": "Grand Hiace",
+            "quantityNew": 0,
+            "quantityOld": 46,
+            "synonyms": [
+                "гранд хайс",
+                "гранд хайэйс",
+                "grand hiace",
+                "grand_hiace"
+            ]
+        },
+        {
+            "id": 71280,
+            "name": "Grand Highlander",
+            "quantityNew": 6,
+            "quantityOld": 1,
+            "synonyms": [
+                "гранд хайлендер",
+                "grand highlander",
+                "grand_highlander"
+            ]
+        },
+        {
+            "id": 45,
+            "name": "Granvia",
+            "quantityNew": 6,
+            "quantityOld": 45,
+            "synonyms": [
+                "гранвия",
+                "гранвиа",
+                "granvia"
+            ]
+        },
+        {
+            "id": 3856,
+            "name": "GT 86",
+            "quantityNew": 0,
+            "quantityOld": 30,
+            "synonyms": [
+                "гт 86",
+                "86",
+                "хачироку",
+                "хатироку",
+                "gt",
+                "gt 86",
+                "gt_86"
+            ]
+        },
+        {
+            "id": 278,
+            "name": "Harrier",
+            "quantityNew": 7,
+            "quantityOld": 2244,
+            "synonyms": [
+                "харриер",
+                "хариер",
+                "харек",
+                "хорек",
+                "харрьер",
+                "харьер",
+                "harrier"
+            ]
+        },
+        {
+            "id": 39,
+            "name": "Hiace",
+            "quantityNew": 8,
+            "quantityOld": 927,
+            "synonyms": [
+                "хайс",
+                "хайэйс",
+                "hiace"
+            ]
+        },
+        {
+            "id": 275,
+            "name": "Hiace Regius",
+            "quantityNew": 0,
+            "quantityOld": 113,
+            "synonyms": [
+                "хайс региус",
+                "хайс рэджиус",
+                "хайэйс региус",
+                "региус",
+                "hiace regius",
+                "hiace_regius"
+            ]
+        },
+        {
+            "id": 2534,
+            "name": "Hiace Truck",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "хайс трак",
+                "хайс трэк",
+                "хайэйс трак",
+                "hiace truck",
+                "hiace_truck"
+            ]
+        },
+        {
+            "id": 2515,
+            "name": "Highlander",
+            "quantityNew": 77,
+            "quantityOld": 908,
+            "synonyms": [
+                "хайлендер",
+                "хайлэндер",
+                "хайландер",
+                "хайлэндэр",
+                "highlander iv",
+                "highlander"
+            ]
+        },
+        {
+            "id": 2094,
+            "name": "Hilux",
+            "quantityNew": 92,
+            "quantityOld": 798,
+            "synonyms": [
+                "хайлюкс",
+                "хайлакс",
+                "хайлукс",
+                "хайлакс пикап",
+                "hilux vii",
+                "hilux",
+                "hilux pickup",
+                "hilux_pick_up"
+            ]
+        },
+        {
+            "id": 43,
+            "name": "Hilux Surf",
+            "quantityNew": 0,
+            "quantityOld": 661,
+            "synonyms": [
+                "хайлюкс сурф",
+                "сурф",
+                "сурфак",
+                "хайлакс сурф",
+                "хилюкс сурф",
+                "hilux surf",
+                "hilux_surf"
+            ]
+        },
+        {
+            "id": 3881,
+            "name": "Innova",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "иннова",
+                "innova"
+            ]
+        },
+        {
+            "id": 188,
+            "name": "Ipsum",
+            "quantityNew": 0,
+            "quantityOld": 908,
+            "synonyms": [
+                "ипсум",
+                "ипсам",
+                "ipsum"
+            ]
+        },
+        {
+            "id": 3681,
+            "name": "iQ",
+            "quantityNew": 0,
+            "quantityOld": 33,
+            "synonyms": [
+                "айкью",
+                "ай кью",
+                "ик",
+                "ику",
+                "айкю",
+                "iq"
+            ]
+        },
+        {
+            "id": 2571,
+            "name": "Isis",
+            "quantityNew": 0,
+            "quantityOld": 579,
+            "synonyms": [
+                "исис",
+                "айсис",
+                "изис",
+                "исиз",
+                "изиз",
+                "игил",
+                "isis"
+            ]
+        },
+        {
+            "id": 2017,
+            "name": "ist",
+            "quantityNew": 0,
+            "quantityOld": 437,
+            "synonyms": [
+                "ист",
+                "айст",
+                "ist"
+            ]
+        },
+        {
+            "id": 71014,
+            "name": "Izoa",
+            "quantityNew": 0,
+            "quantityOld": 2,
+            "synonyms": [
+                "изоа",
+                "izoa"
+            ]
+        },
+        {
+            "id": 4745,
+            "name": "JPN TAXI",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "japan taxi",
+                "джапан такси",
+                "jpn taxi",
+                "jpn-taxi"
+            ]
+        },
+        {
+            "id": 736,
+            "name": "Kluger V",
+            "quantityNew": 0,
+            "quantityOld": 200,
+            "synonyms": [
+                "клюгер ви",
+                "клюгер в",
+                "клюгер",
+                "клагер",
+                "клугер",
+                "kluger v",
+                "kluger_v"
+            ]
+        },
+        {
+            "id": 42,
+            "name": "Land Cruiser",
+            "quantityNew": 294,
+            "quantityOld": 4364,
+            "synonyms": [
+                "ленд крузер",
+                "лэнд крузер",
+                "крузер",
+                "крузак",
+                "кукурузник",
+                "lc",
+                "tlc",
+                "круизёр",
+                "лэнд круизер",
+                "ланд крузер",
+                "лэндкруизер",
+                "ландкруизер",
+                "ланд круизер",
+                "ландкрузер",
+                "лэндкраузер",
+                "ландкраузер",
+                "land cruiser 100",
+                "lc 200",
+                "land cruiser",
+                "200",
+                "lc200",
+                "land cruiser 200",
+                "lаnd сruisеr нzj105l-g",
+                "lc 300",
+                "land_cruiser"
+            ]
+        },
+        {
+            "id": 2749,
+            "name": "Land Cruiser Cygnus",
+            "quantityNew": 0,
+            "quantityOld": 48,
+            "synonyms": [
+                "ленд крузер цигнус",
+                "ленд крузер сигнус",
+                "сигнус",
+                "цигнус",
+                "land cruiser cygnus",
+                "land_cruiser_cygnus"
+            ]
+        },
+        {
+            "id": 568,
+            "name": "Land Cruiser Prado",
+            "quantityNew": 81,
+            "quantityOld": 4674,
+            "synonyms": [
+                "ленд крузер прадо",
+                "лэнд круизер прадо",
+                "прадо",
+                "прадос",
+                "прадик",
+                "lc prado",
+                "лк прадо",
+                "ланд крузер прадо",
+                "лэндкруизер прадо",
+                "ландкруизер прадо",
+                "ланд круизер прадо",
+                "ландкрузер прадо",
+                "лэндкраузер прадо",
+                "ландкраузер прада",
+                "land cruiser prado",
+                "land cruiser 150",
+                "prado 90",
+                "lc 150",
+                "lc150",
+                "prado",
+                "ленд круизер рrаdо",
+                "land cruiser 150 prado",
+                "land_cruiser_prado"
+            ]
+        },
+        {
+            "id": 71817,
+            "name": "Levin",
+            "quantityNew": 0,
+            "quantityOld": 6,
+            "synonyms": [
+                "левин",
+                "levin"
+            ]
+        },
+        {
+            "id": 277,
+            "name": "Lite Ace",
+            "quantityNew": 0,
+            "quantityOld": 240,
+            "synonyms": [
+                "литайс",
+                "лайт эйс",
+                "лит айс",
+                "лит эйс",
+                "lite ace",
+                "lite_ace"
+            ]
+        },
+        {
+            "id": 323,
+            "name": "Lite Ace Noah",
+            "quantityNew": 0,
+            "quantityOld": 216,
+            "synonyms": [
+                "литайс ной",
+                "лайт эйс ной",
+                "лит айс ноах",
+                "лит айс ноа",
+                "литайс ноах",
+                "литэйс ноах",
+                "лит эйс ноа",
+                "lite ace noah",
+                "lite_ace_noah"
+            ]
+        },
+        {
+            "id": 2541,
+            "name": "Lite Ace Truck",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "литайс трэк",
+                "лайт эйс трак",
+                "лит айс трэк",
+                "lite ace truck",
+                "lite_ace_truck"
+            ]
+        },
+        {
+            "id": 7,
+            "name": "Mark II",
+            "quantityNew": 0,
+            "quantityOld": 2656,
+            "synonyms": [
+                "марк 2",
+                "марк ii",
+                "марк",
+                "марк-2",
+                "марк-ii",
+                "марк2",
+                "mark-2",
+                "марчело",
+                "марчок",
+                "марчек",
+                "mark ii",
+                "mark_ii"
+            ]
+        },
+        {
+            "id": 2108,
+            "name": "Mark II Wagon Blit",
+            "quantityNew": 0,
+            "quantityOld": 29,
+            "synonyms": [
+                "марк 2 блит",
+                "mark ii blit",
+                "mark ii wagon blit",
+                "mark_ii_wagon_blit"
+            ]
+        },
+        {
+            "id": 2107,
+            "name": "Mark II Wagon Qualis",
+            "quantityNew": 0,
+            "quantityOld": 109,
+            "synonyms": [
+                "марк 2 куалис",
+                "марк 2 кволис",
+                "марк квалис",
+                "марк кволис",
+                "куалис",
+                "кволис",
+                "mark ii qualis",
+                "mark ii wagon qualis",
+                "mark_ii_wagon_qualis"
+            ]
+        },
+        {
+            "id": 2579,
+            "name": "Mark X",
+            "quantityNew": 0,
+            "quantityOld": 294,
+            "synonyms": [
+                "марк х",
+                "марк икс",
+                "mark x",
+                "mark_x"
+            ]
+        },
+        {
+            "id": 3648,
+            "name": "Mark X Zio",
+            "quantityNew": 0,
+            "quantityOld": 26,
+            "synonyms": [
+                "марк икс зио",
+                "марк х зио",
+                "mark x zio",
+                "mark_x_zio"
+            ]
+        },
+        {
+            "id": 567,
+            "name": "Master Ace Surf",
+            "quantityNew": 0,
+            "quantityOld": 70,
+            "synonyms": [
+                "мастер эйс сурф",
+                "мастер айс сурф",
+                "мастерайс сурф",
+                "мастер эйс",
+                "master ace surf",
+                "master_ace_surf"
+            ]
+        },
+        {
+            "id": 3618,
+            "name": "Matrix",
+            "quantityNew": 0,
+            "quantityOld": 36,
+            "synonyms": [
+                "матрикс",
+                "matrix"
+            ]
+        },
+        {
+            "id": 190,
+            "name": "Mega Cruiser",
+            "quantityNew": 0,
+            "quantityOld": 11,
+            "synonyms": [
+                "мега крузер",
+                "мегакруизер",
+                "мегакрузер",
+                "mega cruiser",
+                "mega_cruiser"
+            ]
+        },
+        {
+            "id": 4504,
+            "name": "Mirai",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "мираи",
+                "мирай",
+                "mirai"
+            ]
+        },
+        {
+            "id": 71456,
+            "name": "Model F",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "модель ф",
+                "модел эф",
+                "model f",
+                "model_f"
+            ]
+        },
+        {
+            "id": 311,
+            "name": "MR-S",
+            "quantityNew": 0,
+            "quantityOld": 9,
+            "synonyms": [
+                "мрс",
+                "мр-с",
+                "mr-s"
+            ]
+        },
+        {
+            "id": 25,
+            "name": "MR2",
+            "quantityNew": 0,
+            "quantityOld": 7,
+            "synonyms": [
+                "мр2",
+                "мр-2",
+                "мр",
+                "mr2"
+            ]
+        },
+        {
+            "id": 272,
+            "name": "Nadia",
+            "quantityNew": 0,
+            "quantityOld": 274,
+            "synonyms": [
+                "надя",
+                "надия",
+                "надиа",
+                "nadia"
+            ]
+        },
+        {
+            "id": 2089,
+            "name": "Noah",
+            "quantityNew": 0,
+            "quantityOld": 937,
+            "synonyms": [
+                "ноах",
+                "ной",
+                "ноа",
+                "noah"
+            ]
+        },
+        {
+            "id": 314,
+            "name": "Opa",
+            "quantityNew": 0,
+            "quantityOld": 182,
+            "synonyms": [
+                "опа",
+                "ора",
+                "opa"
+            ]
+        },
+        {
+            "id": 2027,
+            "name": "Origin",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "ориджин",
+                "орижин",
+                "оригин",
+                "origin"
+            ]
+        },
+        {
+            "id": 2508,
+            "name": "Paseo",
+            "quantityNew": 0,
+            "quantityOld": 1,
+            "synonyms": [
+                "пасео",
+                "пасио",
+                "paseo"
+            ]
+        },
+        {
+            "id": 2556,
+            "name": "Passo",
+            "quantityNew": 0,
+            "quantityOld": 2235,
+            "synonyms": [
+                "пассо",
+                "passo"
+            ]
+        },
+        {
+            "id": 3753,
+            "name": "Passo Sette",
+            "quantityNew": 0,
+            "quantityOld": 45,
+            "synonyms": [
+                "пассо сетте",
+                "passo sette",
+                "passo_sette"
+            ]
+        },
+        {
+            "id": 2511,
+            "name": "Picnic",
+            "quantityNew": 0,
+            "quantityOld": 21,
+            "synonyms": [
+                "пикник",
+                "picnic"
+            ]
+        },
+        {
+            "id": 4194,
+            "name": "Pixis Epoch",
+            "quantityNew": 0,
+            "quantityOld": 18,
+            "synonyms": [
+                "пиксис эпоч",
+                "pixis epoch",
+                "pixis_epoch"
+            ]
+        },
+        {
+            "id": 4662,
+            "name": "Pixis Joy",
+            "quantityNew": 0,
+            "quantityOld": 8,
+            "synonyms": [
+                "пиксис джой",
+                "пиксис жой",
+                "pixis joy",
+                "pixis_joy"
+            ]
+        },
+        {
+            "id": 4591,
+            "name": "Pixis Mega",
+            "quantityNew": 0,
+            "quantityOld": 13,
+            "synonyms": [
+                "пиксис мега",
+                "pixis mega",
+                "pixis_mega"
+            ]
+        },
+        {
+            "id": 4098,
+            "name": "Pixis Space",
+            "quantityNew": 0,
+            "quantityOld": 7,
+            "synonyms": [
+                "пиксис спэйс",
+                "pixis space",
+                "pixis_space"
+            ]
+        },
+        {
+            "id": 4132,
+            "name": "Pixis Truck",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "пиксис трак",
+                "pixis truck",
+                "pixis_truck"
+            ]
+        },
+        {
+            "id": 4133,
+            "name": "Pixis Van",
+            "quantityNew": 0,
+            "quantityOld": 22,
+            "synonyms": [
+                "пиксис вэн",
+                "pixis van",
+                "pixis_van"
+            ]
+        },
+        {
+            "id": 309,
+            "name": "Platz",
+            "quantityNew": 0,
+            "quantityOld": 487,
+            "synonyms": [
+                "платц",
+                "плац",
+                "платз",
+                "плаз",
+                "платс",
+                "platz"
+            ]
+        },
+        {
+            "id": 2568,
+            "name": "Porte",
+            "quantityNew": 0,
+            "quantityOld": 145,
+            "synonyms": [
+                "порте",
+                "портэ",
+                "porte"
+            ]
+        },
+        {
+            "id": 2102,
+            "name": "Premio",
+            "quantityNew": 0,
+            "quantityOld": 1301,
+            "synonyms": [
+                "премио",
+                "премия",
+                "премиа",
+                "premio"
+            ]
+        },
+        {
+            "id": 2487,
+            "name": "Previa",
+            "quantityNew": 0,
+            "quantityOld": 26,
+            "synonyms": [
+                "превия",
+                "превиа",
+                "previa"
+            ]
+        },
+        {
+            "id": 223,
+            "name": "Prius",
+            "quantityNew": 2,
+            "quantityOld": 3506,
+            "synonyms": [
+                "приус",
+                "приас",
+                "prius"
+            ]
+        },
+        {
+            "id": 4079,
+            "name": "Prius Alpha",
+            "quantityNew": 0,
+            "quantityOld": 726,
+            "synonyms": [
+                "приус альфа",
+                "prius a",
+                "prius alpha",
+                "prius_a"
+            ]
+        },
+        {
+            "id": 4116,
+            "name": "Prius C",
+            "quantityNew": 0,
+            "quantityOld": 9,
+            "synonyms": [
+                "приус с",
+                "prius c",
+                "prius_c"
+            ]
+        },
+        {
+            "id": 4128,
+            "name": "Prius PHV",
+            "quantityNew": 0,
+            "quantityOld": 150,
+            "synonyms": [
+                "приус phv",
+                "prius phv",
+                "prius_phv"
+            ]
+        },
+        {
+            "id": 70383,
+            "name": "Prius Plus",
+            "quantityNew": 0,
+            "quantityOld": 4,
+            "synonyms": [
+                "приус плюс",
+                "prius plus",
+                "prius_plus"
+            ]
+        },
+        {
+            "id": 4652,
+            "name": "Prius Prime",
+            "quantityNew": 0,
+            "quantityOld": 12,
+            "synonyms": [
+                "приус прайм",
+                "prius prime",
+                "prius_prime"
+            ]
+        },
+        {
+            "id": 4056,
+            "name": "Prius v",
+            "quantityNew": 0,
+            "quantityOld": 5,
+            "synonyms": [
+                "приус ви",
+                "prius v",
+                "prius_v"
+            ]
+        },
+        {
+            "id": 4635,
+            "name": "Proace",
+            "quantityNew": 0,
+            "quantityOld": 10,
+            "synonyms": [
+                "проэйс",
+                "проасе",
+                "проэйсе",
+                "proace"
+            ]
+        },
+        {
+            "id": 71826,
+            "name": "Proace City",
+            "quantityNew": 0,
+            "quantityOld": 1,
+            "synonyms": [
+                "проэйс сити",
+                "проасе сити",
+                "проэйсе сити",
+                "proace city",
+                "proace_city"
+            ]
+        },
+        {
+            "id": 71853,
+            "name": "Proace Verso",
+            "quantityNew": 0,
+            "quantityOld": 3,
+            "synonyms": [
+                "проэйс версо",
+                "проасе верса",
+                "проэйсе версо",
+                "proace verso",
+                "proace_verso"
+            ]
+        },
+        {
+            "id": 2105,
+            "name": "Probox",
+            "quantityNew": 0,
+            "quantityOld": 963,
+            "synonyms": [
+                "пробокс",
+                "пробакс",
+                "probox"
+            ]
+        },
+        {
+            "id": 252,
+            "name": "Progres",
+            "quantityNew": 0,
+            "quantityOld": 76,
+            "synonyms": [
+                "прогрес",
+                "прогресс",
+                "progres"
+            ]
+        },
+        {
+            "id": 307,
+            "name": "Pronard",
+            "quantityNew": 0,
+            "quantityOld": 21,
+            "synonyms": [
+                "пронард",
+                "pronard"
+            ]
+        },
+        {
+            "id": 491,
+            "name": "Publica",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "публика",
+                "паблика",
+                "publica"
+            ]
+        },
+        {
+            "id": 2734,
+            "name": "Ractis",
+            "quantityNew": 0,
+            "quantityOld": 790,
+            "synonyms": [
+                "рактис",
+                "рэктис",
+                "ractis"
+            ]
+        },
+        {
+            "id": 70230,
+            "name": "Raize",
+            "quantityNew": 1,
+            "quantityOld": 559,
+            "synonyms": [
+                "райз",
+                "рейз",
+                "рэйз",
+                "раизе",
+                "рэизе",
+                "реизе",
+                "raize"
+            ]
+        },
+        {
+            "id": 226,
+            "name": "Raum",
+            "quantityNew": 0,
+            "quantityOld": 355,
+            "synonyms": [
+                "раум",
+                "raum"
+            ]
+        },
+        {
+            "id": 281,
+            "name": "RAV4",
+            "quantityNew": 243,
+            "quantityOld": 5008,
+            "synonyms": [
+                "рав4",
+                "рав-4",
+                "рафчик",
+                "раф4",
+                "раф-4",
+                "раф",
+                "rav",
+                "rav4"
+            ]
+        },
+        {
+            "id": 1113,
+            "name": "Regius",
+            "quantityNew": 0,
+            "quantityOld": 16,
+            "synonyms": [
+                "региус",
+                "реджиус",
+                "региас",
+                "regius"
+            ]
+        },
+        {
+            "id": 2561,
+            "name": "Regius Ace",
+            "quantityNew": 0,
+            "quantityOld": 32,
+            "synonyms": [
+                "региус эйс",
+                "региус айс",
+                "",
+                "региас эйс",
+                "regius ace",
+                "regius_ace"
+            ]
+        },
+        {
+            "id": 71823,
+            "name": "Reiz",
+            "quantityNew": 0,
+            "quantityOld": 1,
+            "synonyms": [
+                "рейз",
+                "рейц",
+                "reiz"
+            ]
+        },
+        {
+            "id": 4672,
+            "name": "Roomy",
+            "quantityNew": 0,
+            "quantityOld": 1040,
+            "synonyms": [
+                "руми",
+                "рооми",
+                "руму",
+                "роому",
+                "roomy"
+            ]
+        },
+        {
+            "id": 2764,
+            "name": "Rush",
+            "quantityNew": 2,
+            "quantityOld": 195,
+            "synonyms": [
+                "раш",
+                "рашь",
+                "руш",
+                "rush"
+            ]
+        },
+        {
+            "id": 3862,
+            "name": "Sai",
+            "quantityNew": 0,
+            "quantityOld": 138,
+            "synonyms": [
+                "сай",
+                "саи",
+                "sai"
+            ]
+        },
+        {
+            "id": 12,
+            "name": "Scepter",
+            "quantityNew": 0,
+            "quantityOld": 27,
+            "synonyms": [
+                "сцептер",
+                "цептер",
+                "скептер",
+                "scepter"
+            ]
+        },
+        {
+            "id": 497,
+            "name": "SD",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "сд",
+                "эсдэ",
+                "sd"
+            ]
+        },
+        {
+            "id": 2516,
+            "name": "Sequoia",
+            "quantityNew": 25,
+            "quantityOld": 70,
+            "synonyms": [
+                "секвойя",
+                "секвоя",
+                "sequoia"
+            ]
+        },
+        {
+            "id": 488,
+            "name": "Sera",
+            "quantityNew": 0,
+            "quantityOld": 6,
+            "synonyms": [
+                "сера",
+                "сэра",
+                "sera"
+            ]
+        },
+        {
+            "id": 494,
+            "name": "SF",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "сф",
+                "эсэф",
+                "sf"
+            ]
+        },
+        {
+            "id": 2517,
+            "name": "Sienna",
+            "quantityNew": 0,
+            "quantityOld": 51,
+            "synonyms": [
+                "сиенна",
+                "сиена",
+                "sienna"
+            ]
+        },
+        {
+            "id": 2521,
+            "name": "Sienta",
+            "quantityNew": 0,
+            "quantityOld": 997,
+            "synonyms": [
+                "сиента",
+                "sienta"
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Soarer",
+            "quantityNew": 0,
+            "quantityOld": 40,
+            "synonyms": [
+                "соарер",
+                "соарэр",
+                "сайра",
+                "сарай",
+                "soarer"
+            ]
+        },
+        {
+            "id": 2518,
+            "name": "Solara",
+            "quantityNew": 0,
+            "quantityOld": 18,
+            "synonyms": [
+                "солара",
+                "соляра",
+                "camry solara",
+                "camry солара",
+                "камри солара",
+                "solara"
+            ]
+        },
+        {
+            "id": 2514,
+            "name": "Soluna",
+            "quantityNew": 0,
+            "quantityOld": 2,
+            "synonyms": [
+                "солуна",
+                "салуна",
+                "soluna"
+            ]
+        },
+        {
+            "id": 4225,
+            "name": "Spade",
+            "quantityNew": 0,
+            "quantityOld": 93,
+            "synonyms": [
+                "спэйд",
+                "spade"
+            ]
+        },
+        {
+            "id": 324,
+            "name": "Sparky",
+            "quantityNew": 0,
+            "quantityOld": 4,
+            "synonyms": [
+                "спарки",
+                "sparky"
+            ]
+        },
+        {
+            "id": 28,
+            "name": "Sprinter",
+            "quantityNew": 0,
+            "quantityOld": 737,
+            "synonyms": [
+                "спринтер",
+                "спринтэр",
+                "спринтёр",
+                "sprinter"
+            ]
+        },
+        {
+            "id": 29,
+            "name": "Sprinter Carib",
+            "quantityNew": 0,
+            "quantityOld": 359,
+            "synonyms": [
+                "спринтер кариб",
+                "кариб",
+                "карибас",
+                "sprinter carib",
+                "sprinter_carib"
+            ]
+        },
+        {
+            "id": 487,
+            "name": "Sprinter Marino",
+            "quantityNew": 0,
+            "quantityOld": 126,
+            "synonyms": [
+                "спринтер марино",
+                "марино",
+                "sprinter marino",
+                "sprinter_marino"
+            ]
+        },
+        {
+            "id": 256,
+            "name": "Sprinter Trueno",
+            "quantityNew": 0,
+            "quantityOld": 61,
+            "synonyms": [
+                "спринтер труэно",
+                "труэно",
+                "труено",
+                "труен",
+                "труэн",
+                "sprinter trueno",
+                "sprinter_trueno"
+            ]
+        },
+        {
+            "id": 34,
+            "name": "Starlet",
+            "quantityNew": 0,
+            "quantityOld": 145,
+            "synonyms": [
+                "старлет",
+                "гланза",
+                "гленза",
+                "starlet"
+            ]
+        },
+        {
+            "id": 2064,
+            "name": "Succeed",
+            "quantityNew": 0,
+            "quantityOld": 517,
+            "synonyms": [
+                "саксид",
+                "суксид",
+                "сусид",
+                "succeed"
+            ]
+        },
+        {
+            "id": 18,
+            "name": "Supra",
+            "quantityNew": 0,
+            "quantityOld": 39,
+            "synonyms": [
+                "супра",
+                "supra"
+            ]
+        },
+        {
+            "id": 70986,
+            "name": "T100",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "т100",
+                "t100"
+            ]
+        },
+        {
+            "id": 2520,
+            "name": "Tacoma",
+            "quantityNew": 0,
+            "quantityOld": 45,
+            "synonyms": [
+                "такома",
+                "тахома",
+                "тасома",
+                "tacoma"
+            ]
+        },
+        {
+            "id": 4671,
+            "name": "Tank",
+            "quantityNew": 0,
+            "quantityOld": 986,
+            "synonyms": [
+                "танк",
+                "tank"
+            ]
+        },
+        {
+            "id": 30,
+            "name": "Tercel",
+            "quantityNew": 0,
+            "quantityOld": 112,
+            "synonyms": [
+                "терцел",
+                "терсел",
+                "терцель",
+                "терсель",
+                "tercel"
+            ]
+        },
+        {
+            "id": 1114,
+            "name": "Touring Hiace",
+            "quantityNew": 0,
+            "quantityOld": 35,
+            "synonyms": [
+                "туринг хайс",
+                "туринг хайэйс",
+                "таурнинг хайс",
+                "touring hiace",
+                "touring_hiace"
+            ]
+        },
+        {
+            "id": 40,
+            "name": "Town Ace",
+            "quantityNew": 0,
+            "quantityOld": 515,
+            "synonyms": [
+                "таунайс",
+                "таун айс",
+                "таун эйс",
+                "тайнэйс",
+                "т-эйс",
+                "т-айс",
+                "т/эйс",
+                "тоун эйс",
+                "town ace",
+                "town_ace"
+            ]
+        },
+        {
+            "id": 322,
+            "name": "Town Ace Noah",
+            "quantityNew": 0,
+            "quantityOld": 303,
+            "synonyms": [
+                "таунайс ной",
+                "таун айс ноах",
+                "таунайс ноах",
+                "таун эйс ной",
+                "town ace noah",
+                "town_ace_noah"
+            ]
+        },
+        {
+            "id": 2543,
+            "name": "Town Ace Truck",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "таун эйс трак",
+                "таун айс трак",
+                "town ace truck",
+                "town_ace_truck"
+            ]
+        },
+        {
+            "id": 597,
+            "name": "ToyoAce",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "тойоэйс",
+                "тойоайс",
+                "тоёас",
+                "toyoace"
+            ]
+        },
+        {
+            "id": 2519,
+            "name": "Tundra",
+            "quantityNew": 10,
+            "quantityOld": 240,
+            "synonyms": [
+                "тундра",
+                "tundra"
+            ]
+        },
+        {
+            "id": 3679,
+            "name": "Urban Cruiser",
+            "quantityNew": 2,
+            "quantityOld": 5,
+            "synonyms": [
+                "урбан крузер",
+                "урбанкруизер",
+                "urban cruiser",
+                "urban_cruiser"
+            ]
+        },
+        {
+            "id": 3645,
+            "name": "Vanguard",
+            "quantityNew": 0,
+            "quantityOld": 93,
+            "synonyms": [
+                "вэнгард",
+                "вангард",
+                "вангуард",
+                "vanguard"
+            ]
+        },
+        {
+            "id": 3689,
+            "name": "Vellfire",
+            "quantityNew": 0,
+            "quantityOld": 443,
+            "synonyms": [
+                "веллфайр",
+                "вэллфайр",
+                "велфайр",
+                "веллфаер",
+                "vellfire"
+            ]
+        },
+        {
+            "id": 71608,
+            "name": "Veloz",
+            "quantityNew": 3,
+            "quantityOld": 3,
+            "synonyms": [
+                "велоз",
+                "велос",
+                "veloz"
+            ]
+        },
+        {
+            "id": 3669,
+            "name": "Venza",
+            "quantityNew": 12,
+            "quantityOld": 146,
+            "synonyms": [
+                "венза",
+                "ванза",
+                "venza"
+            ]
+        },
+        {
+            "id": 1106,
+            "name": "Verossa",
+            "quantityNew": 0,
+            "quantityOld": 127,
+            "synonyms": [
+                "веросса",
+                "вероса",
+                "verossa"
+            ]
+        },
+        {
+            "id": 3851,
+            "name": "Verso",
+            "quantityNew": 0,
+            "quantityOld": 128,
+            "synonyms": [
+                "версо",
+                "verso"
+            ]
+        },
+        {
+            "id": 4028,
+            "name": "Verso-S",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "версо-с",
+                "verso-s"
+            ]
+        },
+        {
+            "id": 3671,
+            "name": "Vios",
+            "quantityNew": 1,
+            "quantityOld": 7,
+            "synonyms": [
+                "виос",
+                "vios"
+            ]
+        },
+        {
+            "id": 17,
+            "name": "Vista",
+            "quantityNew": 0,
+            "quantityOld": 1013,
+            "synonyms": [
+                "виста",
+                "vista"
+            ]
+        },
+        {
+            "id": 312,
+            "name": "Vista Ardeo",
+            "quantityNew": 0,
+            "quantityOld": 251,
+            "synonyms": [
+                "виста ардео",
+                "виста ардэо",
+                "vista ardeo",
+                "vista_ardeo"
+            ]
+        },
+        {
+            "id": 317,
+            "name": "Vitz",
+            "quantityNew": 0,
+            "quantityOld": 3930,
+            "synonyms": [
+                "витц",
+                "виц",
+                "витз",
+                "vitz"
+            ]
+        },
+        {
+            "id": 2123,
+            "name": "Voltz",
+            "quantityNew": 0,
+            "quantityOld": 29,
+            "synonyms": [
+                "вольтц",
+                "вольтс",
+                "вольтз",
+                "волтц",
+                "волтс",
+                "волтз",
+                "voltz"
+            ]
+        },
+        {
+            "id": 2122,
+            "name": "Voxy",
+            "quantityNew": 0,
+            "quantityOld": 1036,
+            "synonyms": [
+                "вокси",
+                "voxy"
+            ]
+        },
+        {
+            "id": 71163,
+            "name": "Wigo",
+            "quantityNew": 0,
+            "quantityOld": 1,
+            "synonyms": [
+                "виго",
+                "wigo"
+            ]
+        },
+        {
+            "id": 71534,
+            "name": "Wildlander",
+            "quantityNew": 1,
+            "quantityOld": 2,
+            "synonyms": [
+                "вайлдлэндер",
+                "вилдландер",
+                "wildlander"
+            ]
+        },
+        {
+            "id": 2007,
+            "name": "WiLL Cypha",
+            "quantityNew": 0,
+            "quantityOld": 22,
+            "synonyms": [
+                "вилл сифа",
+                "will cypha",
+                "will_cypha"
+            ]
+        },
+        {
+            "id": 310,
+            "name": "WiLL Vi",
+            "quantityNew": 0,
+            "quantityOld": 5,
+            "synonyms": [
+                "вилл ви",
+                "will vi",
+                "will_vi"
+            ]
+        },
+        {
+            "id": 1108,
+            "name": "WiLL VS",
+            "quantityNew": 0,
+            "quantityOld": 63,
+            "synonyms": [
+                "вилл вс",
+                "will vs",
+                "will_vs"
+            ]
+        },
+        {
+            "id": 11,
+            "name": "Windom",
+            "quantityNew": 0,
+            "quantityOld": 204,
+            "synonyms": [
+                "виндом",
+                "уиндом",
+                "виндам",
+                "windom"
+            ]
+        },
+        {
+            "id": 2523,
+            "name": "Wish",
+            "quantityNew": 0,
+            "quantityOld": 2466,
+            "synonyms": [
+                "виш",
+                "wish"
+            ]
+        },
+        {
+            "id": 71877,
+            "name": "xA",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "ха",
+                "xa"
+            ]
+        },
+        {
+            "id": 2506,
+            "name": "Yaris",
+            "quantityNew": 1,
+            "quantityOld": 385,
+            "synonyms": [
+                "ярис",
+                "yaris"
+            ]
+        },
+        {
+            "id": 71453,
+            "name": "Yaris Ativ",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "ярис атив",
+                "yaris ativ",
+                "yaris_ativ"
+            ]
+        },
+        {
+            "id": 70386,
+            "name": "Yaris Cross",
+            "quantityNew": 6,
+            "quantityOld": 106,
+            "synonyms": [
+                "ярис кросс",
+                "ярис крос",
+                "yaris cross",
+                "yaris_cross"
+            ]
+        },
+        {
+            "id": 70430,
+            "name": "Yaris iA",
+            "quantityNew": 0,
+            "quantityOld": 0,
+            "synonyms": [
+                "ярис иа",
+                "yaris ia",
+                "yaris_ia"
+            ]
+        },
+        {
+            "id": 70309,
+            "name": "Yaris Verso",
+            "quantityNew": 0,
+            "quantityOld": 8,
+            "synonyms": [
+                "ярис версо",
+                "уарис версо",
+                "yaris verso",
+                "yaris_verso"
+            ]
+        }
+    ]
+}

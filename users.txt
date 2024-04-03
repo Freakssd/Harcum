@@ -1,0 +1,2 @@
+USERS:
+blocked - 0, in bot - 3 on date - 10-22 22:10
