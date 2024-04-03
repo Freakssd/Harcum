@@ -42,8 +42,16 @@ class CarsDB:
     def years_by_model_and_firm(self, firm, model):
         self.cursor.execute("SELECT gen FROM cars_list WHERE firm = ? AND model = ?", (firm, model))
         gens = [row[0] for row in self.cursor.fetchall()]
-        print(gens)
+
         return gens
+
+    def get_car_id(self, firm, model, gen):
+        self.cursor.execute("SELECT id FROM Cars_list WHERE firm = ? AND model = ? AND gen = ?", (firm, model, gen))
+        row = self.cursor.fetchone()
+        if row:
+            return row[0]
+        else:
+            return None
 
     def close(self):
         """Закрываем соединение с БД"""

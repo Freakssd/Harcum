@@ -132,9 +132,10 @@ class bot_db:
 
     def get_id_login(self, login):
         """Достаем id юзера в базе по его login"""
-        self.cursor.execute("SELECT `id` FROM `accounts` WHERE `login` = ?", (login,))
+        self.cursor.execute("SELECT `id` FROM `accounts` WHERE `login` = ?", (login[0],))
         result = self.cursor.fetchone()
-        return result
+        print(result)
+        return result[0]
 
     def get_num_login(self, login):
         """Достаем id юзера в базе по его login"""
@@ -239,6 +240,57 @@ class bot_car:
     def __init__(self):
         self.conn = sqlite3.connect('bot.db')
         self.cursor = self.conn.cursor()
+
+    def check_entry_account(self, login, account_id):
+        # Поиск записи в таблице по логину и account_id
+        self.cursor.execute("SELECT * FROM cars WHERE login = ? AND account_id = ?", (login, account_id[0]))
+        row = self.cursor.fetchone()
+
+        # Если запись найдена и login и account_id совпадают, вернуть False
+        if row is not None and row[1] == login and row[2] == account_id:
+            return False
+        # Если найдена запись, но login и account_id не совпадают, вернуть one_inp
+        elif row is not None:
+            return "one_inp"
+        # Если запись не найдена, вернуть True
+        else:
+            return True
+
+    def add_car_info(self, login, account_id, car_id):
+
+        # Выполнение SQL-запроса INSERT
+        self.cursor.execute("INSERT INTO cars (login, account_id, car_id_list) VALUES (?, ?, ?)",
+                            (login, account_id[0], car_id))
+
+        # Применение изменений
+        self.conn.commit()
+
+    def add_car_id(self, login, account_id, car_id):
+
+        # Получаем текущий car_id_list по login и account_id
+        self.cursor.execute("SELECT car_id_list FROM cars WHERE login = ? AND account_id = ?", (login, account_id[0]))
+        row = self.cursor.fetchone()
+
+        if row:
+            car_id_list = row[0]
+            # Проверяем, если car_id уже есть в car_id_list
+            if str(car_id) in car_id_list.split(','):
+                self.conn.close()
+                return False
+
+            # Обновляем car_id_list, добавляя новый car_id
+            new_car_id_list = ','.join([car_id_list, str(car_id)])
+            self.cursor.execute("UPDATE cars SET car_id_list = ? WHERE login = ? AND account_id = ?",
+                                (new_car_id_list, login, account_id[0]))
+
+        else:
+            # Если нет записи для данного login и account_id, создаем новую запись
+            self.cursor.execute("INSERT INTO cars (login, account_id, car_id_list) VALUES (?, ?, ?)",
+                                (login, account_id[0], str(car_id)))
+
+        # Применение изменений
+        self.conn.commit()
+        return True
 
     def get_idd_by_status(self, status):
         self.cursor.execute("SELECT id FROM enquiries WHERE status = ?", (status,))

@@ -71,7 +71,6 @@ async def order(message: types.Message):
 # Генерация инлайн кнопок
 def generate_brands_inline_keyboard():
     try:
-
         keyboard_brands = InlineKeyboardMarkup(row_width=4)
         car_brands = cars_db.firms()
         buttons = []
