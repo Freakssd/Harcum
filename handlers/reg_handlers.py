@@ -11,6 +11,7 @@ from create_bot import bot
 from db import BotDB, bot_db
 from handlers import car_disassembly_handlers as cdh
 
+# Я ебал
 
 bot_db = bot_db()
 BotDB = BotDB()

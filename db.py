@@ -294,15 +294,15 @@ class bot_car:
     def add_car_login(self, brand, model, years, login):
         # Поиск совпадений для указанного бренда и модели
         self.cursor.execute("SELECT logins FROM cars WHERE brand=? AND model=? AND years=?", (brand, model, years))
-        result = self.cursor.fetchone()
+        res = self.cursor.fetchone()
 
-        if result is None:
+        if res is None:
             # Если не найдено совпадений, добавляем новую запись
             self.cursor.execute("INSERT INTO cars (brand, model, years, logins) VALUES (?, ?, ?, ?)",
                                 (brand, model, years, login))
         else:
             # Если найдено совпадение, проверяем, что логин не существует в списке logins
-            logins_list = result[0].split(', ') if result[0] else []
+            logins_list = res[0].split(', ') if res[0] else []
             if login not in logins_list:
                 logins_list.append(login)
                 updated_logins = ', '.join(logins_list)

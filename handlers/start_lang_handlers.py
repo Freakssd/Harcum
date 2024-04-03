@@ -14,6 +14,7 @@ import config as cfg
 
 BotDB = BotDB()
 
+# Главное меню
 
 async def start(message: types.Message, state: FSMContext):
 

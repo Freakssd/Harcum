@@ -61,6 +61,7 @@ class Send(StatesGroup):
 async def ap(callback: types.CallbackQuery):
     user_id = callback.from_user.id
     c = callback.data
+
     if c == '897979754_send_message_auto5414541231':
         print("mess_auto")
         await Send.mess_auto.set()
@@ -212,5 +213,4 @@ def register_handlers_admin_panel(dp: Dispatcher):
     dp.register_message_handler(message_auto, state=Send.mess_auto)
     dp.register_message_handler(message_user, state=Send.mess_user)
     dp.register_message_handler(add_photo_1, commands=['add_photo_sdaasd'])
-    dp.register_message_handler(process_add_photo_1, content_types=types.ContentType.PHOTO,
-                                state=Send.photo_1)
+    dp.register_message_handler(process_add_photo_1, content_types=types.ContentType.PHOTO, state=Send.photo_1)

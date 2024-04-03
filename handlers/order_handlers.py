@@ -14,10 +14,10 @@ from db import BotDB, bot_car, bot_db
 from create_bot import bot
 from create_bot import dp as DP
 
-cars_db = CarsDB()
 
 tracemalloc.start()
 
+cars_db = CarsDB()
 BotDB = BotDB()
 bot_car = bot_car()
 bot_db = bot_db()

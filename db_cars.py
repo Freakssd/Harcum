@@ -39,7 +39,6 @@ class CarsDB:
         return unique_list_models
 
     # Достаем все поколения по модели и по марке авто и убираем повторы
-
     def years_by_model_and_firm(self, firm, model):
         self.cursor.execute("SELECT gen FROM cars_list WHERE firm = ? AND model = ?", (firm, model))
         gens = [row[0] for row in self.cursor.fetchall()]

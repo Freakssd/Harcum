@@ -10,7 +10,6 @@ bot_car = bot_car()
 
 
 async def car_disassembly(message: types.Message):
-
     try:
 
         user_id = message.from_user.id
@@ -41,20 +40,21 @@ async def car_disassembly(message: types.Message):
                 keyboard = InlineKeyboardMarkup(row_width=1)
                 keyboard.add(*keyboard_buttons)  # Добавляем кнопки в клавиатуру
 
-
                 # Отправляем сообщение с клавиатурой
                 if language == 'ru':
                     await bot.send_message(user_id, text="Поколения авто которые вы разбираете:", reply_markup=keyboard)
                     keyboart = InlineKeyboardMarkup(row_width=3)
-                    keyboart.row(InlineKeyboardButton(text='Добавить авто', callback_data=f"button:add", resize_keyboard=True))
+                    keyboart.row(
+                        InlineKeyboardButton(text='Добавить авто', callback_data=f"button:add", resize_keyboard=True))
                     await bot.send_message(user_id, text="_", reply_markup=keyboart)
 
                 elif language == 'am':
-                    await bot.send_message(user_id, text="Ավտոմեքենաների սերունդներ, որոնք դուք ապամոնտաժում եք:", reply_markup=keyboard)
+                    await bot.send_message(user_id, text="Ավտոմեքենաների սերունդներ, որոնք դուք ապամոնտաժում եք:",
+                                           reply_markup=keyboard)
                     keyboart = InlineKeyboardMarkup(row_width=3)
-                    keyboart.row(InlineKeyboardButton(text='Ավելացնել ավտո', callback_data=f"button:add", resize_keyboard=True))
+                    keyboart.row(
+                        InlineKeyboardButton(text='Ավելացնել ավտո', callback_data=f"button:add", resize_keyboard=True))
                     await bot.send_message(user_id, text="_", reply_markup=keyboart)
-
 
             else:
                 print('ERROR')
@@ -65,7 +65,6 @@ async def car_disassembly(message: types.Message):
         await car_dis(message)
         # Обработка исключения
         print(f"Произошла ошибка: {e}")
-
 
 
 async def car_disassembly_callback(callback_query: types.CallbackQuery):
@@ -85,7 +84,6 @@ async def car_disassembly_callback(callback_query: types.CallbackQuery):
             keyboard = ru_del_car(info)
             await bot.send_message(user_id, f'car id - <u>{info}</u>\n{car}',
                                    reply_markup=keyboard, parse_mode=types.ParseMode.HTML)
-
 
 
 def ru_del_car(info):
@@ -3494,6 +3492,7 @@ async def year_callback_button(callback_query: types.CallbackQuery):
             return
         await bot.send_message(1806719774,
                                f' #newauto Автораборка {login} разбирает новое авто {brand}, {model}, {year}')
+
 
 '''    elif model == 'Non':
         k = bot_car.select_car_other(brand)

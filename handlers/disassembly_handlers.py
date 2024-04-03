@@ -9,7 +9,6 @@ BotDB = BotDB()
 bot_car = bot_car()
 
 
-# @dp.message_handler(commands=['order'])
 
 async def disassembly(message: types.Message):
     try:

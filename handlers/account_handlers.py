@@ -11,3 +11,4 @@ from create_bot import dp
 
 bot_db = bot_db()
 BotDB = BotDB()
+# НАХ НЕ НАДО
