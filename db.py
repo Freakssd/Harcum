@@ -132,9 +132,8 @@ class bot_db:
 
     def get_id_login(self, login):
         """Достаем id юзера в базе по его login"""
-        self.cursor.execute("SELECT `id` FROM `accounts` WHERE `login` = ?", (login[0],))
+        self.cursor.execute("SELECT `id` FROM `accounts` WHERE `login` = ?", (login,))
         result = self.cursor.fetchone()
-        print(result)
         return result[0]
 
     def get_num_login(self, login):
@@ -243,14 +242,14 @@ class bot_car:
 
     def check_entry_account(self, login, account_id):
         # Поиск записи в таблице по логину и account_id
-        self.cursor.execute("SELECT * FROM cars WHERE login = ? AND account_id = ?", (login, account_id[0]))
+        self.cursor.execute("SELECT * FROM cars WHERE login = ? AND account_id = ?", (login, account_id))
         row = self.cursor.fetchone()
 
         # Если запись найдена и login и account_id совпадают, вернуть False
         if row is not None and row[1] == login and row[2] == account_id:
             return False
         # Если найдена запись, но login и account_id не совпадают, вернуть one_inp
-        elif row is not None:
+        elif row is not None and (row[1] == login or row[2] == account_id):
             return "one_inp"
         # Если запись не найдена, вернуть True
         else:
@@ -260,33 +259,41 @@ class bot_car:
 
         # Выполнение SQL-запроса INSERT
         self.cursor.execute("INSERT INTO cars (login, account_id, car_id_list) VALUES (?, ?, ?)",
-                            (login, account_id[0], car_id))
+                            (login, account_id, car_id))
 
         # Применение изменений
+        self.conn.commit()
+
+    def update_car_id_list(self, login, new_car_id_list):
+        # Выполняем запрос, передавая новый список car_id_list и user_id в качестве параметров
+        self.cursor.execute("UPDATE cars SET car_id_list = ? WHERE login = ?", (new_car_id_list, login))
+        # Применяем изменения к базе данных
         self.conn.commit()
 
     def add_car_id(self, login, account_id, car_id):
 
         # Получаем текущий car_id_list по login и account_id
-        self.cursor.execute("SELECT car_id_list FROM cars WHERE login = ? AND account_id = ?", (login, account_id[0]))
+        self.cursor.execute("SELECT car_id_list FROM cars WHERE login = ? AND account_id = ?", (login, account_id))
         row = self.cursor.fetchone()
 
-        if row:
+        if row[0]:
             car_id_list = row[0]
-            # Проверяем, если car_id уже есть в car_id_list
-            if str(car_id) in car_id_list.split(','):
-                self.conn.close()
-                return False
+            print(car_id_list)
+            if "," in car_id_list or car_id_list is None:
+                # Проверяем, если car_id уже есть в car_id_list
+                if str(car_id) in car_id_list.split(','):
+                    self.conn.commit()
+                    return False
 
             # Обновляем car_id_list, добавляя новый car_id
             new_car_id_list = ','.join([car_id_list, str(car_id)])
             self.cursor.execute("UPDATE cars SET car_id_list = ? WHERE login = ? AND account_id = ?",
-                                (new_car_id_list, login, account_id[0]))
+                                (new_car_id_list, login, account_id))
 
         else:
             # Если нет записи для данного login и account_id, создаем новую запись
             self.cursor.execute("INSERT INTO cars (login, account_id, car_id_list) VALUES (?, ?, ?)",
-                                (login, account_id[0], str(car_id)))
+                                (login, account_id, str(car_id)))
 
         # Применение изменений
         self.conn.commit()
@@ -567,21 +574,18 @@ class bot_car:
 
             return None
 
-    def get_id_list(self, login):
+    def get_car_id_list(self, login):
         # Выполнение SQL-запроса для поиска строк с заданным логином
-        self.cursor.execute("SELECT id FROM cars WHERE INSTR(logins, ?) > 0", (login,))
+        self.cursor.execute("SELECT car_id_list FROM cars WHERE login = ?", (login,))
 
         # Извлечение результатов запроса
         res = self.cursor.fetchall()
 
         # Закрытие соединения с базой данных
         self.conn.commit()
-
         # Вывод списка id строк, где логин найден
         if res:
-            id_list = [row[0] for row in res]
-
-            return id_list
+            return res
         else:
             return None
 

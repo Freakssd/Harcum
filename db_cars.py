@@ -46,12 +46,17 @@ class CarsDB:
         return gens
 
     def get_car_id(self, firm, model, gen):
-        self.cursor.execute("SELECT id FROM Cars_list WHERE firm = ? AND model = ? AND gen = ?", (firm, model, gen))
+        self.cursor.execute("SELECT id FROM cars_list WHERE firm = ? AND model = ? AND gen = ?", (firm, model, gen))
         row = self.cursor.fetchone()
         if row:
             return row[0]
         else:
             return None
+
+    def get_car_by_id(self, car_id):
+        self.cursor.execute("SELECT * FROM cars_list WHERE id = ?", (car_id, ))
+        row = self.cursor.fetchone()
+        return row
 
     def close(self):
         """Закрываем соединение с БД"""
