@@ -25,15 +25,13 @@ async def car_disassembly(message: types.Message):
         car_id_list = bot_car.get_car_id_list(login)[0][0]
         if car_id_list:
 
-            print(1, car_id_list)
             if len(car_id_list) == 1 and car_id_list[0] == '':
                 car_id_list = filter(filter(None, car_id_list))
 
             car_id_list = [num for num in car_id_list.split(',')]
-            print(2, car_id_list)
 
             if True:
-                if len(car_id_list) <= 10:
+                if len(car_id_list) <= 100:
                     keyboard_buttons = []
                     for car_id in car_id_list:
                         car_info = cars_db.get_car_by_id(car_id)
@@ -66,7 +64,6 @@ async def car_disassembly(message: types.Message):
                     car_list = ""
                     for car_id in car_id_list:
                         car_info = cars_db.get_car_by_id(car_id)
-                        print(car_info, car_id, car_id_list)
                         car_list += f"{car_info[2]}, {car_info[3]}, {car_info[4]}\n"
                     if language == 'ru':
 
@@ -145,13 +142,10 @@ async def del_car_callback(callback_query: types.CallbackQuery):
     car_id_list = bot_car.get_car_id_list(login)[0][0]
     car_id_list = [num for num in car_id_list.split(',')]
     # Удаляем car_id из списка, если он там есть
-    print(car_id_list)
     if car_id in car_id_list:
         car_id_list.remove(car_id)
-    print(car_id_list)
     # Обновляем запись в базе данных с новым car_id_list
     new_car_id_list = ','.join(car_id_list)
-    print(new_car_id_list)
     bot_car.update_car_id_list(login, new_car_id_list)
     await bot.send_message(user_id, f'Вы больше не разбираете авто - id{car_id}')
     await bot.send_message(1806719774, f'{login} больше не разбирает авто - id{car_id}')
@@ -319,7 +313,6 @@ async def year_callback_button(callback_query: types.CallbackQuery):
 
         elif add_status is False:
             await bot.send_message(user_id, f'{vu}')
-            print(user_id, 'Вы уже разбираете этот автомобиль')
 
 
 def register_handlers_car_disassembly(dp: Dispatcher):

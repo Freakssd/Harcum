@@ -190,9 +190,9 @@ async def year_callback_button(callback_query: types.CallbackQuery):
             met_1 = cfg.ru_met_1
             met_2 = cfg.ru_met_2
         elif language == 'am':
-            met = cfg.ru_met
-            met_1 = cfg.ru_met_1
-            met_2 = cfg.ru_met_2
+            met = cfg.am_met
+            met_1 = cfg.am_met_1
+            met_2 = cfg.am_met_2
         print("тут")
         keyboard07 = InlineKeyboardMarkup(row_width=1)
         buttons = list()
@@ -241,7 +241,7 @@ async def method_callback_button(callback_query: types.CallbackQuery, state: FSM
 
     elif language == 'am':
         ed = cfg.am_ed
-        photo_mess = cfg.ru_photo
+        photo_mess = cfg.am_photo
 
     if method == '2':
         await Configuration.engine_displacement.set()
@@ -310,6 +310,7 @@ async def process_engine_displacement(message: types.Message, state: FSMContext)
 
 
 async def process_motor_power(message: types.Message, state: FSMContext):
+    global keyboard11, cb, st
     try:
 
         await message.delete()
@@ -329,31 +330,28 @@ async def process_motor_power(message: types.Message, state: FSMContext):
         language = BotDB.get_user_lang(user_id)
 
         if language == 'ru':
-            frst = cfg.ru_accept
             cb = cfg.ru_cb
             st = cfg.ru_st
-            keyboard = ru_car_body_keyboard()
+            keyboard11 = ru_car_body_keyboard()
         elif language == 'am':
-            frst = cfg.am_accept
             cb = cfg.am_cb
             st = cfg.am_st
-            keyboard = am_car_body_keyboard()
+            keyboard11 = am_car_body_keyboard()
 
         data = await state.get_data()
         c = data.get('c')
         await Configuration.c.set()
         c = c + ', ' + motor_power + st
-        # await bot.send_message(user_id, f'{frst} - {c}')
         await state.update_data(c=c)
         await Configuration.car_body.set()
-        await bot.send_message(user_id, cb, reply_markup=keyboard)
+        await bot.send_message(user_id, cb, reply_markup=keyboard11)
     except Exception as e:
         print(f'process_motor_power error - {e}')
         await state.finish()
 
 
 def ru_car_body_keyboard():
-    keyboard = InlineKeyboardMarkup(row_width=3)
+    keyboard13 = InlineKeyboardMarkup(row_width=3)
     button1 = InlineKeyboardButton(text="Седан", callback_data="Sedan")
     button2 = InlineKeyboardButton(text="Хэтчбек 3 дв.", callback_data="Хэтчбек 3 дв.")
     button3 = InlineKeyboardButton(text="Хэтчбек 5 дв.", callback_data="Хэтчбек 5 дв.")
@@ -367,13 +365,13 @@ def ru_car_body_keyboard():
     button12 = InlineKeyboardButton(text="Лимузин", callback_data="Лимузин")
     button13 = InlineKeyboardButton(text="Фургон", callback_data="Фургон")
     button14 = InlineKeyboardButton(text="Кабриолет", callback_data="Кабриолет")
-    keyboard.add(button1, button2, button3, button4, button5, button6, button7, button9, button10, button11,
-                 button12, button13, button14)
-    return keyboard
+    keyboard13.add(button1, button2, button3, button4, button5, button6, button7, button9, button10, button11,
+                   button12, button13, button14)
+    return keyboard13
 
 
 def am_car_body_keyboard():
-    keyboard = InlineKeyboardMarkup(row_width=3)
+    keyboard14 = InlineKeyboardMarkup(row_width=3)
     button1 = InlineKeyboardButton(text="Սեդան", callback_data="Սեդան")
     button2 = InlineKeyboardButton(text="Հեչբեկ 3 դռներ", callback_data="Հեչբեկ 3 դռներ")
     button3 = InlineKeyboardButton(text="Հեչբեկ 5 դուռ", callback_data="Հեչբեկ 5 դուռ")
@@ -387,12 +385,13 @@ def am_car_body_keyboard():
     button12 = InlineKeyboardButton(text="Լիմուզին", callback_data="Լիմուզին")
     button13 = InlineKeyboardButton(text="Վան", callback_data="Վան")
     button14 = InlineKeyboardButton(text="Փոխարկելի", callback_data="Փոխարկելի")
-    keyboard.add(button1, button2, button3, button4, button5, button6, button7, button9, button10, button11,
-                 button12, button13, button14)
-    return keyboard
+    keyboard14.add(button1, button2, button3, button4, button5, button6, button7, button9, button10, button11,
+                   button12, button13, button14)
+    return keyboard14
 
 
 async def car_body_callback(callback_query: types.CallbackQuery, state: FSMContext):
+    global at, keyboard34
     try:
         await callback_query.message.delete()
         user_id = callback_query.from_user.id
@@ -401,48 +400,46 @@ async def car_body_callback(callback_query: types.CallbackQuery, state: FSMConte
         language = BotDB.get_user_lang(user_id)
 
         if language == 'ru':
-            frst = cfg.ru_accept
             at = cfg.ru_at
-            keyboard = ru_auto_transmission_keyboard()
+            keyboard34 = ru_auto_transmission_keyboard()
         elif language == 'am':
-            frst = cfg.am_accept
             at = cfg.am_at
-            keyboard = am_auto_transmission_keyboard()
+            keyboard34 = am_auto_transmission_keyboard()
 
         data = await state.get_data()
         c = data.get('c')
         await Configuration.c.set()
         c = c + ', ' + car_body
-        # await bot.send_message(user_id, f'{frst} - {c}')
         await state.update_data(c=c)
         await Configuration.auto_transmission.set()
-        await bot.send_message(user_id, at, reply_markup=keyboard)
+        await bot.send_message(user_id, at, reply_markup=keyboard34)
     except Exception as e:
         print(f'error - {e}')
         await state.finish()
 
 
 def ru_auto_transmission_keyboard():
-    keyboard = InlineKeyboardMarkup(row_width=3)
+    keyboard35 = InlineKeyboardMarkup(row_width=3)
     button1 = InlineKeyboardButton(text="Автоматическая", callback_data="Автоматическая")
     button2 = InlineKeyboardButton(text="Робот", callback_data="Робот")
     button3 = InlineKeyboardButton(text="Вариатор", callback_data="Вариатор")
     button5 = InlineKeyboardButton(text="Механическая", callback_data="Механическая")
-    keyboard.add(button1, button2, button3, button5)
-    return keyboard
+    keyboard35.add(button1, button2, button3, button5)
+    return keyboard35
 
 
 def am_auto_transmission_keyboard():
-    keyboard = InlineKeyboardMarkup(row_width=3)
+    keyboard36 = InlineKeyboardMarkup(row_width=3)
     button1 = InlineKeyboardButton(text="Ավտոմատ", callback_data="Ավտոմատ")
     button2 = InlineKeyboardButton(text="Ռոբոտ", callback_data="Ռոբոտ")
     button3 = InlineKeyboardButton(text="Վարիատոր", callback_data="Վարիատոր")
     button5 = InlineKeyboardButton(text="Մեխանիկական", callback_data="Մեխանիկական")
-    keyboard.add(button1, button2, button3, button5)
-    return keyboard
+    keyboard36.add(button1, button2, button3, button5)
+    return keyboard36
 
 
 async def auto_transmission_callback(callback_query: types.CallbackQuery, state: FSMContext):
+    global et, keyboard37
     try:
         await callback_query.message.delete()
         user_id = callback_query.from_user.id
@@ -452,50 +449,48 @@ async def auto_transmission_callback(callback_query: types.CallbackQuery, state:
         language = BotDB.get_user_lang(user_id)
 
         if language == 'ru':
-            frst = cfg.ru_accept
             et = cfg.ru_et
-            keyboard = ru_engine_keyboard()
+            keyboard37 = ru_engine_keyboard()
         elif language == 'am':
-            frst = cfg.am_accept
             et = cfg.am_et
-            keyboard = am_engine_keyboard()
+            keyboard37 = am_engine_keyboard()
 
         data = await state.get_data()
         c = data.get('c')
         await Configuration.c.set()
         c = c + ', ' + auto_transmission
-        # await bot.send_message(user_id, f'{frst} - {c}')
         await state.update_data(c=c)
         await Configuration.engine.set()
-        await bot.send_message(user_id, et, reply_markup=keyboard)
+        await bot.send_message(user_id, et, reply_markup=keyboard37)
     except Exception as e:
         print(f'error - {e}')
         await state.finish()
 
 
 def ru_engine_keyboard():
-    keyboard = InlineKeyboardMarkup(row_width=3)
+    keyboard15 = InlineKeyboardMarkup(row_width=3)
     button1 = InlineKeyboardButton(text="Бензин", callback_data="Бензин")
     button2 = InlineKeyboardButton(text="Дизель", callback_data="Дизель")
     button3 = InlineKeyboardButton(text="Гибрид", callback_data="Гибрид")
     button4 = InlineKeyboardButton(text="Электро", callback_data="Электро")
     button5 = InlineKeyboardButton(text="Газ", callback_data="Газ")
-    keyboard.add(button1, button2, button3, button4, button5)
-    return keyboard
+    keyboard15.add(button1, button2, button3, button4, button5)
+    return keyboard15
 
 
 def am_engine_keyboard():
-    keyboard = InlineKeyboardMarkup(row_width=3)
+    keyboard16 = InlineKeyboardMarkup(row_width=3)
     button1 = InlineKeyboardButton(text="Բենզին", callback_data="Բենզին")
     button2 = InlineKeyboardButton(text="Դիզել", callback_data="Դիզել")
     button3 = InlineKeyboardButton(text="Հիբրիդ", callback_data="Հիբրիդ")
     button4 = InlineKeyboardButton(text="Էլեկտրո", callback_data="Էլեկտրո")
     button5 = InlineKeyboardButton(text="Գազ", callback_data="Գազ")
-    keyboard.add(button1, button2, button3, button4, button5)
-    return keyboard
+    keyboard16.add(button1, button2, button3, button4, button5)
+    return keyboard16
 
 
 async def engine_callback(callback_query: types.CallbackQuery, state: FSMContext):
+    global keyboard17, d
     try:
         await callback_query.message.delete()
         user_id = callback_query.from_user.id
@@ -505,58 +500,52 @@ async def engine_callback(callback_query: types.CallbackQuery, state: FSMContext
         language = BotDB.get_user_lang(user_id)
 
         if language == 'ru':
-            frst = cfg.ru_accept
             d = cfg.ru_d
-            keyboard = ru_drive_keyboard()
+            keyboard17 = ru_drive_keyboard()
         elif language == 'am':
-            frst = cfg.am_accept
             d = cfg.am_d
-            keyboard = am_drive_keyboard()
+            keyboard17 = am_drive_keyboard()
 
         data = await state.get_data()
         c = data.get('c')
         await Configuration.c.set()
         c = c + ', ' + engine
-        # await bot.send_message(user_id, f'{frst} - {c}')
         await state.update_data(c=c)
         await Configuration.drive.set()
-        await bot.send_message(user_id, d, reply_markup=keyboard)
+        await bot.send_message(user_id, d, reply_markup=keyboard17)
     except Exception as e:
         print(f'error - {e}')
         await state.finish()
 
 
 def ru_drive_keyboard():
-    keyboard = InlineKeyboardMarkup(row_width=3)
+    keyboard18 = InlineKeyboardMarkup(row_width=3)
     button1 = InlineKeyboardButton(text="Передний", callback_data="Передний")
     button2 = InlineKeyboardButton(text="Задний", callback_data="Задний")
     button3 = InlineKeyboardButton(text="Полный", callback_data="Полный")
 
-    keyboard.add(button1, button2, button3)
-    return keyboard
+    keyboard18.add(button1, button2, button3)
+    return keyboard18
 
 
 def am_drive_keyboard():
-    keyboard = InlineKeyboardMarkup(row_width=3)
+    keyboard19 = InlineKeyboardMarkup(row_width=3)
     button1 = InlineKeyboardButton(text="Ճակատ", callback_data="Ճակատ")
     button2 = InlineKeyboardButton(text="Հետեւի", callback_data="Հետեւի")
     button3 = InlineKeyboardButton(text="Ֆուլլ", callback_data="Ֆուլլ")
 
-    keyboard.add(button1, button2, button3)
-    return keyboard
+    keyboard19.add(button1, button2, button3)
+    return keyboard19
 
 
 async def drive_callback(callback_query: types.CallbackQuery, state: FSMContext):
+    global pt1
     try:
         await callback_query.message.delete()
         user_id = callback_query.from_user.id
         drive = callback_query.data
         await state.update_data(drive=drive)
         language = BotDB.get_user_lang(user_id)
-        if language == 'ru':
-            frst = cfg.ru_accept
-        elif language == 'am':
-            frst = cfg.am_accept
         data = await state.get_data()
         c = data.get('c')
         await Configuration.c.set()
@@ -575,7 +564,7 @@ async def drive_callback(callback_query: types.CallbackQuery, state: FSMContext)
 
 
 async def close_car(message: types.Message, state: FSMContext):
-    global txt, keyboard
+    global txt, keyboard, idd
     await message.delete()
     user_id = message.from_user.id
     await bot.delete_message(user_id, message.message_id - 1)
@@ -657,8 +646,9 @@ class Notifi(StatesGroup):
     login_list = State()
 
 
-async def next_close_car(years_lst, years_list, year, brand, model, user_id, part, c, idd, motor_power, car_body,
-                         auto_transmission, engine, drive, engine_displacement, pts_photo, state: FSMContext):
+async def next_close_car(years_lst, years_list, year, brand, model, user_id, part, c, iddd, motor_power, car_body,
+                         auto_transmission, engine, drive, engine_displacement, pts_photo_w, state: FSMContext):
+    global txt11, keyboard20
     await state.update_data(login_list=[])
     try:
         print(years_list)
@@ -673,61 +663,62 @@ async def next_close_car(years_lst, years_list, year, brand, model, user_id, par
                 if j == int(year):
                     years_lst.append(i)
 
-        k = list()
+        ppp = list()
         for r in years_lst:
             p = bot_car.select_car(brand, model, r)
             if p == 2 or p == 3:
-                k.append(p)
+                ppp.append(p)
             else:
                 for row in p:
-                    if row not in k:
-                        k.append(row)
+                    if row not in ppp:
+                        ppp.append(row)
 
-        if len(k) > 1:
-            if 2 in k:
-                k.remove(2)
-            if 3 in k:
-                k.remove(3)
-        lk = len(k)
-        if not k:
-            k = [2]
-        if type(k) != type([12, 31, 3]):
-            k = [2]
+        if len(ppp) > 1:
+            if 2 in ppp:
+                ppp.remove(2)
+            if 3 in ppp:
+                ppp.remove(3)
+        lk = len(ppp)
+        if not ppp:
+            ppp = [2]
 
-        if k[0] != 2 and k[0] != 3 and k != 3 and k != 2:
+        if type(ppp) != type([12, 31, 3]):
+            ppp = [2]
+
+        if ppp[0] != 2 and ppp[0] != 3 and ppp != 3 and ppp != 2:
             language = BotDB.get_user_lang(user_id)
             if language == 'ru':
-                await bot.send_message(user_id, f'Запрос №{idd} принят в обработку')
-                if pts_photo is not None:
-                    media = [types.InputMediaPhoto(media=pts_photo, caption=c)]
+                await bot.send_message(user_id, f'Запрос №{iddd} принят в обработку')
+                if pts_photo_w is not None:
+                    media = [types.InputMediaPhoto(media=pts_photo_w, caption=c)]
                     await bot.send_media_group(chat_id=user_id, media=media)
                 else:
                     await bot.send_message(user_id, f'{c}')
                 await bot.send_message(user_id, part)
                 await bot.send_message(user_id, f'Хотите отправить еще запрос? Нажмите кнопку "Меню"')
                 await bot.send_message(1806719774,
-                                       f'#Запрос номер {idd} отправлен {c}, {part} date - {datetime.datetime.now()}')
+                                       f'#Запрос номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now()}')
                 await bot.send_message(1806719774, f"user_id - {user_id}")
 
-                print(f'Запрос номер {idd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
+                print(f'Запрос номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
             elif language == 'am':
-                await bot.send_message(user_id, f'Հարցում №{idd} ընդունվել է մշակման')
-                if pts_photo is not None:
-                    media = [types.InputMediaPhoto(media=pts_photo, caption=c)]
+                await bot.send_message(user_id, f'Հարցում №{iddd} ընդունվել է մշակման')
+                if pts_photo_w is not None:
+                    media = [types.InputMediaPhoto(media=pts_photo_w, caption=c)]
                     await bot.send_media_group(chat_id=user_id, media=media)
                 else:
                     await bot.send_message(user_id, f'{c}')
                 await bot.send_message(user_id, part)
                 await bot.send_message(user_id, f'Ցանկանում եք ուղարկել ևս մեկ հարցում: Սեղմեք կոճակը "Меню"')
                 await bot.send_message(1806719774,
-                                       f'#Запрос номер {idd} отправлен {c}, {part} date - {datetime.datetime.now()}')
+                                       f'#Запрос номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now()}')
                 await bot.send_message(1806719774, f"user_id - {user_id}")
 
-                print(f'Запрос номер {idd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
+                print(f'Запрос номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
             tasks = []
 
             num = 0
-            for i in k:
+            for i in ppp:
                 i = str(i).replace(' ', '')
                 c_user_id = BotDB.get_user_id_login(i)
 
@@ -744,8 +735,8 @@ async def next_close_car(years_lst, years_list, year, brand, model, user_id, par
                     if user_login == i:
                         languag = BotDB.get_user_lang(c_user_id)
                         if languag == 'ru':
-                            txt = f'''
-Запрос № #{idd}\n
+                            txt11 = f'''
+Запрос № #{iddd}\n
 {c}\n
 Объем двигателя - {engine_displacement}
 Мощность двигателя - {motor_power}
@@ -756,10 +747,10 @@ async def next_close_car(years_lst, years_list, year, brand, model, user_id, par
     
 Запчасть/деталь -  {part}
                             '''
-                            keyboard = ru_change_keyboard(idd)
+                            keyboard20 = ru_change_keyboard(iddd)
                         elif languag == 'am':
-                            txt = f'''
-Հարցում  № #{idd}\n
+                            txt11 = f'''
+Հարցում  № #{iddd}\n
 {c}\n
 Շարժիչի ծավալը - {engine_displacement}
 Շարժիչի հզորությունը - {motor_power}
@@ -771,11 +762,11 @@ PPC - {auto_transmission}
 
 Մաս -  {part}
                             '''
-                            keyboard = am_change_keyboard(idd)
+                            keyboard20 = am_change_keyboard(iddd)
                         num = num + 1
                         try:
 
-                            tasks.append(notification(idd, languag, txt, c_user_id, keyboard, num, lk, state))
+                            tasks.append(notification(iddd, languag, txt11, c_user_id, keyboard20, num, lk, state))
                         except Exception as e:
                             print(e)
                     else:
@@ -785,7 +776,7 @@ PPC - {auto_transmission}
                     # await notification(mess, idd, languag)
             await asyncio.gather(*tasks)
 
-        elif k[0] == 3 or k == 3:
+        elif ppp[0] == 3 or ppp == 3:
             try:
                 adm_id = 6061725297
                 mess = f"Нет совпадений для: brand={brand}, model={model}, year={year}"
@@ -810,31 +801,30 @@ PPC - {auto_transmission}
             try:
                 language = BotDB.get_user_lang(user_id)
                 if language == 'ru':
-                    await bot.send_message(user_id, f'Запрос №{idd} принят в обработку')
+                    await bot.send_message(user_id, f'Запрос №{iddd} принят в обработку')
                     await bot.send_message(user_id, f'{c}')
                     await bot.send_message(user_id, part)
                     await bot.send_message(user_id, f'Хотите отправить еще запрос? Нажмите кнопку "Меню"')
                     await bot.send_message(1806719774,
-                                           f'#Запрос НЕОТВЕЧЕННЫЕ номер {idd} отправлен {c}, {part} date - {datetime.datetime.now()}')
+                                           f'#Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now()}')
                     await bot.send_message(1806719774, f"user_id - {user_id}")
 
                     print(
-                        f'Запрос НЕОТВЕЧЕННЫЕ номер {idd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
+                        f'Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
                 elif language == 'am':
-                    await bot.send_message(user_id, f'Հարցում №{idd} ընդունվել է մշակման')
+                    await bot.send_message(user_id, f'Հարցում №{iddd} ընդունվել է մշակման')
                     await bot.send_message(user_id, f'{c}')
                     await bot.send_message(user_id, part)
                     await bot.send_message(user_id, f'Ցանկանում եք ուղարկել ևս մեկ հարցում: Սեղմեք կոճակը "Меню"')
                     await bot.send_message(1806719774,
-                                           f'#Запрос НЕОТВЕЧЕННЫЕ номер {idd} отправлен {c}, {part} date - {datetime.datetime.now()}')
+                                           f'#Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now()}')
                     await bot.send_message(1806719774, f"user_id - {user_id}")
                     print(
-                        f'Запрос НЕОТВЕЧЕННЫЕ номер {idd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
-                if bot_car.get_stat(idd) == 'processed':
-                    bot_car.update_stat(idd, 'unanswered')
+                        f'Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
+                if bot_car.get_stat(iddd) == 'processed':
+                    bot_car.update_stat(iddd, 'unanswered')
             except Exception as e:
                 print(f'error - {e}')
-
 
     except Exception as e:
         print(f'error - {e}')
@@ -885,7 +875,7 @@ async def notification(idd, languag, txt, c_user_id, keyboard, num, lk, state: F
         except Exception as e:
             print(e)
             return
-        return
+
 
     async with state.proxy() as data:
         login_list = data.get('login_list', [])

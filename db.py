@@ -278,7 +278,6 @@ class bot_car:
 
         if row[0]:
             car_id_list = row[0]
-            print(car_id_list)
             if "," in car_id_list or car_id_list is None:
                 # Проверяем, если car_id уже есть в car_id_list
                 if str(car_id) in car_id_list.split(','):
@@ -421,7 +420,6 @@ class bot_car:
                 logins = row[3] if row[3] else None  # row[4] соответствует столбцу logins
                 if logins:
                     logins_list.extend(logins.split(', '))
-        print(logins_list, 'ls')
         # Если список логинов не пуст, вернуть его
         if logins_list:
             return logins_list
