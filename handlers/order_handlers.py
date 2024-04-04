@@ -156,6 +156,8 @@ class Configuration(StatesGroup):
     model = State()
     year = State()
     c = State()
+    part_photo_start = State()
+    part_photo_process = State()
     pts_photo = State()
     engine_displacement = State()
     motor_power = State()
@@ -253,18 +255,70 @@ async def method_callback_button(callback_query: types.CallbackQuery, state: FSM
 
 async def pts_photo(message: types.Message, state: FSMContext):
     global pt
+
     user_id = message.from_user.id
     language = BotDB.get_user_lang(user_id)
 
     # Получаем информацию о фото
     file_id_1 = message.photo[-1].file_id
     await state.update_data(pts_photo=file_id_1)
+    await message.delete()
 
-    media = [types.InputMediaPhoto(media=file_id_1)]
+    media = [types.InputMediaPhoto(media=file_id_1, caption="принял")]
     await bot.send_media_group(chat_id=user_id, media=media)
 
+    keyboard077 = InlineKeyboardMarkup(row_width=1)
+    buttons = list()
+    button1 = InlineKeyboardButton(text="met_1", callback_data=f"partmethod_o_{1}")
+    button2 = InlineKeyboardButton(text="met_2", callback_data=f"partmethod_o_{2}")
+    buttons.append(button1)
+    buttons.append(button2)
+    keyboard077.add(*buttons)
+    await Configuration.part_photo_start.set()
+    if language == 'ru':
+        await bot.send_message(user_id, 'met', reply_markup=keyboard077)
+    else:
+        await bot.send_message(user_id, 'met', reply_markup=keyboard077)
+
+
+async def part_method_callback_button(callback_query: types.CallbackQuery):
+    global pt, ph_pt
+    await callback_query.message.delete()
+
+    user_id = callback_query.from_user.id
+    language = BotDB.get_user_lang(user_id)
+
+    part_method = callback_query.data.split('_o_')[1]
+    print(part_method)
     if language == 'ru':
         pt = cfg.ru_pt
+        ph_pt = cfg.ru_pt_photo
+
+    elif language == 'am':
+        pt = cfg.am_pt
+        ph_pt = cfg.am_pt_photo
+    if part_method == "2":
+
+        await Configuration.part.set()
+        await bot.send_message(user_id, pt)
+    else:
+        await Configuration.part_photo_process.set()
+        await bot.send_message(user_id, ph_pt)
+
+
+async def part_photo_process(message: types.Message, state: FSMContext):
+    global pt
+    user_id = message.from_user.id
+    language = BotDB.get_user_lang(user_id)
+    # Получаем информацию о фото
+    file_id_1 = message.photo[-1].file_id
+    await state.update_data(part_photo_process=file_id_1)
+
+    media = [types.InputMediaPhoto(media=file_id_1, caption="принял")]
+    await bot.send_media_group(chat_id=user_id, media=media)
+    if language == 'ru':
+        pt = cfg.ru_pt
+
     elif language == 'am':
         pt = cfg.am_pt
 
@@ -552,12 +606,19 @@ async def drive_callback(callback_query: types.CallbackQuery, state: FSMContext)
         c = c + ', ' + drive
 
         await state.update_data(c=c)
+
+        keyboard0777 = InlineKeyboardMarkup(row_width=1)
+        buttons = list()
+        button1 = InlineKeyboardButton(text="met_1", callback_data=f"partmethod_o_{1}")
+        button2 = InlineKeyboardButton(text="met_2", callback_data=f"partmethod_o_{2}")
+        buttons.append(button1)
+        buttons.append(button2)
+        keyboard0777.add(*buttons)
+        await Configuration.part_photo_start.set()
         if language == 'ru':
-            pt1 = cfg.ru_pt
-        elif language == 'am':
-            pt1 = cfg.am_pt
-        await Configuration.part.set()
-        await bot.send_message(user_id, pt1)
+            await bot.send_message(user_id, 'met', reply_markup=keyboard0777)
+        else:
+            await bot.send_message(user_id, 'met', reply_markup=keyboard0777)
     except Exception as e:
         print(f'error - {e}')
         await state.finish()
@@ -875,7 +936,6 @@ async def notification(idd, languag, txt, c_user_id, keyboard, num, lk, state: F
         except Exception as e:
             print(e)
             return
-
 
     async with state.proxy() as data:
         login_list = data.get('login_list', [])
@@ -1201,9 +1261,15 @@ def register_handlers_order(dp: Dispatcher):
     dp.register_callback_query_handler(models_callback_button, lambda c: c.data.startswith('firms|-|'))
     dp.register_callback_query_handler(years_callback_button, lambda c: c.data.startswith('omodel\-/'))
     dp.register_callback_query_handler(year_callback_button, lambda c: c.data.startswith('gens_-_'))
+
     dp.register_callback_query_handler(method_callback_button, lambda c: c.data.startswith('method_=_'))
-    dp.register_message_handler(process_engine_displacement, state=Configuration.engine_displacement)
     dp.register_message_handler(pts_photo, content_types=ContentType.PHOTO, state=Configuration.pts_photo)
+
+    dp.register_callback_query_handler(part_method_callback_button, state=Configuration.part_photo_start)
+    dp.register_message_handler(part_photo_process, content_types=ContentType.PHOTO,
+                                state=Configuration.part_photo_process)
+
+    dp.register_message_handler(process_engine_displacement, state=Configuration.engine_displacement)
     dp.register_message_handler(process_motor_power, state=Configuration.motor_power)
     dp.register_callback_query_handler(car_body_callback, lambda c: c.data.startswith(('Sedan', 'Хэтчбек 3 дв.',
                                                                                        'Хэтчбек 5 дв.', 'Лифтбек',
