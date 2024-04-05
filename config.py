@@ -3,6 +3,7 @@ token = '6140655358:AAFZocgWMPnYKZUu5AglUZszflH8Ky2mLt0'  # Test
 admin_chat_id = ""
 admin_id = ['5659651535', '1806719774']
 ban_list = []
+support = "@sasapsa"
 #  RU start_lang_hand
 t1: str = "Запрос"
 t2: str = "Автосервисы (скоро)"

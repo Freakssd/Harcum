@@ -154,7 +154,7 @@ class Configuration(StatesGroup):
     sta = State()
     brand = State()
     model = State()
-    year = State()
+    gen = State()
     c = State()
     part_photo_start = State()
     part_photo_process = State()
@@ -228,10 +228,10 @@ async def method_callback_button(callback_query: types.CallbackQuery, state: FSM
     await state.update_data(brand=firm)
     await Configuration.model.set()
     await state.update_data(model=model)
-    await Configuration.year.set()
-    await state.update_data(year=gen)
+    await Configuration.gen.set()
+    await state.update_data(gen=gen)
 
-    c = firm + ', ' + model + ', ' + gen + ', met -' + method
+    c = firm + ', ' + model + ', ' + gen
     await Configuration.c.set()
     await state.update_data(c=c)
 
@@ -254,7 +254,7 @@ async def method_callback_button(callback_query: types.CallbackQuery, state: FSM
 
 
 async def pts_photo(message: types.Message, state: FSMContext):
-    global pt
+    global pt, met_1, met_2
 
     user_id = message.from_user.id
     language = BotDB.get_user_lang(user_id)
@@ -263,22 +263,24 @@ async def pts_photo(message: types.Message, state: FSMContext):
     file_id_1 = message.photo[-1].file_id
     await state.update_data(pts_photo=file_id_1)
     await message.delete()
+    language = BotDB.get_user_lang(user_id)
 
-    media = [types.InputMediaPhoto(media=file_id_1, caption="принял")]
-    await bot.send_media_group(chat_id=user_id, media=media)
+    if language == 'ru':
+        met_1 = "Отправить фото запчасти"
+        met_2 = "Продолжить без фото"
+    elif language == 'am':
+        met_1 = ""
+        met_2 = "Продолжить без фото"
 
     keyboard077 = InlineKeyboardMarkup(row_width=1)
     buttons = list()
-    button1 = InlineKeyboardButton(text="met_1", callback_data=f"partmethod_o_{1}")
-    button2 = InlineKeyboardButton(text="met_2", callback_data=f"partmethod_o_{2}")
+    button1 = InlineKeyboardButton(text=met_1, callback_data=f"partmethod_o_{1}")
+    button2 = InlineKeyboardButton(text=met_2, callback_data=f"partmethod_o_{2}")
     buttons.append(button1)
     buttons.append(button2)
     keyboard077.add(*buttons)
     await Configuration.part_photo_start.set()
-    if language == 'ru':
-        await bot.send_message(user_id, 'met', reply_markup=keyboard077)
-    else:
-        await bot.send_message(user_id, 'met', reply_markup=keyboard077)
+    await bot.send_message(user_id, '~', reply_markup=keyboard077)
 
 
 async def part_method_callback_button(callback_query: types.CallbackQuery):
@@ -308,14 +310,14 @@ async def part_method_callback_button(callback_query: types.CallbackQuery):
 
 async def part_photo_process(message: types.Message, state: FSMContext):
     global pt
+
     user_id = message.from_user.id
     language = BotDB.get_user_lang(user_id)
     # Получаем информацию о фото
     file_id_1 = message.photo[-1].file_id
     await state.update_data(part_photo_process=file_id_1)
+    await message.delete()
 
-    media = [types.InputMediaPhoto(media=file_id_1, caption="принял")]
-    await bot.send_media_group(chat_id=user_id, media=media)
     if language == 'ru':
         pt = cfg.ru_pt
 
@@ -593,7 +595,7 @@ def am_drive_keyboard():
 
 
 async def drive_callback(callback_query: types.CallbackQuery, state: FSMContext):
-    global pt1
+    global pt1, met_1, met_2
     try:
         await callback_query.message.delete()
         user_id = callback_query.from_user.id
@@ -607,18 +609,22 @@ async def drive_callback(callback_query: types.CallbackQuery, state: FSMContext)
 
         await state.update_data(c=c)
 
-        keyboard0777 = InlineKeyboardMarkup(row_width=1)
+        if language == 'ru':
+            met_1 = "Отправить фото запчасти"
+            met_2 = "Продолжить без фото"
+        elif language == 'am':
+            met_1 = ""
+            met_2 = "Продолжить без фото"
+
+        keyboard077 = InlineKeyboardMarkup(row_width=1)
         buttons = list()
-        button1 = InlineKeyboardButton(text="met_1", callback_data=f"partmethod_o_{1}")
-        button2 = InlineKeyboardButton(text="met_2", callback_data=f"partmethod_o_{2}")
+        button1 = InlineKeyboardButton(text=met_1, callback_data=f"partmethod_o_{1}")
+        button2 = InlineKeyboardButton(text=met_2, callback_data=f"partmethod_o_{2}")
         buttons.append(button1)
         buttons.append(button2)
-        keyboard0777.add(*buttons)
+        keyboard077.add(*buttons)
         await Configuration.part_photo_start.set()
-        if language == 'ru':
-            await bot.send_message(user_id, 'met', reply_markup=keyboard0777)
-        else:
-            await bot.send_message(user_id, 'met', reply_markup=keyboard0777)
+        await bot.send_message(user_id, '~', reply_markup=keyboard077)
     except Exception as e:
         print(f'error - {e}')
         await state.finish()
@@ -627,10 +633,12 @@ async def drive_callback(callback_query: types.CallbackQuery, state: FSMContext)
 async def close_car(message: types.Message, state: FSMContext):
     global txt, keyboard, idd
     await message.delete()
+
     user_id = message.from_user.id
     await bot.delete_message(user_id, message.message_id - 1)
     part = message.text
     language = BotDB.get_user_lang(user_id)
+
     if part in stop_list:
         await state.finish()
         if language == 'ru':
@@ -638,14 +646,15 @@ async def close_car(message: types.Message, state: FSMContext):
         elif language == 'am':
             await bot.send_message(user_id, 'Հարցումն ընդհատվել է')
         return await stas.start(message, state)
+
     await state.update_data(part=part)
     data = await state.get_data()
     c = data.get('c')
-    pts_photo_last = data.get('pts_photo')
-    brand = data.get('brand')
+    sts_photo = data.get('pts_photo')
+    firm = data.get('brand')
     model = data.get('model')
-    year = data.get('year')
-    print(year)
+    gen = data.get('gen')
+    part_photo = data.get('part_photo_process')
     engine_displacement = data.get('engine_displacement')
     motor_power = data.get('motor_power')
     car_body = data.get('car_body')
@@ -655,133 +664,90 @@ async def close_car(message: types.Message, state: FSMContext):
     part = data.get('part')
     status = 'processed'
 
-    user_status = BotDB.get_user_status(user_id)
     await state.finish()
-    # история запросов
-    if user_status == 1:
-        login = BotDB.get_user_login(user_id)
-        enquiries = bot_db.get_enquiries_login(login[0])
-
-        eq = list()
-
-        if enquiries[0] is None:
-            enq = brand + ' ' + model + ' ' + year
-            eq.append(enq)
-            erm = ', '.join(eq)
-            bot_db.update_enquiries(erm, login[0])
-            eq.clear()
-        elif enquiries[0] is not None:
-            enq = brand + ' ' + model + ' ' + year
-            if ', ' in enquiries[0]:
-                eq = enquiries[0].split(', ')
-                if len(eq) > 9:
-                    eq.pop(0)
-                eq.append(enq)
-                erm = ', '.join(eq)
-                bot_db.update_enquiries(erm, login[0])
-                eq.clear()
-            else:
-                eq.append(enquiries[0])
-                eq.append(enq)
-                erm = ', '.join(eq)
-                bot_db.update_enquiries(erm, login[0])
-                eq.clear()
     # добавление запроса в enquiries
     try:
-        idd = bot_car.add_enquiry(brand, model, year, engine_displacement, motor_power, car_body, auto_transmission,
+        idd = bot_car.add_enquiry(firm, model, gen, engine_displacement, motor_power, car_body, auto_transmission,
                                   engine,
-                                  drive, None, None, part, c, user_id, status)
+                                  drive, sts_photo, part_photo, part, c, user_id, status)
     except Exception as e:
         print(f'добавление запроса в enquiries error - {e}')
-        await state.finish()
-    years_list = bot_car.get_car_years(brand, model)
-    years_lst = list()
-    await state.finish()
-    year = year[:9]
-    print(year)
-    return await next_close_car(years_lst, years_list, year, brand, model, user_id, part, c, idd, motor_power, car_body,
-                                auto_transmission, engine, drive, engine_displacement, pts_photo_last, state)
+
+    return await next_close_car(firm, model, gen, user_id, part, c, idd, motor_power, car_body,
+                                auto_transmission, engine, drive, engine_displacement, sts_photo, part_photo, state)
 
 
 class Notifi(StatesGroup):
     login_list = State()
 
 
-async def next_close_car(years_lst, years_list, year, brand, model, user_id, part, c, iddd, motor_power, car_body,
-                         auto_transmission, engine, drive, engine_displacement, pts_photo_w, state: FSMContext):
+async def next_close_car(firm, model, gen, user_id, part, c, iddd, motor_power, car_body,
+                         auto_transmission, engine, drive, engine_displacement, sts_photo, part_photo,
+                         state: FSMContext):
     global txt11, keyboard20
-    await state.update_data(login_list=[])
     try:
-        print(years_list)
-        print(year)
-        for i in years_list:
-
-            first = i[:4:]
-            second = i[5::]
-
-            for j in range(int(first), int(second) + 1):
-
-                if j == int(year):
-                    years_lst.append(i)
-
-        ppp = list()
-        for r in years_lst:
-            p = bot_car.select_car(brand, model, r)
-            if p == 2 or p == 3:
-                ppp.append(p)
-            else:
-                for row in p:
-                    if row not in ppp:
-                        ppp.append(row)
-
-        if len(ppp) > 1:
-            if 2 in ppp:
-                ppp.remove(2)
-            if 3 in ppp:
-                ppp.remove(3)
-        lk = len(ppp)
-        if not ppp:
-            ppp = [2]
-
-        if type(ppp) != type([12, 31, 3]):
-            ppp = [2]
-
-        if ppp[0] != 2 and ppp[0] != 3 and ppp != 3 and ppp != 2:
+        print(firm, model, gen)
+        car_id = cars_db.get_car_id(firm, model, gen)
+        print(car_id)
+        if car_id is None:
+            return await bot.send_message(user_id, f"Car is not found, Contact support: {cfg.support}")
+        logins_list = bot_car.get_logins_by_car_id(str(car_id))
+        print(logins_list)
+        if logins_list is not None and len(logins_list) != 0:
             language = BotDB.get_user_lang(user_id)
+
             if language == 'ru':
                 await bot.send_message(user_id, f'Запрос №{iddd} принят в обработку')
-                if pts_photo_w is not None:
-                    media = [types.InputMediaPhoto(media=pts_photo_w, caption=c)]
+                if sts_photo is not None:
+                    media = [types.InputMediaPhoto(media=sts_photo, caption=c)]
+                    if part_photo is not None:
+                        media.append(types.InputMediaPhoto(media=part_photo))
+
                     await bot.send_media_group(chat_id=user_id, media=media)
                 else:
                     await bot.send_message(user_id, f'{c}')
                 await bot.send_message(user_id, part)
                 await bot.send_message(user_id, f'Хотите отправить еще запрос? Нажмите кнопку "Меню"')
-                await bot.send_message(1806719774,
-                                       f'#Запрос номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now()}')
-                await bot.send_message(1806719774, f"user_id - {user_id}")
 
-                print(f'Запрос номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
             elif language == 'am':
                 await bot.send_message(user_id, f'Հարցում №{iddd} ընդունվել է մշակման')
-                if pts_photo_w is not None:
-                    media = [types.InputMediaPhoto(media=pts_photo_w, caption=c)]
+
+                if sts_photo is not None:
+                    media = [types.InputMediaPhoto(media=sts_photo, caption=c)]
+                    if part_photo is not None:
+                        media.append(types.InputMediaPhoto(media=part_photo))
+
                     await bot.send_media_group(chat_id=user_id, media=media)
                 else:
                     await bot.send_message(user_id, f'{c}')
                 await bot.send_message(user_id, part)
                 await bot.send_message(user_id, f'Ցանկանում եք ուղարկել ևս մեկ հարցում: Սեղմեք կոճակը "Меню"')
+
+            if sts_photo is not None:
+                media = [types.InputMediaPhoto(media=sts_photo,
+                                               caption=f'#Запрос номер {iddd} отправлен {c}, {part}\n date - '
+                                                       f'{datetime.datetime.now()}'
+                                                       f'\n'
+                                                       f'user_id - {user_id}')]
+                if part_photo is not None:
+                    media.append(types.InputMediaPhoto(media=part_photo))
+
+                await bot.send_media_group(chat_id=1806719774, media=media)
+            else:
                 await bot.send_message(1806719774,
-                                       f'#Запрос номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now()}')
-                await bot.send_message(1806719774, f"user_id - {user_id}")
+                                       f'#Запрос номер {iddd} отправлен {c}, {part}\n date - '
+                                       f'{datetime.datetime.now()}'
+                                       f'\n'
+                                       f'user_id - {user_id}')
 
-                print(f'Запрос номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
+            print(f'Запрос номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
+
             tasks = []
-
             num = 0
-            for i in ppp:
+            for i in logins_list:
                 i = str(i).replace(' ', '')
                 c_user_id = BotDB.get_user_id_login(i)
+                print(c_user_id)
 
                 user_login_result = BotDB.get_user_login(c_user_id)
 
@@ -827,7 +793,8 @@ PPC - {auto_transmission}
                         num = num + 1
                         try:
 
-                            tasks.append(notification(iddd, languag, txt11, c_user_id, keyboard20, num, lk, state))
+                            tasks.append(notification(iddd, languag, txt11, c_user_id, keyboard20, num,
+                                                      len(logins_list), sts_photo, part_photo, state))
                         except Exception as e:
                             print(e)
                     else:
@@ -837,27 +804,6 @@ PPC - {auto_transmission}
                     # await notification(mess, idd, languag)
             await asyncio.gather(*tasks)
 
-        elif ppp[0] == 3 or ppp == 3:
-            try:
-                adm_id = 6061725297
-                mess = f"Нет совпадений для: brand={brand}, model={model}, year={year}"
-                await bot.send_message(adm_id, mess)
-                language = BotDB.get_user_lang(user_id)
-
-                if language == 'ru':
-                    await bot.send_message(user_id,
-                                           f'Автомобиль на разборах не найден, попробуйте найти запчасть в другом '
-                                           f'поколении автомобиля {brand} {model}')
-
-                elif language == 'am':
-                    await bot.send_message(user_id,
-                                           f'Մեքենան չի գտնվել վերլուծության մեջ, Փորձեք գտնել մեկ այլ պահեստամաս'
-                                           f'մեքենայի սերունդ {brand} {model}')
-                await bot.send_message(1806719774,
-                                       f'Нет совпадений для: {brand} {model} {year} date - {datetime.datetime.now()}')
-                print(f'Нет совпадений для: {brand} {model} {year} date - {datetime.datetime.now()}')
-            except Exception as e:
-                print(f'error - {e}')
         else:
             try:
                 language = BotDB.get_user_lang(user_id)
@@ -891,51 +837,27 @@ PPC - {auto_transmission}
         print(f'error - {e}')
 
 
-async def notification(idd, languag, txt, c_user_id, keyboard, num, lk, state: FSMContext):
+async def notification(idd, languag, txt, c_user_id, keyboard0222, num, lk, sts_photo, part_photo, state: FSMContext):
+    global k_mess, mess
     try:
-        mess = await bot.send_message(c_user_id, txt, reply_markup=keyboard)
+        if sts_photo is not None:
+            media = [types.InputMediaPhoto(media=sts_photo,
+                                           caption=txt)]
+            if part_photo is not None:
+                media.append(types.InputMediaPhoto(media=part_photo))
+
+            mess = await bot.send_media_group(chat_id=c_user_id, media=media)
+            await bot.send_message(c_user_id, f"#{idd}", reply_markup=keyboard0222)
+
+        else:
+            mess = await bot.send_message(c_user_id, txt, reply_markup=keyboard0222)
+
         print(f'Доставлен запрос {num} из {lk}, {BotDB.get_user_login(c_user_id)[0]}')
         await asyncio.sleep(1)
-    except Exception as e:
-        login = BotDB.get_user_login(c_user_id)[0]
-        await bot.send_message(1806719774, f'Заблокировал бота {c_user_id} {login} {datetime.datetime.now()}')
 
-        print(f'Заблокировал бота {c_user_id} {login} {datetime.datetime.now()}')
-        try:
-            id_list = bot_car.get_id_list(BotDB.get_user_login(c_user_id)[0])
-            print(id_list)
-            for info in id_list:
-                user_id = c_user_id
-                id_listе = [int(info)]
-                logins = bot_car.get_logins(id_listе)
-                if login not in logins:
-                    return
-                if ', ' in logins:
-                    s = list()
-                    s = logins.split(', ')
-                    s.remove(login)
-                    bot_car.add_login(info, s)
-                else:
-                    bot_car.add_login(info, list())
-                await bot.send_message(1806719774, f'{login} больше не разбирает авто - id{info}')
-                print(f'{login} больше не разбирает авто - id{info}')
-
-            dp = DP
-            data = await dp.storage.get_data(user=c_user_id)
-            user_state = dp.current_state(chat=c_user_id, user=c_user_id)
-            login_list = data.get('login_list', [])
-            try:
-                login_list.remove(login)
-            except Exception as e:
-                pass
-            await user_state.update_data(login_list=login_list)
-            if len(login_list) == 0:
-                print('state finish', idd)
-                await user_state.finish()
-            return
-        except Exception as e:
-            print(e)
-            return
+    except Exception:
+        pass
+        # ... больше не разбирает авто
 
     async with state.proxy() as data:
         login_list = data.get('login_list', [])
@@ -959,8 +881,8 @@ async def notification(idd, languag, txt, c_user_id, keyboard, num, lk, state: F
         async with state.proxy() as dataa:
             login_lst = dataa.get('login_list', [])
         try:
-            chat_id = k.chat.id
-            message_id = k.message_id
+            chat_id = k_mess.chat.id
+            message_id = k_mess.message_id
             # Попытка удаления сообщения
             await bot.delete_message(chat_id, message_id)
         except Exception:
@@ -974,9 +896,9 @@ async def notification(idd, languag, txt, c_user_id, keyboard, num, lk, state: F
         await asyncio.sleep(10)
         try:
             if languag == 'ru':
-                k = await mess.reply(f'У вас есть неотвеченный запрос #{idd}')
+                k_mess = await mess.reply(f'У вас есть неотвеченный запрос #{idd}')
             elif languag == 'am':
-                k = await mess.reply(f'Դուք ունեք անպատասխան հարցում #{idd}')
+                k_mess = await mess.reply(f'Դուք ունեք անպատասխան հարցում #{idd}')
         except Exception as e:
             pass
     try:
@@ -990,37 +912,39 @@ class Change(StatesGroup):
     idd = State()
     types = State()
     summ = State()
+    photo = State()
+    photo_1 = State()
     login = State()
     k = State()
     u_id = State()
 
 
 def ru_change_keyboard(idd):
-    keyboard = InlineKeyboardMarkup(row_width=1)
+    keyboard0111 = InlineKeyboardMarkup(row_width=1)
     button1 = InlineKeyboardButton(text="✅ЕСТЬ НОВАЯ ОРИГИНАЛ", callback_data=f"neworig_{idd}")
     button2 = InlineKeyboardButton(text="✅ЕСТЬ Б/У ОРИГИНАЛ", callback_data=f"baorig_{idd}")
     button3 = InlineKeyboardButton(text="✅ЕСТЬ НОВАЯ КОПИЯ", callback_data=f"newcopy_{idd}")
     button4 = InlineKeyboardButton(text="✅ЕСТЬ Б/У КОПИЯ", callback_data=f"bacopy_{idd}")
     button5 = InlineKeyboardButton(text="❌Я не разбираю этот автомобиль", callback_data=f"NON_{idd}")
     button6 = InlineKeyboardButton(text="❌Нет в наличии такой запчасти", callback_data=f"NOT_{idd}")
-    keyboard.add(button1, button2, button3, button4, button5, button6)
-    return keyboard
+    keyboard0111.add(button1, button2, button3, button4, button5, button6)
+    return keyboard0111
 
 
 def am_change_keyboard(idd):
-    keyboard = InlineKeyboardMarkup(row_width=1)
+    keyboard0112 = InlineKeyboardMarkup(row_width=1)
     button1 = InlineKeyboardButton(text="✅ԿԱ ՆՈՐ ԲՆՕՐԻՆԱԿ", callback_data=f"neworig_{idd}")
     button2 = InlineKeyboardButton(text="✅ՕԳՏԱԳՈՐԾՎԱԾ ԲՆՕՐԻՆԱԿ ԿԱ", callback_data=f"baorig_{idd}")
     button3 = InlineKeyboardButton(text="✅ԿԱ ՆՈՐ ՊԱՏՃԵՆ", callback_data=f"newcopy_{idd}")
     button4 = InlineKeyboardButton(text="✅ԿԱ ՕԳՏԱԳՈՐԾՎԱԾ ՊԱՏՃԵՆ", callback_data=f"bacopy_{idd}")
     button5 = InlineKeyboardButton(text="❌Ես չեմ ապամոնտաժում այս մեքենան", callback_data=f"NON_{idd}")
     button6 = InlineKeyboardButton(text="❌Նման պահեստամասեր մատչելի չեն", callback_data=f"NOT_{idd}")
-    keyboard.add(button1, button2, button3, button4, button5, button6)
-    return keyboard
+    keyboard0112.add(button1, button2, button3, button4, button5, button6)
+    return keyboard0112
 
 
 async def change_callback(callback_query: types.CallbackQuery, state: FSMContext):
-    global k
+    global k, message02, message011
 
     srs = callback_query.data.split('_')[0]
     idd = callback_query.data.split('_')[1]
@@ -1096,20 +1020,75 @@ async def change_callback(callback_query: types.CallbackQuery, state: FSMContext
         language = BotDB.get_user_lang(user_id)
 
         if language == 'ru':
-            k = await bot.send_message(user_id, 'Введите цену за деталь')
+            message011 = "Отправить фото запчасти"
+            message02 = "Продолжить без фото"
         elif language == 'am':
-            k = await bot.send_message(user_id, 'Մուտքագրեք գինը յուրաքանչյուր մասի համար')
-        await Change.k.set()
-        await state.update_data(k=k)
-        await Change.summ.set()
+            message011 = "Ուղարկեք պահեստամասի լուսանկար"
+            message02 = ""
+
+        keyboard07 = InlineKeyboardMarkup(row_width=1)
+        buttons = list()
+        button1 = InlineKeyboardButton(text=message011, callback_data=f"methodik_m_1")
+        button2 = InlineKeyboardButton(text=message02, callback_data=f"methodik_m_2")
+        buttons.append(button1)
+        buttons.append(button2)
+        keyboard07.add(*buttons)
+        await Change.photo_1.set()
+        if language == 'ru':
+            await bot.send_message(callback_query.from_user.id, "~", reply_markup=keyboard07)
+        else:
+            await bot.send_message(callback_query.from_user.id, "~", reply_markup=keyboard07)
     except Exception as e:
         print(f'error - {e}')
         await state.finish()
 
 
-# noinspection PyArgumentList
+async def photo_call(callback_query: types.CallbackQuery, state: FSMContext):
+    global price, message01
+    user_id = callback_query.from_user.id
+    method = callback_query.data.split('_m_')[1]
+    language = BotDB.get_user_lang(user_id)
+    print(method)
+
+    if language == 'ru':
+        message01 = "Отправьте фото запчасти"
+        price = "Введите цену за деталь"
+    elif language == 'am':
+        message01 = "Ուղարկեք պահեստամասի լուսանկար"
+        price = "Մուտքագրեք գինը յուրաքանչյուր մասի համար"
+    await Change.photo.set()
+
+    if method == "1":
+        await bot.send_message(user_id, message01)
+    elif method == "2":
+        await state.update_data(photo=None)
+        kpk = await bot.send_message(user_id, price)
+        await Change.k.set()
+        await state.update_data(k=kpk)
+        await Change.summ.set()
+
+
+async def photo_process(message: types.Message, state: FSMContext):
+    global price
+    user_id = message.from_user.id
+    language = BotDB.get_user_lang(user_id)
+    print("process")
+    # Получаем информацию о фото
+    file_id_1 = message.photo[-1].file_id
+    await state.update_data(photo=file_id_1)
+    if language == 'ru':
+        price = "Введите цену за деталь"
+    elif language == 'am':
+        price = "Մուտքագրեք գինը յուրաքանչյուր մասի համար"
+
+    await Change.k.set()
+    kpk = await bot.send_message(user_id, price)
+    await state.update_data(k=kpk)
+    await Change.summ.set()
+
+
 async def change_finish(message: types.Message, state: FSMContext):
-    global photo_1, photo_2, photo_3, y, caption, auto_name, address
+    global photo_1, photo_2, photo_3, y, caption, auto_name, address, summ
     try:
         summ = message.text
     except Exception as e:
@@ -1122,6 +1101,7 @@ async def change_finish(message: types.Message, state: FSMContext):
     k = data.get('k')
     srs = data.get('types')
     login = data.get('login')
+    photo = data.get('photo')
     user_id = bot_car.get_user_id_by_id(idd)
     c = bot_car.get_c_by_id(idd)
     part = bot_car.get_part_by_id(idd)
@@ -1167,9 +1147,6 @@ async def change_finish(message: types.Message, state: FSMContext):
     num_1 = None
     num_2 = None
     site = None
-    photo_1 = None
-    photo_2 = None
-    photo_3 = None
 
     for row in result:
         user_type_acc = row[3]
@@ -1178,9 +1155,6 @@ async def change_finish(message: types.Message, state: FSMContext):
         num_1 = row[8]
         num_2 = row[9]
         site = row[12]
-        photo_1 = row[13]
-        photo_2 = row[14]
-        photo_3 = row[15]
 
     if login is None:
         auto_name = u_id
@@ -1202,20 +1176,15 @@ async def change_finish(message: types.Message, state: FSMContext):
 
     if user_type_acc == 2:
         try:
+
             if language == 'ru':
                 caption = f'Запрос №{idd}\n{c}\n\n{f}\n\n{auto_name}\n{address}\n{num_1}\n{num_2}{website}'
             elif language == 'am':
                 caption = f'Հարցում №{idd}\n{c}\n\n{f}\n\n{auto_name}\n{address}\n{num_1}\n{num_2}{website}'
-            if photo_1 is None:
+            if photo is None:
                 await bot.send_message(user_id, caption)
             else:
-                media = [InputMediaPhoto(media=str(photo_1), caption=caption)]
-
-                if photo_2 is not None:
-                    media.append(InputMediaPhoto(media=photo_2))
-
-                if photo_3 is not None:
-                    media.append(InputMediaPhoto(media=photo_3))
+                media = [InputMediaPhoto(media=str(photo), caption=caption)]
 
                 await bot.send_media_group(chat_id=user_id, media=media)
         except Exception as e:
@@ -1307,4 +1276,6 @@ def register_handlers_order(dp: Dispatcher):
     dp.register_message_handler(close_car, state=Configuration.part)
     dp.register_callback_query_handler(change_callback, lambda c: c.data.startswith(('neworig_', 'baorig_', 'newcopy_',
                                                                                      'bacopy_', 'NON_', 'NOT_')))
+    dp.register_callback_query_handler(photo_call, lambda c: c.data.startswith('methodik_m_'), state=Change.photo_1)
+    dp.register_message_handler(photo_process, content_types=ContentType.PHOTO, state=Change.photo)
     dp.register_message_handler(change_finish, state=Change.summ)

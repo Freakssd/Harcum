@@ -66,7 +66,6 @@ async def start(message: types.Message, state: FSMContext):
 
             keyboard = types.ReplyKeyboardMarkup(row_width=3, resize_keyboard=True)
             button1 = types.KeyboardButton(text=cfg.t1)
-            #button2 = types.KeyboardButton(text=cfg.t2)
             button3 = types.KeyboardButton(text=cfg.t3)
             button4 = types.KeyboardButton(text=cfg.t5)
             keyboard.row(button1)
@@ -83,7 +82,6 @@ async def start(message: types.Message, state: FSMContext):
 
             keyboard = types.ReplyKeyboardMarkup(row_width=3, resize_keyboard=True)
             button1 = types.KeyboardButton(text=cfg.c1)
-            #button2 = types.KeyboardButton(text=cfg.c2)
             button3 = types.KeyboardButton(text=cfg.c3)
             button4 = types.KeyboardButton(text=cfg.c5)
             keyboard.row(button1)
@@ -102,7 +100,6 @@ async def start(message: types.Message, state: FSMContext):
 
             keyboard = types.ReplyKeyboardMarkup(row_width=3, resize_keyboard=True)
             button1 = types.KeyboardButton(text=cfg.t1)
-            #button2 = types.KeyboardButton(text=cfg.t2)
             button3 = types.KeyboardButton(text=cfg.t3)
             button4 = types.KeyboardButton(text=cfg.t5)
             keyboard.row(button1)
@@ -119,7 +116,6 @@ async def start(message: types.Message, state: FSMContext):
 
             keyboard = types.ReplyKeyboardMarkup(row_width=3, resize_keyboard=True)
             button1 = types.KeyboardButton(text=cfg.c1)
-            #button2 = types.KeyboardButton(text=cfg.c2)
             button3 = types.KeyboardButton(text=cfg.c3)
             button4 = types.KeyboardButton(text=cfg.c5)
             keyboard.row(button1)
@@ -134,7 +130,6 @@ async def start(message: types.Message, state: FSMContext):
 
 
 # Обработчик нажатия на кнопку
-# @dp.message_handler(text=["Запрос", "Поиск по OEM", "Авто в разборе", "Авторизация"])
 async def button_handler(message: types.Message):
     user_id = message.from_user.id
     if message.text == cfg.t1 or message.text == cfg.c1:
@@ -150,7 +145,6 @@ async def button_handler(message: types.Message):
 
 
 # выбор языка
-# @dp.callback_query_handler(lambda c: c.data in ['ru', 'am'])
 async def set_language_callback(callback_query: types.CallbackQuery):
     global c1, a1, b1
     user_id = callback_query.from_user.id
@@ -169,7 +163,6 @@ async def set_language_callback(callback_query: types.CallbackQuery):
 
     await bot.answer_callback_query(callback_query.id)
     language = BotDB.get_user_lang(user_id)
-
 
     if user_status == 0:
         if language == 'ru':

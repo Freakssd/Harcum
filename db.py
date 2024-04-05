@@ -119,7 +119,8 @@ class bot_db:
     def new_user(self, login, password, user_type, user_id, user_name, auto_name, address, num_1, num_2, description,
                  date):
         self.cursor.execute(
-            "INSERT INTO accounts(login, password, user_type, user_id, user_name, auto_name, address, num_1, num_2, description, date)"
+            "INSERT INTO accounts(login, password, user_type, user_id, user_name, auto_name, address, num_1, num_2, "
+            "description, date)"
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (login, password, user_type, user_id, user_name, auto_name, address, num_1, num_2, description, date))
         self.conn.commit()
@@ -240,6 +241,19 @@ class bot_car:
         self.conn = sqlite3.connect('bot.db')
         self.cursor = self.conn.cursor()
 
+    def get_logins_by_car_id(self, car_id):
+
+        # Выполняем SQL-запрос для получения логинов, где car_id_list содержит определенный car_id
+        self.cursor.execute("SELECT login FROM cars WHERE car_id_list LIKE ?",
+                            ('%' + str(car_id) + '%',))
+
+        # Получаем результаты запроса
+        logins = [row[0] for row in self.cursor.fetchall()]
+
+        # Закрываем соединение с базой данных
+
+        return logins
+
     def check_entry_account(self, login, account_id):
         # Поиск записи в таблице по логину и account_id
         self.cursor.execute("SELECT * FROM cars WHERE login = ? AND account_id = ?", (login, account_id))
@@ -310,13 +324,13 @@ class bot_car:
 
     def add_enquiry(self, brand, model, year, engine_displacement, motor_power, car_body, auto_transmission, engine,
                     drive,
-                    engine_code, body_code, part, c, user_id, status):
+                    sts_photo, part_photo, part, c, user_id, status):
         self.cursor.execute(
             "INSERT INTO enquiries(brand, model, year, engine_displacement, motor_power, car_body, auto_transmission, "
-            "engine, drive, engine_code, body_code, part, c, user_id, status)"
+            "engine, drive, sts_photo, part_photo, part, c, user_id, status)"
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (brand, model, year, engine_displacement, motor_power, car_body, auto_transmission, engine, drive,
-             engine_code, body_code, part, c, user_id, status))
+             sts_photo, part_photo, part, c, user_id, status))
         # Получаем id последней вставленной строки
         last_inserted_id = self.cursor.lastrowid
 
