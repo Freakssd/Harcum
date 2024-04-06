@@ -207,10 +207,15 @@ async def my_id(message: types.Message):
 
 
 async def delete_order(message: types.Message):
+    c_id = message.chat.id
     txt = message.text
-    c = txt.split("_")
+    c = txt.split(" ")
     print(c)
-    await bot.delete_message(chat_id=int(c[3]), message_id=int(c[2]))
+    try:
+        await bot.delete_message(int(c[1]), int(c[2]))
+    except Exception as e:
+        return print(e)
+    await bot.send_message(c_id, f"Удаление {int(c[2])} успешно", parse_mode="HTML")
 
 
 def register_handlers_admin_panel(dp: Dispatcher):

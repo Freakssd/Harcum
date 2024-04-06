@@ -700,84 +700,85 @@ async def next_close_car(firm, model, gen, user_id, part, c, iddd, motor_power, 
                          auto_transmission, engine, drive, engine_displacement, sts_photo, part_photo,
                          state: FSMContext):
     global txt11, keyboard20
-    try:
-        print(firm, model, gen)
-        car_id = cars_db.get_car_id(firm, model, gen)
-        print(car_id)
-        if car_id is None:
-            return await bot.send_message(user_id, f"Car is not found, Contact support: {cfg.support}")
-        logins_list = bot_car.get_logins_by_car_id(str(car_id))
-        print(logins_list)
-        if logins_list is not None and len(logins_list) != 0:
-            language = BotDB.get_user_lang(user_id)
+    await state.finish()
 
-            if language == 'ru':
-                await bot.send_message(user_id, f'Запрос №{iddd} принят в обработку')
-                if sts_photo is not None:
-                    media = [types.InputMediaPhoto(media=sts_photo, caption=c)]
-                    if part_photo is not None:
-                        media.append(types.InputMediaPhoto(media=part_photo))
+    print(firm, model, gen)
+    car_id = cars_db.get_car_id(firm, model, gen)
+    print(car_id)
+    if car_id is None:
+        return await bot.send_message(user_id, f"Car is not found, Contact support: {cfg.support}")
+    logins_list = bot_car.get_logins_by_car_id(str(car_id))
+    print(logins_list)
+    if logins_list is not None and len(logins_list) != 0:
+        language = BotDB.get_user_lang(user_id)
 
-                    await bot.send_media_group(chat_id=user_id, media=media)
-                else:
-                    await bot.send_message(user_id, f'{c}')
-                await bot.send_message(user_id, part)
-                await bot.send_message(user_id, f'Хотите отправить еще запрос? Нажмите кнопку "Меню"')
-
-            elif language == 'am':
-                await bot.send_message(user_id, f'Հարցում №{iddd} ընդունվել է մշակման')
-
-                if sts_photo is not None:
-                    media = [types.InputMediaPhoto(media=sts_photo, caption=c)]
-                    if part_photo is not None:
-                        media.append(types.InputMediaPhoto(media=part_photo))
-
-                    await bot.send_media_group(chat_id=user_id, media=media)
-                else:
-                    await bot.send_message(user_id, f'{c}')
-                await bot.send_message(user_id, part)
-                await bot.send_message(user_id, f'Ցանկանում եք ուղարկել ևս մեկ հարցում: Սեղմեք կոճակը "Меню"')
-
+        if language == 'ru':
+            await bot.send_message(user_id, f'Запрос №{iddd} принят в обработку')
             if sts_photo is not None:
-                media = [types.InputMediaPhoto(media=sts_photo,
-                                               caption=f'#Запрос номер {iddd} отправлен {c}, {part}\n date - '
-                                                       f'{datetime.datetime.now()}'
-                                                       f'\n'
-                                                       f'user_id - {user_id}')]
+                media = [types.InputMediaPhoto(media=sts_photo, caption=c)]
                 if part_photo is not None:
                     media.append(types.InputMediaPhoto(media=part_photo))
 
-                await bot.send_media_group(chat_id=cfg.chat_id_logs, media=media)
+                await bot.send_media_group(user_id, media=media)
             else:
-                await bot.send_message(cfg.chat_id_logs,
-                                       f'#Запрос номер {iddd} отправлен {c}, {part}\n date - '
-                                       f'{datetime.datetime.now()}'
-                                       f'\n'
-                                       f'user_id - {user_id}')
+                await bot.send_message(user_id, f'{c}')
+            await bot.send_message(user_id, part)
+            await bot.send_message(user_id, f'Хотите отправить еще запрос? Нажмите кнопку "Меню"')
 
-            print(f'Запрос номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
+        elif language == 'am':
+            await bot.send_message(user_id, f'Հարցում №{iddd} ընդունվել է մշակման')
 
-            tasks = []
-            num = 0
-            for i in logins_list:
-                i = str(i).replace(' ', '')
-                c_user_id = BotDB.get_user_id_login(i)
-                print(c_user_id)
+            if sts_photo is not None:
+                media = [types.InputMediaPhoto(media=sts_photo, caption=c)]
+                if part_photo is not None:
+                    media.append(types.InputMediaPhoto(media=part_photo))
 
-                user_login_result = BotDB.get_user_login(c_user_id)
+                await bot.send_media_group(user_id, media=media)
+            else:
+                await bot.send_message(user_id, f'{c}')
+            await bot.send_message(user_id, part)
+            await bot.send_message(user_id, f'Ցանկանում եք ուղարկել ևս մեկ հարցում: Սեղմեք կոճակը "Меню"')
 
-                if user_login_result is not None and len(user_login_result) > 0:
-                    async with state.proxy() as data:
-                        login_list = data.get('login_list', [])  # Получаем список из состояния+
-                        login_list.append(user_login_result[0])
-                        data['login_list'] = login_list
+        if sts_photo is not None:
+            media = [types.InputMediaPhoto(media=sts_photo,
+                                           caption=f'#Запрос #{iddd}\n {c}\n{part}\n date - '
+                                                   f'{str(datetime.datetime.now())[:16]}'
+                                                   f'\n'
+                                                   f'user_id - {user_id}')]
+            if part_photo is not None:
+                media.append(types.InputMediaPhoto(media=part_photo))
 
-                    user_login = user_login_result[0]
+            await bot.send_media_group(cfg.chat_id_logs, media=media)
+        else:
+            await bot.send_message(chat_id=cfg.chat_id_logs,
+                                   text=f'#Запрос #{iddd}\n{c}\n{part}\n date - '
+                                        f'{datetime.datetime.now()[:16]}'
+                                        f'\n'
+                                        f'user_id - {user_id}')
 
-                    if user_login == i:
-                        languag = BotDB.get_user_lang(c_user_id)
-                        if languag == 'ru':
-                            txt11 = f'''
+        print(f'Запрос номер {iddd} отправлен {c}, {part} date - {str(datetime.datetime.now())[:16], user_id}')
+
+        tasks = []
+        num = 0
+        for i in logins_list:
+            i = str(i).replace(' ', '')
+            c_user_id = BotDB.get_user_id_login(i)
+            print(c_user_id)
+
+            user_login_result = BotDB.get_user_login(c_user_id)
+
+            if user_login_result is not None and len(user_login_result) > 0:
+                async with state.proxy() as data:
+                    login_list = data.get('login_list', [])  # Получаем список из состояния+
+                    login_list.append(user_login_result[0])
+                    data['login_list'] = login_list
+
+                user_login = user_login_result[0]
+
+                if user_login == i:
+                    languag = BotDB.get_user_lang(c_user_id)
+                    if languag == 'ru':
+                        txt11 = f'''
 Запрос № #{iddd}\n
 {c}\n
 Объем двигателя - {engine_displacement}
@@ -786,12 +787,12 @@ async def next_close_car(firm, model, gen, user_id, part, c, iddd, motor_power, 
 КПП - {auto_transmission}
 Тип двигателя - {engine}
 Привод авто - {drive}
-    
+
 Запчасть/деталь -  {part}
-                            '''
-                            keyboard20 = ru_change_keyboard(iddd)
-                        elif languag == 'am':
-                            txt11 = f'''
+                        '''
+                        keyboard20 = ru_change_keyboard(iddd)
+                    elif languag == 'am':
+                        txt11 = f'''
 Հարցում  № #{iddd}\n
 {c}\n
 Շարժիչի ծավալը - {engine_displacement}
@@ -803,107 +804,127 @@ PPC - {auto_transmission}
 
 
 Մաս -  {part}
-                            '''
-                            keyboard20 = am_change_keyboard(iddd)
-                        num = num + 1
-                        try:
+                        '''
+                        keyboard20 = am_change_keyboard(iddd)
+                    num = num + 1
+                    try:
 
-                            tasks.append(notification(iddd, languag, txt11, c_user_id, keyboard20, num,
-                                                      len(logins_list), sts_photo, part_photo, state))
-                        except Exception as e:
-                            print(e)
-                    else:
-                        print(f"User login {user_login} does not match.")
+                        tasks.append(notification(iddd, languag, txt11, c_user_id, keyboard20, num,
+                                                  len(logins_list), sts_photo, part_photo,car_id, state))
+                    except Exception as e:
+                        print(e)
                 else:
-                    print(f"User login result {c_user_id} is None or empty.")
-                    # await notification(mess, idd, languag)
-            await asyncio.gather(*tasks)
+                    print(f"User login {user_login} does not match.")
+            else:
+                print(f"User login result {c_user_id} is None or empty.")
+                # await notification(mess, idd, languag)
+        await asyncio.gather(*tasks)
 
-        else:
+    else:
+        try:
+            language = BotDB.get_user_lang(user_id)
+            if language == 'ru':
+                await bot.send_message(user_id, f'Запрос №{iddd} принят в обработку')
+                await bot.send_message(user_id, f'{c}')
+                await bot.send_message(user_id, part)
+                await bot.send_message(user_id, f'Хотите отправить еще запрос? Нажмите кнопку "Меню"')
+                await bot.send_message(chat_id=cfg.chat_id_logs,
+                                       text=f'#Запрос НЕОТВЕЧЕННЫЕ  #{iddd} \n {c} \n {part}\n date - '
+                                            f'{str(datetime.datetime.now())[:16]}\n'
+                                            f'user_id - {user_id}')
+
+                print(
+                    f'Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {str(datetime.datetime.now())[:16], user_id}')
+            elif language == 'am':
+                await bot.send_message(user_id, f'Հարցում №{iddd} ընդունվել է մշակման')
+                await bot.send_message(user_id, f'{c}')
+                await bot.send_message(user_id, part)
+                await bot.send_message(user_id, f'Ցանկանում եք ուղարկել ևս մեկ հարցում: Սեղմեք կոճակը "Меню"')
+                await bot.send_message(chat_id=cfg.chat_id_logs,
+                                       text=f'#Запрос НЕОТВЕЧЕННЫЕ  #{iddd} \n {c} \n {part}\n date - '
+                                            f'{str(datetime.datetime.now())[:16]}\n'
+                                            f'user_id - {user_id}')
+                print(
+                    f'Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {str(datetime.datetime.now())[:16], user_id}')
+            if bot_car.get_stat(iddd) == 'processed':
+                bot_car.update_stat(iddd, 'unanswered')
+        except Exception as e:
+            print(f'error - {e}')
+
+
+async def notification(idd, languag, txt, c_user_id, keyboard0222, num, lk, sts_photo, part_photo, car_id, state: FSMContext):
+    global k_mess, mess, chat_id, message_id, lmessage_id, lchat_id, kmessage_id, kkmessage_id
+
+    if sts_photo is not None:
+        media = [types.InputMediaPhoto(media=sts_photo,
+                                       caption=txt)]
+        if part_photo is not None:
+            media.append(types.InputMediaPhoto(media=part_photo))
+        try:
+            messl = await bot.send_media_group(chat_id=c_user_id, media=media)
+            for kmessage in messl:
+                try:  # Получение значений message_id и chat_id из каждого сообщения
+                    kmessage_id = kmessage['message_id']
+                except Exception:
+                    kmessage_id = messl['message_id']
+                # Вывод полученных значений
+                print("Message ID:", kmessage_id)
             try:
-                language = BotDB.get_user_lang(user_id)
-                if language == 'ru':
-                    await bot.send_message(user_id, f'Запрос №{iddd} принят в обработку')
-                    await bot.send_message(user_id, f'{c}')
-                    await bot.send_message(user_id, part)
-                    await bot.send_message(user_id, f'Хотите отправить еще запрос? Нажмите кнопку "Меню"')
-                    await bot.send_message(cfg.chat_id_logs,
-                                           f'#Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now()}')
-                    await bot.send_message(cfg.chat_id_logs, f"user_id - {user_id}")
-
-                    print(
-                        f'Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
-                elif language == 'am':
-                    await bot.send_message(user_id, f'Հարցում №{iddd} ընդունվել է մշակման')
-                    await bot.send_message(user_id, f'{c}')
-                    await bot.send_message(user_id, part)
-                    await bot.send_message(user_id, f'Ցանկանում եք ուղարկել ևս մեկ հարցում: Սեղմեք կոճակը "Меню"')
-                    await bot.send_message(cfg.chat_id_logs,
-                                           f'#Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now()}')
-                    await bot.send_message(cfg.chat_id_logs, f"user_id - {user_id}")
-                    print(
-                        f'Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
-                if bot_car.get_stat(iddd) == 'processed':
-                    bot_car.update_stat(iddd, 'unanswered')
-            except Exception as e:
-                print(f'error - {e}')
-
-    except Exception as e:
-        print(f'error - {e}')
-
-
-async def notification(idd, languag, txt, c_user_id, keyboard0222, num, lk, sts_photo, part_photo, state: FSMContext):
-    global k_mess, mess, chat_id, message_id, lmessage_id, lchat_id
-    try:
-        if sts_photo is not None:
-            media = [types.InputMediaPhoto(media=sts_photo,
-                                           caption=txt)]
-            if part_photo is not None:
-                media.append(types.InputMediaPhoto(media=part_photo))
-
-            mess = await bot.send_media_group(chat_id=c_user_id, media=media)
-            rf = await bot.send_message(c_user_id, f"#{idd}", reply_markup=keyboard0222)
-            for message in rf:
-                try:# Получение значений message_id и chat_id из каждого сообщения
-                    message_id = message['message_id']
-                    chat_id = message['chat']['id']
+                await bot.send_message(chat_id=cfg.chat_id_logs,
+                                       text=f"Удалить запрос #{idd}\n <pre>/delete_order {c_user_id} {kmessage_id}</pre>",
+                                       parse_mode="HTML")
+            except Exception:
+                pass
+            rf = await bot.send_message(chat_id=c_user_id, text=f"#{idd}", reply_markup=keyboard0222)
+            for messagel in rf:
+                try:  # Получение значений message_id и chat_id из каждого сообщения
+                    message_id = messagel['message_id']
                 except Exception:
                     message_id = rf['message_id']
-                    chat_id = rf['chat']['id']
                 # Вывод полученных значений
                 print("Message ID:", message_id)
-                print("Chat ID:", chat_id)
-            await bot.send_message(cfg.chat_id_logs,
-                                   f"Удалить запрос номер {idd}\n /delete_order _{message_id}_{chat_id}")
 
-        else:
-            mess = await bot.send_message(c_user_id, txt, reply_markup=keyboard0222)
-        for kmessage in mess:
-            try:  # Получение значений message_id и chat_id из каждого сообщения
-                message_id = kmessage['message_id']
-                chat_id = kmessage['chat']['id']
-            except Exception:
-                message_id = mess['message_id']
-                chat_id = mess['chat']['id']
+            await bot.send_message(chat_id=cfg.chat_id_logs,
+                                   text=f"Удалить запрос #{idd}\n <pre>/delete_order {c_user_id} {message_id}</pre>",
+                                   parse_mode="HTML")
+        except Exception as e:
+            if e == 'Failed to send message #1 with the error message "user_is_blocked"':
+                login = BotDB.get_user_login(c_user_id)[0]
+                bot_car.update_car_id_list(login, ["0000000", '99999999'])
+                print(e)
+                print(login)
+                await bot.send_message(chat_id=cfg.chat_id_logs, text=f"{login}, {c_user_id} - blocked bot")
+            return
 
-            # Вывод полученных значений
-            print("Message ID:", lmessage_id)
-            print("Chat ID:", lchat_id)
-        await bot.send_message(cfg.chat_id_logs, f"Удалить запрос номер {idd}\n /delete_order _{lmessage_id}_{lchat_id}")
+    else:
+        try:
+            messk = await bot.send_message(chat_id=c_user_id, text=txt, reply_markup=keyboard0222)
+            for kkmessage in messk:
+                try:  # Получение значений message_id и chat_id из каждого сообщения
+                    kkmessage_id = kkmessage['message_id']
+                except Exception:
+                    kkmessage_id = messk['message_id']
+                # Вывод полученных значений
+                print("Message ID:", kkmessage_id)
+            await bot.send_message(chat_id=cfg.chat_id_logs,
+                                   text=f"Удалить запрос #{idd}\n <pre>/delete_order {c_user_id} {kkmessage_id}</pre>",
+                                   parse_mode="HTML")
+        except Exception as e:
+            print(e)
+            if e == 'Failed to send message #1 with the error message "user_is_blocked"':
+                login = BotDB.get_user_login(c_user_id)[0]
+                bot_car.update_car_id_list(login, [])
 
-        print(f'Доставлен запрос {num} из {lk}, {BotDB.get_user_login(c_user_id)[0]}')
-        await asyncio.sleep(1)
+                await bot.send_message(chat_id=cfg.chat_id_logs, text=f"{login}, {c_user_id} - blocked bot")
+            return
 
-    except Exception:
-        pass
-        # ... больше не разбирает авто
+    print(f'Доставлен запрос {num} из {lk}, {BotDB.get_user_login(c_user_id)[0]}')
+    await asyncio.sleep(1)
 
     async with state.proxy() as data:
         login_list = data.get('login_list', [])
     ld = 0
     await state.finish()
-    await Change.mess_chat_id.set()
-    await state.update_data(mess_chat_id=chat_id)
     await Change.mess_id.set()
     await state.update_data(mess_id=message_id)
     while BotDB.get_user_login(c_user_id)[0] in login_list:
@@ -924,13 +945,7 @@ async def notification(idd, languag, txt, c_user_id, keyboard0222, num, lk, sts_
         await asyncio.sleep(random.randint(1620, 1800))
         async with state.proxy() as dataa:
             login_lst = dataa.get('login_list', [])
-        try:
-            chat_id = k_mess.chat.id
-            message_id = k_mess.message_id
-            # Попытка удаления сообщения
-            await bot.delete_message(chat_id, message_id)
-        except Exception:
-            pass  # Если сообщение уже удалено или не найдено, продолжаем выполнение
+
         try:
             if BotDB.get_user_login(c_user_id)[0] not in login_lst:
                 await mess.delete()
@@ -1013,13 +1028,12 @@ async def change_callback(callback_query: types.CallbackQuery, state: FSMContext
             pass
 
         if srs == 'NON':
-
             # Получаем chat_id и message_id из callback_query
-            chat_id = callback_query.message.chat.id
-            message_id = callback_query.message.message_id
+            chat_id_21 = callback_query.message.chat.id
+            message_id_21 = callback_query.message.message_id
 
             # Удаляем сообщение
-            await bot.delete_message(chat_id, message_id)
+            await bot.delete_message(chat_id_21, message_id_21)
             if bot_car.get_stat(idd) == 'processed':
                 bot_car.update_stat(idd, 'close')
             await bot.send_message(cfg.chat_id_logs,
@@ -1029,11 +1043,11 @@ async def change_callback(callback_query: types.CallbackQuery, state: FSMContext
         elif srs == 'NOT':
 
             # Получаем chat_id и message_id из callback_query
-            chat_id = callback_query.message.chat.id
-            message_id = callback_query.message.message_id
+            chat_id_21 = callback_query.message.chat.id
+            message_id_21 = callback_query.message.message_id
 
             # Удаляем сообщение
-            await bot.delete_message(chat_id, message_id)
+            await bot.delete_message(chat_id_21, message_id_21)
             if bot_car.get_stat(idd) == 'processed':
                 bot_car.update_stat(idd, 'close')
             await bot.send_message(cfg.chat_id_logs,
@@ -1121,7 +1135,7 @@ async def photo_process(message: types.Message, state: FSMContext):
 
 
 async def change_finish(message: types.Message, state: FSMContext):
-    global photo_1, photo_2, photo_3, y, caption, auto_name, address, summ
+    global photo_1, photo_2, photo_3, y, caption, auto_name, address, summ, mess_answ_id
     try:
         summ = message.text
     except Exception as e:
@@ -1140,15 +1154,15 @@ async def change_finish(message: types.Message, state: FSMContext):
     part = bot_car.get_part_by_id(idd)
     result = bot_db.user(login)  # Pass the login value as login[0]
     language = BotDB.get_user_lang(user_id)
-    chat_id = message.chat.id
-    message_id = message.message_id
+    chat_id_22 = message.chat.id
+    message_id_22 = message.message_id
     mess_id = data.get("mess_id")
     mess_chat_id = data.get("mess_chat_id")
 
     await k.delete()
 
     # Удаляем сообщение
-    await bot.delete_message(chat_id, message_id)
+    await bot.delete_message(chat_id_22, message_id_22)
 
     if language == 'am':
         if srs == 'neworig':
@@ -1217,11 +1231,19 @@ async def change_finish(message: types.Message, state: FSMContext):
             elif language == 'am':
                 caption = f'Հարցում №{idd}\n{c}\n\n{f}\n\n{auto_name}\n{address}\n{num_1}\n{num_2}{website}'
             if photo is None:
-                await bot.send_message(user_id, caption)
+                mess_answer = await bot.send_message(chat_id=user_id, text=caption)
             else:
                 media = [InputMediaPhoto(media=str(photo), caption=caption)]
 
-                await bot.send_media_group(chat_id=user_id, media=media)
+                mess_answer = await bot.send_media_group(user_id, media=media)
+            try:
+                for me in mess_answer:
+                    mess_answ_id = me['message_id']
+
+            except Exception as e:
+                mess_answ_id = mess_answer['message_id']
+                print(f'Error - {e}')
+
         except Exception as e:
             print(f'Error - {e}')
             await state.finish()
@@ -1236,11 +1258,12 @@ async def change_finish(message: types.Message, state: FSMContext):
     if photo is None:
         await bot.send_message(cfg.chat_id_logs, caption)
     else:
-        media = [InputMediaPhoto(media=str(photo), caption=f"#ответ на запрос номер {idd} отправлен {c} "
-                                                           f"{datetime.datetime.now()}, {login}\n\n{caption}\n\n "
+        media = [InputMediaPhoto(media=str(photo), caption=f"#ответ  #{idd} \n"
+                                                           f" {c} \n"
+                                                           f"{str(datetime.datetime.now())[:16]}\n"
+                                                           f"login - {login}\n\n{caption}\n\n "
                                                            f"User_id - {user_id}\n"
-                                                           f"Удалить запрос - <a>/delete_order , {mess_chat_id} ,"
-                                                           f" {mess_id}</a>", parse_mode="HTML")]
+                                                           f"/delete_order {user_id} {mess_answ_id}")]
 
         await bot.send_media_group(cfg.chat_id_logs, media=media)
 

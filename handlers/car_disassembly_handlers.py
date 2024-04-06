@@ -148,7 +148,7 @@ async def del_car_callback(callback_query: types.CallbackQuery):
     new_car_id_list = ','.join(car_id_list)
     bot_car.update_car_id_list(login, new_car_id_list)
     await bot.send_message(user_id, f'Вы больше не разбираете авто - id{car_id}')
-    await bot.send_message(1806719774, f'{login} больше не разбирает авто - id{car_id}')
+    await bot.send_message(cfg.chat_id_logs, f'{login} больше не разбирает авто - id{car_id}')
     print(f'{login} больше не разбирает авто - id{car_id}')
 
 
@@ -297,8 +297,8 @@ async def year_callback_button(callback_query: types.CallbackQuery):
             await bot.send_message(user_id, f'{sp}')
             await bot.send_message(user_id, f'{vr} {c}',
                                    parse_mode="Markdown")
-            await bot.send_message(1806719774,
-                                   f' #newauto Авторазборка {login} разбирает свое первое авто {c}',
+            await bot.send_message(cfg.chat_id_logs,
+                                   f' #newauto {login} разбирает свое первое авто \n{c}',
                                    parse_mode="Markdown")
 
     else:
@@ -307,8 +307,8 @@ async def year_callback_button(callback_query: types.CallbackQuery):
             await bot.send_message(user_id, f'{sp}')
             await bot.send_message(user_id, f'{vr} {c}',
                                    parse_mode="Markdown")
-            await bot.send_message(1806719774,
-                                   f' #newauto Авторазборка {login} разбирает новое авто {c}',
+            await bot.send_message(cfg.chat_id_logs,
+                                   f' #newauto {login} разбирает новое авто \n{c}',
                                    parse_mode="Markdown")
 
         elif add_status is False:

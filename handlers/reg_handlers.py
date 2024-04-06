@@ -7,7 +7,7 @@ from aiogram.types import Message, MediaGroup
 from handlers import order_handlers as ord
 from handlers import start_lang_handlers as stas
 import config as cfg
-from create_bot import bot
+from create_bot import bot, dp
 from db import BotDB, bot_db
 from handlers import car_disassembly_handlers as cdh
 
@@ -417,8 +417,8 @@ async def process_description(message: types.Message, state: FSMContext):
                         date_time)
         BotDB.update_user_status(1, login, user_id)
         await message.reply(g)
-        await bot.send_message(1806719774,
-                               f'#newacc Зарегистрировалась новая авторазборка  {login}, {user_id}, {num_1}, @{user_name}')
+        await bot.send_message(chat_id=cfg.chat_id_logs,
+                               text=f'#newacc Зарегистрировалась новая авторазборка  {login}, {user_id}, {num_1}, @{user_name}')
         print(f'Зарегистрировалась новая авторазборка  {login}, {user_id}, {num_1}, @{user_name}')
     await state.finish()
 
