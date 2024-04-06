@@ -1,6 +1,7 @@
 #token = '6112966117:AAHwtt3UivMhfGc4mhupu0wvJ_lGk1K636Q'
 token = '6140655358:AAFZocgWMPnYKZUu5AglUZszflH8Ky2mLt0'  # Test
 admin_chat_id = ""
+chat_id_logs = -4188272335
 admin_id = ['5659651535', '1806719774']
 ban_list = []
 support = "@sasapsa"

@@ -8,6 +8,8 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import InlineKeyboardButton, InputMediaPhoto
 from aiogram.types import InlineKeyboardMarkup
 from aiogram.types import ContentType
+from aiogram.utils import json
+
 from handlers import start_lang_handlers as stas
 import config as cfg
 from db_cars import CarsDB
@@ -681,6 +683,19 @@ class Notifi(StatesGroup):
     login_list = State()
 
 
+class Change(StatesGroup):
+    idd = State()
+    types = State()
+    summ = State()
+    photo = State()
+    photo_1 = State()
+    login = State()
+    mess_id = State()
+    mess_chat_id = State()
+    k = State()
+    u_id = State()
+
+
 async def next_close_car(firm, model, gen, user_id, part, c, iddd, motor_power, car_body,
                          auto_transmission, engine, drive, engine_displacement, sts_photo, part_photo,
                          state: FSMContext):
@@ -732,9 +747,9 @@ async def next_close_car(firm, model, gen, user_id, part, c, iddd, motor_power, 
                 if part_photo is not None:
                     media.append(types.InputMediaPhoto(media=part_photo))
 
-                await bot.send_media_group(chat_id=1806719774, media=media)
+                await bot.send_media_group(chat_id=cfg.chat_id_logs, media=media)
             else:
-                await bot.send_message(1806719774,
+                await bot.send_message(cfg.chat_id_logs,
                                        f'#Запрос номер {iddd} отправлен {c}, {part}\n date - '
                                        f'{datetime.datetime.now()}'
                                        f'\n'
@@ -812,9 +827,9 @@ PPC - {auto_transmission}
                     await bot.send_message(user_id, f'{c}')
                     await bot.send_message(user_id, part)
                     await bot.send_message(user_id, f'Хотите отправить еще запрос? Нажмите кнопку "Меню"')
-                    await bot.send_message(1806719774,
+                    await bot.send_message(cfg.chat_id_logs,
                                            f'#Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now()}')
-                    await bot.send_message(1806719774, f"user_id - {user_id}")
+                    await bot.send_message(cfg.chat_id_logs, f"user_id - {user_id}")
 
                     print(
                         f'Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
@@ -823,9 +838,9 @@ PPC - {auto_transmission}
                     await bot.send_message(user_id, f'{c}')
                     await bot.send_message(user_id, part)
                     await bot.send_message(user_id, f'Ցանկանում եք ուղարկել ևս մեկ հարցում: Սեղմեք կոճակը "Меню"')
-                    await bot.send_message(1806719774,
+                    await bot.send_message(cfg.chat_id_logs,
                                            f'#Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now()}')
-                    await bot.send_message(1806719774, f"user_id - {user_id}")
+                    await bot.send_message(cfg.chat_id_logs, f"user_id - {user_id}")
                     print(
                         f'Запрос НЕОТВЕЧЕННЫЕ номер {iddd} отправлен {c}, {part} date - {datetime.datetime.now(), user_id}')
                 if bot_car.get_stat(iddd) == 'processed':
@@ -838,7 +853,7 @@ PPC - {auto_transmission}
 
 
 async def notification(idd, languag, txt, c_user_id, keyboard0222, num, lk, sts_photo, part_photo, state: FSMContext):
-    global k_mess, mess
+    global k_mess, mess, chat_id, message_id, lmessage_id, lchat_id
     try:
         if sts_photo is not None:
             media = [types.InputMediaPhoto(media=sts_photo,
@@ -847,10 +862,34 @@ async def notification(idd, languag, txt, c_user_id, keyboard0222, num, lk, sts_
                 media.append(types.InputMediaPhoto(media=part_photo))
 
             mess = await bot.send_media_group(chat_id=c_user_id, media=media)
-            await bot.send_message(c_user_id, f"#{idd}", reply_markup=keyboard0222)
+            rf = await bot.send_message(c_user_id, f"#{idd}", reply_markup=keyboard0222)
+            for message in rf:
+                try:# Получение значений message_id и chat_id из каждого сообщения
+                    message_id = message['message_id']
+                    chat_id = message['chat']['id']
+                except Exception:
+                    message_id = rf['message_id']
+                    chat_id = rf['chat']['id']
+                # Вывод полученных значений
+                print("Message ID:", message_id)
+                print("Chat ID:", chat_id)
+            await bot.send_message(cfg.chat_id_logs,
+                                   f"Удалить запрос номер {idd}\n /delete_order _{message_id}_{chat_id}")
 
         else:
             mess = await bot.send_message(c_user_id, txt, reply_markup=keyboard0222)
+        for kmessage in mess:
+            try:  # Получение значений message_id и chat_id из каждого сообщения
+                message_id = kmessage['message_id']
+                chat_id = kmessage['chat']['id']
+            except Exception:
+                message_id = mess['message_id']
+                chat_id = mess['chat']['id']
+
+            # Вывод полученных значений
+            print("Message ID:", lmessage_id)
+            print("Chat ID:", lchat_id)
+        await bot.send_message(cfg.chat_id_logs, f"Удалить запрос номер {idd}\n /delete_order _{lmessage_id}_{lchat_id}")
 
         print(f'Доставлен запрос {num} из {lk}, {BotDB.get_user_login(c_user_id)[0]}')
         await asyncio.sleep(1)
@@ -862,11 +901,16 @@ async def notification(idd, languag, txt, c_user_id, keyboard0222, num, lk, sts_
     async with state.proxy() as data:
         login_list = data.get('login_list', [])
     ld = 0
+    await state.finish()
+    await Change.mess_chat_id.set()
+    await state.update_data(mess_chat_id=chat_id)
+    await Change.mess_id.set()
+    await state.update_data(mess_id=message_id)
     while BotDB.get_user_login(c_user_id)[0] in login_list:
         if ld != 24:
             ld += 1
         else:
-            await bot.send_message(1806719774,
+            await bot.send_message(cfg.chat_id_logs,
                                    f'{BotDB.get_user_login(c_user_id)[0]} - не отвечает на запрос уже 2 дня {idd}'
                                    f'{bot_db.get_num_login(BotDB.get_user_login(c_user_id)[0])}')
             print(f'{BotDB.get_user_login(c_user_id)[0]} - не отвечает на запрос уже 2 дня {idd}'
@@ -906,17 +950,6 @@ async def notification(idd, languag, txt, c_user_id, keyboard0222, num, lk, sts_
     except Exception:
         pass
     return
-
-
-class Change(StatesGroup):
-    idd = State()
-    types = State()
-    summ = State()
-    photo = State()
-    photo_1 = State()
-    login = State()
-    k = State()
-    u_id = State()
 
 
 def ru_change_keyboard(idd):
@@ -989,7 +1022,7 @@ async def change_callback(callback_query: types.CallbackQuery, state: FSMContext
             await bot.delete_message(chat_id, message_id)
             if bot_car.get_stat(idd) == 'processed':
                 bot_car.update_stat(idd, 'close')
-            await bot.send_message(1806719774,
+            await bot.send_message(cfg.chat_id_logs,
                                    f'Не разбирает авто:  логин - {login[0]}, id запроса - {idd} {datetime.datetime.now()}')
             return print(f'Not car {idd} {login[0]} {datetime.datetime.now()}')
 
@@ -1003,7 +1036,7 @@ async def change_callback(callback_query: types.CallbackQuery, state: FSMContext
             await bot.delete_message(chat_id, message_id)
             if bot_car.get_stat(idd) == 'processed':
                 bot_car.update_stat(idd, 'close')
-            await bot.send_message(1806719774,
+            await bot.send_message(cfg.chat_id_logs,
                                    f'Нет запчасти:  логин - {login[0]}, id запроса - {idd} {datetime.datetime.now()}')
             return print(f'Not part {idd} {login[0]} {datetime.datetime.now()}')
 
@@ -1109,6 +1142,8 @@ async def change_finish(message: types.Message, state: FSMContext):
     language = BotDB.get_user_lang(user_id)
     chat_id = message.chat.id
     message_id = message.message_id
+    mess_id = data.get("mess_id")
+    mess_chat_id = data.get("mess_chat_id")
 
     await k.delete()
 
@@ -1194,18 +1229,23 @@ async def change_finish(message: types.Message, state: FSMContext):
     lang = BotDB.get_user_lang(ui)
     if lang == 'ru':
         await bot.send_message(ui, f'Предложение отправлено, номер - {idd}, \n\n{c},\n\n{f}')
-        await bot.send_message(1806719774,
-                               f'#ответ на запрос номер {idd} отправлен {c} {datetime.datetime.now(), login}')
-        await bot.send_message(1806719774, caption)
-        await bot.send_message(1806719774, user_id)
-        print(f'#ответ на запрос номер {idd} отправлен {c} {datetime.datetime.now(), user_id}')
+
     if lang == 'am':
         await bot.send_message(ui, f'Առաջարկը ուղարկված է, թիվ - {idd}, \n\n{c},\n\n{f}')
-        await bot.send_message(1806719774,
-                               f'#ответ на запрос номер {idd} отправлен {c} {datetime.datetime.now(), login}')
-        await bot.send_message(1806719774, caption)
-        await bot.send_message(1806719774, user_id)
-        print(f'#ответ на запрос номер {idd} отправлен {c} {datetime.datetime.now(), user_id}')
+
+    if photo is None:
+        await bot.send_message(cfg.chat_id_logs, caption)
+    else:
+        media = [InputMediaPhoto(media=str(photo), caption=f"#ответ на запрос номер {idd} отправлен {c} "
+                                                           f"{datetime.datetime.now()}, {login}\n\n{caption}\n\n "
+                                                           f"User_id - {user_id}\n"
+                                                           f"Удалить запрос - <a>/delete_order , {mess_chat_id} ,"
+                                                           f" {mess_id}</a>", parse_mode="HTML")]
+
+        await bot.send_media_group(cfg.chat_id_logs, media=media)
+
+    print(f'#ответ на запрос номер {idd} отправлен {c} {datetime.datetime.now(), user_id}')
+
     if bot_car.get_stat(idd) == 'processed' or bot_car.get_stat(idd) == 'closed' or bot_car.get_stat(
             idd) == 'unanswered':
         bot_car.update_stat(idd, 'first')

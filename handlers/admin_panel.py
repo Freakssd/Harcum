@@ -18,7 +18,11 @@ bot_db = bot_db()
 
 
 async def admin_panel(message: types.Message):
+    updates = await bot.get_updates()
     user_id = message.from_user.id
+    for update in updates:
+        print(update)
+    await bot.send_message(user_id, f"{message.from_user.id}")
     print('Админ - ', user_id, str(datetime.datetime.now())[5:-10])
 
     if str(user_id) in cfg.admin_id:
@@ -202,8 +206,16 @@ async def my_id(message: types.Message):
     await bot.send_message(message.from_user.id, message.from_user.id)
 
 
+async def delete_order(message: types.Message):
+    txt = message.text
+    c = txt.split("_")
+    print(c)
+    await bot.delete_message(chat_id=int(c[3]), message_id=int(c[2]))
+
+
 def register_handlers_admin_panel(dp: Dispatcher):
     dp.register_message_handler(ban, commands=['ban'])
+    dp.register_message_handler(delete_order, commands=['delete_order'])
     dp.register_message_handler(my_id, commands=['myid'])
     dp.register_message_handler(admin_panel, commands=['admin_panel'])
     dp.register_callback_query_handler(ap, lambda c: c.data.startswith(
