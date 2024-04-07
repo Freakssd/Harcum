@@ -319,8 +319,8 @@ class bot_car:
 
     def get_data_by_idd(self, idd):
         self.cursor.execute("SELECT * FROM enquiries WHERE id = ?", (idd,))
-        result = self.cursor.fetchone()
-        return result
+        resultate = self.cursor.fetchone()
+        return resultate
 
     def add_enquiry(self, brand, model, year, engine_displacement, motor_power, car_body, auto_transmission, engine,
                     drive,

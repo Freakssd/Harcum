@@ -810,7 +810,7 @@ PPC - {auto_transmission}
                     try:
 
                         tasks.append(notification(iddd, languag, txt11, c_user_id, keyboard20, num,
-                                                  len(logins_list), sts_photo, part_photo,car_id, state))
+                                                  len(logins_list), sts_photo, part_photo, car_id, state))
                     except Exception as e:
                         print(e)
                 else:
@@ -852,7 +852,8 @@ PPC - {auto_transmission}
             print(f'error - {e}')
 
 
-async def notification(idd, languag, txt, c_user_id, keyboard0222, num, lk, sts_photo, part_photo, car_id, state: FSMContext):
+async def notification(idd, languag, txt, c_user_id, keyboard0222, num, lk, sts_photo, part_photo, car_id,
+                       state: FSMContext):
     global k_mess, mess, chat_id, message_id, lmessage_id, lchat_id, kmessage_id, kkmessage_id
 
     if sts_photo is not None:

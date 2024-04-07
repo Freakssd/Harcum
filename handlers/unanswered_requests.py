@@ -12,7 +12,6 @@ import config as cfg
 from create_bot import bot
 from db import BotDB, bot_db, bot_car
 
-
 bot_car = bot_car()
 BotDB = BotDB()
 
@@ -22,10 +21,11 @@ async def un(lst, user_id):
     language = BotDB.get_user_lang(user_id)
     for idd in lst:
         data = bot_car.get_data_by_idd(idd)
+        print(data)
         if language == 'ru':
             txt = f'''
 Запрос №{idd}\n
-{', '.join(data[1:6])}\n
+{', '.join(data[1:4])}\n
 Объем двигателя - {data[4]}
 Мощность двигателя - {data[5]}
 Кузов - {data[6]}
@@ -39,7 +39,7 @@ async def un(lst, user_id):
             uns = "Պատասխանել"
             txt = f'''
 Հարցում  № #{idd}\n
-{', '.join(data[1:6])}\n
+{', '.join(data[1:4])}\n
 Շարժիչի ծավալը - {data[4]}
 Շարժիչի հզորությունը - {data[5]}
 Մարմին - {data[6]}
@@ -53,7 +53,18 @@ PPC - {data[7]}
         button1 = InlineKeyboardButton(text=uns, callback_data=f"uns={idd}")
         keyboard.add(button1)
         try:
-            await bot.send_message(user_id, txt, reply_markup=keyboard)
+            if data[10] is not None:
+                media = [types.InputMediaPhoto(media=data[10],
+                                               caption=txt)]
+                if data[11] is not None:
+                    media.append(types.InputMediaPhoto(media=data[11]))
+                try:
+                    messl = await bot.send_media_group(chat_id=user_id, media=media)
+                    rf = await bot.send_message(chat_id=user_id, text=f"#{idd}", reply_markup=keyboard)
+                except:
+                    pass
+            else:
+                await bot.send_message(user_id, txt, reply_markup=keyboard)
             time.sleep(0.1)
         except Exception as e:
             pass
@@ -70,6 +81,7 @@ async def unanswered(message: types.Message):
         return await get_phone(message)
 
     lst = bot_car.get_idd_by_status("unanswered")[::-1][:10]
+    print(lst)
     await un(lst, user_id)
     if language == 'ru':
         uns = 'еще запросы'
@@ -149,6 +161,7 @@ async def process_get_phone(message: types.Message, state: FSMContext):
     BotDB.load_phone(user_id, num)
     await bot.send_message(user_id, 'phone access')
     await unanswered(message)
+
 
 def register_handlers_unanswered_requests(dp: Dispatcher):
     dp.register_message_handler(unanswered, commands=['unanswered'])
