@@ -822,6 +822,7 @@ PPC - {auto_transmission}
 
     else:
         try:
+            print(iddd)
             language = BotDB.get_user_lang(user_id)
             if language == 'ru':
                 await bot.send_message(user_id, f'Запрос №{iddd} принят в обработку')
@@ -1191,7 +1192,7 @@ async def change_finish(message: types.Message, state: FSMContext):
         elif srs == 'bacopy':
             y = 'б.у. копия в наличии'
 
-    f = f'{part} {summ} դրամ {y}'
+    f = f'{part}, {summ}рублей {y}'
 
     user_type_acc = None
     num_1 = None
@@ -1243,7 +1244,6 @@ async def change_finish(message: types.Message, state: FSMContext):
 
             except Exception as e:
                 mess_answ_id = mess_answer['message_id']
-                print(f'Error - {e}')
 
         except Exception as e:
             print(f'Error - {e}')

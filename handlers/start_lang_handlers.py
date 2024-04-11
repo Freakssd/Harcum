@@ -16,6 +16,7 @@ BotDB = BotDB()
 
 # Главное меню
 
+
 async def start(message: types.Message, state: FSMContext):
 
     try:
@@ -37,9 +38,11 @@ async def start(message: types.Message, state: FSMContext):
         # Если пользователь уже есть в базе данных, получаем его язык
         language = BotDB.get_user_lang(user_id)
         if language is None:
+
             print('New user: ' + c + ' | ' + str(message.from_user.id) + ' | ' +
                   str(datetime.datetime.now()))
-            await set_language_command(message)
+            BotDB.update_user_lang("ru", user_id)
+            await start(message, state)
             return
 
     else:
@@ -47,9 +50,10 @@ async def start(message: types.Message, state: FSMContext):
         BotDB.add_user(user_id)
         print('New user: ' + c + ' | ' + str(message.from_user.id) + ' | ' +
               str(datetime.datetime.now()))
-        await set_language_command(message)
+        BotDB.update_user_lang("ru", user_id)
+        await start(message, state)
+        return
 
-        time.sleep(1)
 
     user_id = message.from_user.id
     name = message.from_user.first_name

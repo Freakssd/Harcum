@@ -1,5 +1,6 @@
-#token = '6112966117:AAHwtt3UivMhfGc4mhupu0wvJ_lGk1K636Q'
-token = '6140655358:AAFZocgWMPnYKZUu5AglUZszflH8Ky2mLt0'  # Test
+token = '7162291131:AAHIfwihUMTq7VcIwI6XEFGWwd25hcu9JT8' #bitcar
+
+#token = '6140655358:AAFZocgWMPnYKZUu5AglUZszflH8Ky2mLt0'  # Test
 
 chat_id_logs = -1002140111716
 admin_id = ['5659651535', '1806719774']
@@ -12,8 +13,8 @@ t3: str = "Неотвеченные запросы"
 t4: str = "Авторизация автразборки"
 t5: str = "Аккаунт авторазборки"
 
-sm = 'Я могу искать автозапчасти у партнеров \nharcum-pahestamaser.com'
-km = 'Chat - https://t.me/HarcumPahestamaser'
+sm = 'Я могу искать автозапчасти у партнеров \nBitCar.com'
+km = 'Chat - https://t.me/BitCar'
 fm = "Вы можете управлять мной, отправив следующие команды:"
 
 tm = '''/order - запрос на поиск запчастей
